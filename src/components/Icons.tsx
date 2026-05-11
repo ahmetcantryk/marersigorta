@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 export interface IconProps {
@@ -255,75 +256,82 @@ export const I = {
 
 export interface InfinityMarkProps {
   size?: number;
+  /** Pass "white" / "#fff" to render as a white silhouette on dark backgrounds. */
   color?: string;
+  /** Kept for backwards compatibility — ignored by the image-based mark. */
   stroke?: number;
 }
+
+const INFINITY_ASPECT = 1474 / 740;
+
+const isWhiteColor = (c?: string): boolean => {
+  if (!c) return false;
+  const v = c.replace(/\s/g, "").toLowerCase();
+  return (
+    v === "white" ||
+    v === "#fff" ||
+    v === "#ffffff" ||
+    v === "rgb(255,255,255)" ||
+    v === "rgba(255,255,255,1)"
+  );
+};
 
 export const InfinityMark = ({
   size = 32,
   color = "currentColor",
-  stroke = 1.8,
-}: InfinityMarkProps) => (
-  <svg width={size} height={size * 0.55} viewBox="0 0 64 36" fill="none">
-    <path
-      d="M16 18c0-6 4-10 10-10s10 4 14 10 8 10 14 10 8-4 8-10-4-10-8-10-10 4-14 10-8 10-14 10S6 24 6 18s4-10 10-10"
-      stroke={color}
-      strokeWidth={stroke}
-      strokeLinecap="round"
+}: InfinityMarkProps) => {
+  const width = size;
+  const height = Math.round(size / INFINITY_ASPECT);
+  return (
+    <Image
+      src="/logo-icon.svg"
+      alt=""
+      width={width}
+      height={height}
+      style={{
+        width,
+        height,
+        filter: isWhiteColor(color) ? "brightness(0) invert(1)" : undefined,
+      }}
     />
-  </svg>
-);
+  );
+};
 
 export interface LogoMarerProps {
   inverse?: boolean;
+  height?: number;
+  iconOnly?: boolean;
 }
 
-export const LogoMarer = ({ inverse = false }: LogoMarerProps) => {
-  const c1 = inverse ? "#FFFFFF" : "var(--brand-500)";
-  const c2 = inverse ? "rgba(255,255,255,0.7)" : "var(--brand-700)";
+export const LogoMarer = ({
+  inverse = false,
+  height = 60,
+  iconOnly = false,
+}: LogoMarerProps) => {
+  const src = iconOnly ? "/logo-icon.svg" : "/logo-marer.svg";
+  const aspect = iconOnly ? INFINITY_ASPECT : 2.5;
   return (
-    <div style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
-      <div
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        height,
+        lineHeight: 0,
+      }}
+    >
+      <Image
+        src={src}
+        alt="Marer Sigorta"
+        width={Math.round(height * aspect)}
+        height={height}
+        priority
         style={{
-          width: 40,
-          height: 40,
-          borderRadius: 10,
-          background: inverse
-            ? "rgba(255,255,255,0.12)"
-            : "linear-gradient(135deg, var(--brand-500), var(--brand-700))",
-          display: "grid",
-          placeItems: "center",
-          boxShadow: inverse ? "none" : "0 6px 14px -6px rgba(2,119,189,0.5)",
+          height: "100%",
+          width: "auto",
+          objectFit: "contain",
+          filter: inverse ? "brightness(0) invert(1)" : "none",
         }}
-      >
-        <InfinityMark size={26} color="#fff" stroke={2.2} />
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
-        <span
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
-            fontSize: 19,
-            letterSpacing: "-0.02em",
-            color: c1,
-          }}
-        >
-          marer
-        </span>
-        <span
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: 11,
-            fontWeight: 500,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: c2,
-            marginTop: 3,
-          }}
-        >
-          sigorta
-        </span>
-      </div>
-    </div>
+      />
+    </span>
   );
 };

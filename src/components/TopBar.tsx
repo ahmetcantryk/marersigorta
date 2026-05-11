@@ -1,13 +1,7 @@
 "use client";
 
 import { I } from "./Icons";
-
-const socialLinks = [
-  { Icon: I.Facebook, href: "https://facebook.com", label: "Facebook" },
-  { Icon: I.Instagram, href: "https://instagram.com", label: "Instagram" },
-  { Icon: I.Twitter, href: "https://twitter.com", label: "Twitter / X" },
-  { Icon: I.Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-];
+import { SocialLinks } from "./SocialLinks";
 
 export const TopBar = () => {
   return (
@@ -98,36 +92,12 @@ export const TopBar = () => {
               background: "rgba(255,255,255,0.25)",
             }}
           />
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            {socialLinks.map(({ Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-grid",
-                  placeItems: "center",
-                  width: 26,
-                  height: 26,
-                  borderRadius: 6,
-                  opacity: 0.85,
-                  transition: "opacity .15s, background .15s",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.opacity = "1";
-                  e.currentTarget.style.background = "rgba(255,255,255,0.12)";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.opacity = "0.85";
-                  e.currentTarget.style.background = "transparent";
-                }}
-              >
-                <Icon size={15} />
-              </a>
-            ))}
-          </div>
+          <SocialLinks
+            only={["facebook", "instagram", "x", "linkedin"]}
+            variant="mono"
+            size={28}
+            gap={2}
+          />
         </div>
       </div>
     </div>

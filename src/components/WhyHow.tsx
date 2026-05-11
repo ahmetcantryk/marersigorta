@@ -16,7 +16,7 @@ const VALUES: Value[] = [
   {
     Icon: I.Bolt,
     title: "Hızlı Teklif & İşlem",
-    desc: "2 dakikada teklif, aynı gün poliçe. Bürokrasi yok; sade ve şeffaf bir süreç.",
+    desc: "Hızlı teklif, aynı gün poliçe. Bürokrasi yok; sade ve şeffaf bir süreç.",
   },
   {
     Icon: I.Shield,
@@ -34,7 +34,7 @@ const STEPS = [
   {
     n: "01",
     title: "Bilgilerinizi paylaşın",
-    desc: "Online formu doldurun ya da bizi arayın. Talebinizi 2 dakikada iletin.",
+    desc: "Online formu doldurun ya da bizi arayın. Talebinizi kısa sürede iletin.",
   },
   {
     n: "02",
@@ -96,7 +96,7 @@ export const Why = () => (
                 color: "white",
                 display: "grid",
                 placeItems: "center",
-                boxShadow: "0 8px 16px -8px rgba(2,119,189,0.6)",
+                boxShadow: "0 8px 16px -8px rgba(86,172,214,0.6)",
               }}
             >
               <InfinityMark size={28} color="white" />

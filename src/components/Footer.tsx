@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { I, LogoMarer } from "./Icons";
+import { SocialLinks } from "./SocialLinks";
 
 interface FooterColProps {
   title: string;
@@ -76,38 +77,8 @@ export const Footer = () => (
             uygun tekliflerini sizin için bir araya getiriyoruz. Sigortanız
             bizimle, kesintisiz.
           </p>
-          <div style={{ display: "flex", gap: 8, marginTop: 24 }}>
-            {["FB", "IG", "IN", "YT"].map((s) => (
-              <a
-                key={s}
-                href="#"
-                aria-label={s}
-                style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: 10,
-                  border: "1px solid rgba(255,255,255,0.14)",
-                  background: "rgba(255,255,255,0.05)",
-                  color: "white",
-                  display: "grid",
-                  placeItems: "center",
-                  fontSize: 11,
-                  fontWeight: 700,
-                  letterSpacing: ".05em",
-                  transition: "all .15s",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.background = "var(--brand-500)";
-                  e.currentTarget.style.borderColor = "var(--brand-500)";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.05)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.14)";
-                }}
-              >
-                {s}
-              </a>
-            ))}
+          <div style={{ marginTop: 24 }}>
+            <SocialLinks size={38} gap={10} />
           </div>
         </div>
 

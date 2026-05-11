@@ -199,7 +199,7 @@ const REVIEWS: Review[] = [
     name: "Burak Ş.",
     svc: "Trafik",
     rating: 5,
-    text: "Plaka yazdım, 2 dakikada teklif geldi. Sektörde böyle hızlısını görmemiştim açıkçası.",
+    text: "Plaka yazdım, çok kısa sürede teklif geldi. Sektörde böyle hızlısını görmemiştim açıkçası.",
   },
   {
     name: "Elif T.",

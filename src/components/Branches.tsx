@@ -18,6 +18,7 @@ const BRANCHES: Branch[] = [
   { id: "tss", Icon: I.Heart, title: "Tamamlayıcı Sağlık", desc: "Anlaşmalı özel hastanelerde fark ücreti yok." },
   { id: "saglik", Icon: I.Hospital, title: "Özel Sağlık", desc: "Yatılı ve ayakta tedavi güvencesi." },
   { id: "seyahat", Icon: I.Plane, title: "Seyahat Sağlık", desc: "Yurt dışı vize ve seyahat güvencesi." },
+  { id: "yesilkart", Icon: I.Doc, title: "Yeşil Kart Sigortası", desc: "Yurt dışı araç trafik sorumluluk teminatı." },
   { id: "isyeri", Icon: I.Building, title: "İşyeri Sigortası", desc: "İşyeri, stok ve sorumluluklar tek poliçede." },
   { id: "ferdi", Icon: I.HandHeart, title: "Ferdi Kaza", desc: "Beklenmedik durumlara bireysel güvence." },
 ];

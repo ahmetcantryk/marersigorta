@@ -2,6 +2,7 @@
 
 import { forwardRef, useState, type ComponentType } from "react";
 import { I, type IconProps } from "./Icons";
+import { SuccessModal } from "./SuccessModal";
 
 type FieldType = "tc" | "plate" | "date" | "text";
 
@@ -115,8 +116,74 @@ const formatDate = (v: string) => {
   if (digits.length > 2) return digits.slice(0, 2) + "." + digits.slice(2);
   return digits;
 };
+const formatPhone = (v: string) => {
+  const d = v.replace(/\D/g, "").slice(0, 10);
+  if (d.length > 6) return `(${d.slice(0, 3)}) ${d.slice(3, 6)} ${d.slice(6)}`;
+  if (d.length > 3) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+  if (d.length > 0) return `(${d}`;
+  return "";
+};
+const formatName = (v: string) =>
+  v.replace(/[^A-Za-zÇĞİÖŞÜçğıöşü ]/g, "").slice(0, 60);
 
 type Status = "idle" | "loading" | "success";
+
+interface QFieldProps {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  error?: string | null;
+  inputMode?: "text" | "tel" | "numeric";
+}
+
+const QField = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+  error,
+  inputMode,
+}: QFieldProps) => (
+  <label style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+    <span
+      style={{
+        fontSize: 11,
+        fontWeight: 600,
+        color: "var(--ink-500)",
+        letterSpacing: ".02em",
+      }}
+    >
+      {label}
+    </span>
+    <input
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      inputMode={inputMode}
+      style={{
+        width: "100%",
+        padding: "10px 11px",
+        borderRadius: 9,
+        border: `1.5px solid ${error ? "#EF4444" : "var(--ink-200)"}`,
+        background: "var(--paper)",
+        outline: "none",
+        transition: "border .15s",
+        fontSize: 14,
+        fontVariantNumeric: "tabular-nums",
+      }}
+      onFocus={(e) => {
+        if (!error) e.target.style.borderColor = "var(--brand-500)";
+      }}
+      onBlur={(e) => {
+        if (!error) e.target.style.borderColor = "var(--ink-200)";
+      }}
+    />
+    {error && (
+      <span style={{ fontSize: 11, color: "#EF4444" }}>{error}</span>
+    )}
+  </label>
+);
 
 const QuoteWidget = () => {
   const [tab, setTab] = useState("trafik");
@@ -125,17 +192,27 @@ const QuoteWidget = () => {
   const [status, setStatus] = useState<Status>("idle");
   const cur = QUOTE_TABS.find((t) => t.id === tab) ?? QUOTE_TABS[0];
 
-  const setField = (k: string, v: string, type: FieldType) => {
+  const setField = (k: string, v: string, type: FieldType | "name" | "phone") => {
     let nv = v;
     if (type === "tc") nv = formatTC(v);
-    if (type === "plate") nv = formatPlate(v);
-    if (type === "date") nv = formatDate(v);
+    else if (type === "plate") nv = formatPlate(v);
+    else if (type === "date") nv = formatDate(v);
+    else if (type === "phone") nv = formatPhone(v);
+    else if (type === "name") nv = formatName(v);
     setValues((s) => ({ ...s, [k]: nv }));
     if (errors[k]) setErrors((e) => ({ ...e, [k]: null }));
   };
 
   const validate = () => {
     const e: Record<string, string> = {};
+    const name = (values.fullname || "").trim();
+    const phone = (values.phone || "").replace(/\D/g, "");
+    if (!name) e.fullname = "Ad soyad gerekli";
+    else if (name.split(" ").filter(Boolean).length < 2)
+      e.fullname = "Ad ve soyad girin";
+    if (!phone) e.phone = "Telefon gerekli";
+    else if (phone.length !== 10) e.phone = "10 haneli olmalı";
+
     cur.fields.forEach((f) => {
       const v = (values[f.key] || "").trim();
       if (!v) e[f.key] = "Bu alan zorunlu";
@@ -159,15 +236,17 @@ const QuoteWidget = () => {
   const reset = () => {
     setStatus("idle");
     setValues({});
+    setErrors({});
   };
 
   return (
+    <>
     <div
       style={{
         background: "var(--paper)",
         borderRadius: "var(--radius-xl)",
         boxShadow: "var(--shadow-xl)",
-        padding: "8px 8px 28px",
+        padding: "6px 6px 20px",
         width: "100%",
         maxWidth: 460,
         position: "relative",
@@ -180,10 +259,10 @@ const QuoteWidget = () => {
           display: "grid",
           gridTemplateColumns: `repeat(${QUOTE_TABS.length}, 1fr)`,
           gap: 4,
-          padding: 6,
+          padding: 5,
           background: "var(--ink-50)",
           borderRadius: "calc(var(--radius-xl) - 8px)",
-          marginBottom: 24,
+          marginBottom: 16,
         }}
       >
         {QUOTE_TABS.map((t) => {
@@ -204,120 +283,74 @@ const QuoteWidget = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: 6,
-                padding: "12px 4px",
-                borderRadius: 14,
+                gap: 4,
+                padding: "9px 4px",
+                borderRadius: 12,
                 background: active ? "var(--paper)" : "transparent",
                 color: active ? "var(--brand-500)" : "var(--ink-500)",
                 fontWeight: 600,
-                fontSize: 13,
+                fontSize: 12.5,
                 boxShadow: active ? "var(--shadow-sm)" : "none",
                 transition: "all .2s",
               }}
             >
-              <t.Icon size={22} />
+              <t.Icon size={20} />
               <span>{t.label}</span>
             </button>
           );
         })}
       </div>
 
-      {status === "success" ? (
-        <div style={{ padding: "0 24px", textAlign: "center" }}>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 999,
-              background: "color-mix(in oklch, var(--accent-500) 15%, white)",
-              color: "var(--accent-500)",
-              display: "grid",
-              placeItems: "center",
-              margin: "12px auto 16px",
-            }}
-          >
-            <I.CheckCircle size={36} />
-          </div>
-          <h3 style={{ fontSize: 20, marginBottom: 8 }}>Talebiniz Alındı</h3>
-          <p style={{ color: "var(--ink-500)", fontSize: 14, marginBottom: 20 }}>
-            Uzman danışmanımız{" "}
-            <strong style={{ color: "var(--ink-900)" }}>5 dakika içinde</strong>{" "}
-            sizi arayacak.
-          </p>
-          <button
-            onClick={reset}
-            type="button"
-            className="btn btn-ghost btn-sm"
-            style={{ margin: "0 auto" }}
-          >
-            Yeni Teklif Al
-          </button>
-        </div>
-      ) : (
+      {(
         <form
           onSubmit={submit}
           style={{
-            padding: "0 24px",
+            padding: "0 22px 4px",
             display: "flex",
             flexDirection: "column",
-            gap: 14,
+            gap: 12,
           }}
         >
-          <div>
-            <h3 style={{ fontSize: 18, marginBottom: 4 }}>
-              {cur.label} sigortası teklifi
-            </h3>
-            <p style={{ color: "var(--ink-500)", fontSize: 13.5 }}>
-              2 dakikada en uygun teklifi alın. Uzmanımız sizi arasın.
-            </p>
-          </div>
+          <h3 style={{ fontSize: 17, marginBottom: 0 }}>
+            {cur.label} sigortası teklifi
+          </h3>
 
-          {cur.fields.map((f) => (
-            <div key={f.key}>
-              <label
-                style={{
-                  display: "block",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  color: "var(--ink-500)",
-                  marginBottom: 6,
-                  letterSpacing: ".02em",
-                }}
-              >
-                {f.label}
-              </label>
-              <input
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 11,
+            }}
+          >
+            <QField
+              label="Ad Soyad"
+              value={values.fullname || ""}
+              onChange={(v) => setField("fullname", v, "name")}
+              placeholder="Ad Soyad"
+              error={errors.fullname}
+            />
+            <QField
+              label="Telefon"
+              value={values.phone || ""}
+              onChange={(v) => setField("phone", v, "phone")}
+              placeholder="(5xx) xxx xx xx"
+              error={errors.phone}
+              inputMode="tel"
+            />
+            {cur.fields.map((f) => (
+              <QField
+                key={f.key}
+                label={f.label}
                 value={values[f.key] || ""}
-                onChange={(e) => setField(f.key, e.target.value, f.type)}
+                onChange={(v) => setField(f.key, v, f.type)}
                 placeholder={f.placeholder}
-                style={{
-                  width: "100%",
-                  padding: "13px 14px",
-                  borderRadius: 10,
-                  border: `1.5px solid ${
-                    errors[f.key] ? "#EF4444" : "var(--ink-200)"
-                  }`,
-                  background: "var(--paper)",
-                  outline: "none",
-                  transition: "border .15s",
-                  fontVariantNumeric: "tabular-nums",
-                }}
-                onFocus={(e) => {
-                  if (!errors[f.key])
-                    e.target.style.borderColor = "var(--brand-500)";
-                }}
-                onBlur={(e) => {
-                  if (!errors[f.key])
-                    e.target.style.borderColor = "var(--ink-200)";
-                }}
+                error={errors[f.key]}
+                inputMode={
+                  f.type === "tc" || f.type === "date" ? "numeric" : undefined
+                }
               />
-              {errors[f.key] && (
-                <div style={{ fontSize: 12, color: "#EF4444", marginTop: 4 }}>
-                  {errors[f.key]}
-                </div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
 
           <button
             type="submit"
@@ -325,7 +358,7 @@ const QuoteWidget = () => {
             style={{
               width: "100%",
               justifyContent: "center",
-              marginTop: 6,
+              marginTop: 4,
               background:
                 "linear-gradient(135deg, var(--brand-500), var(--brand-600))",
             }}
@@ -358,16 +391,18 @@ const QuoteWidget = () => {
               alignItems: "center",
               gap: 6,
               justifyContent: "center",
-              fontSize: 12,
+              fontSize: 11.5,
               color: "var(--ink-400)",
-              marginTop: 2,
+              marginTop: 0,
             }}
           >
-            <I.Lock size={13} /> Bilgileriniz KVKK uyumlu şekilde korunur.
+            <I.Lock size={12} /> Bilgileriniz KVKK uyumlu şekilde korunur.
           </p>
         </form>
       )}
     </div>
+    <SuccessModal open={status === "success"} onClose={reset} />
+    </>
   );
 };
 
@@ -431,13 +466,9 @@ export const Hero = forwardRef<HTMLElement>((_props, ref) => {
                 marginBottom: 32,
               }}
             >
-              Türkiye'nin önde gelen sigorta şirketleri arasından size en uygun
-              teklifi
-              <strong style={{ color: "white", fontWeight: 600 }}>
-                {" "}
-                2 dakikada
-              </strong>{" "}
-              alın. Marer Sigorta ile fiyat ve teminat avantajı bir arada.
+              Türkiye&apos;nin önde gelen sigorta şirketleri arasından size en
+              uygun teklifi alın. Marer Sigorta ile fiyat ve teminat avantajı
+              bir arada.
             </p>
 
             <div

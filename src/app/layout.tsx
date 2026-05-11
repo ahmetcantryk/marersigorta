@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Marer Sigorta — Sigortanız Sonsuz Güvende",
     description:
-      "30+ sigorta şirketi arasından size en uygun teklifi 2 dakikada alın. Marer Sigorta ile fiyat ve teminat avantajı bir arada.",
+      "30+ sigorta şirketi arasından size en uygun teklifi sunan bağımsız acente. Marer Sigorta ile fiyat ve teminat avantajı bir arada.",
     locale: "tr_TR",
     type: "website",
   },

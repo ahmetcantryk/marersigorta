@@ -21,6 +21,7 @@ const NAV_ITEMS: NavItem[] = [
       "Tamamlayıcı Sağlık",
       "Özel Sağlık",
       "Seyahat Sağlık",
+      "Yeşil Kart Sigortası",
       "İşyeri",
       "Ferdi Kaza",
     ],
@@ -68,12 +69,12 @@ export const Header = ({ onQuote }: HeaderProps) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            height: scrolled ? 64 : 80,
+            height: scrolled ? 68 : 84,
             transition: "height .25s ease",
           }}
         >
           <a href="#hero" aria-label="Marer Sigorta" style={{ display: "flex" }}>
-            <LogoMarer />
+            <LogoMarer iconOnly={scrolled} height={scrolled ? 48 : 60} />
           </a>
 
           <nav

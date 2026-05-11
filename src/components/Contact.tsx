@@ -3,6 +3,7 @@
 import { useState, type ComponentType, type ReactNode } from "react";
 import Select, { type StylesConfig, type GroupBase } from "react-select";
 import { I, type IconProps } from "./Icons";
+import { SuccessModal } from "./SuccessModal";
 
 interface ServiceOption {
   value: string;
@@ -290,55 +291,7 @@ export const Contact = () => {
               boxShadow: "var(--shadow-md)",
             }}
           >
-            {status === "success" ? (
-              <div style={{ textAlign: "center", padding: "32px 0" }}>
-                <div
-                  style={{
-                    width: 72,
-                    height: 72,
-                    borderRadius: 999,
-                    background:
-                      "color-mix(in oklch, var(--accent-500) 15%, white)",
-                    color: "var(--accent-500)",
-                    display: "grid",
-                    placeItems: "center",
-                    margin: "0 auto 18px",
-                  }}
-                >
-                  <I.CheckCircle size={42} />
-                </div>
-                <h3 style={{ fontSize: 22, marginBottom: 10 }}>
-                  Mesajınız bize ulaştı
-                </h3>
-                <p
-                  style={{
-                    color: "var(--ink-500)",
-                    maxWidth: 380,
-                    margin: "0 auto 20px",
-                  }}
-                >
-                  En geç 1 saat içinde size geri döneceğiz. Acil durumlarda{" "}
-                  <a
-                    href="tel:+902120000000"
-                    style={{ color: "var(--brand-500)", fontWeight: 600 }}
-                  >
-                    0 (212) 555 00 00
-                  </a>{" "}
-                  numaramızdan ulaşabilirsiniz.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStatus("idle");
-                    setForm(initialForm);
-                  }}
-                  className="btn btn-ghost btn-sm"
-                  style={{ margin: "0 auto" }}
-                >
-                  Yeni mesaj gönder
-                </button>
-              </div>
-            ) : (
+            {(
               <form
                 onSubmit={submit}
                 style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -578,6 +531,17 @@ export const Contact = () => {
           </div>
         </div>
       </div>
+
+      <SuccessModal
+        open={status === "success"}
+        onClose={() => {
+          setStatus("idle");
+          setForm(initialForm);
+          setErrors({});
+        }}
+        title="Mesajınız bize ulaştı"
+        message="Formunuz başarıyla dolduruldu. Ekibimiz en kısa sürede sizinle iletişime geçecek."
+      />
     </section>
   );
 };

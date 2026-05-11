@@ -133,24 +133,7 @@ export const About = () => (
             </div>
           </div>
 
-          <div
-            className="about-badge"
-            style={{
-              position: "absolute",
-              left: -18,
-              bottom: -18,
-              background: "var(--paper)",
-              padding: "14px 18px",
-              borderRadius: "var(--radius)",
-              boxShadow: "var(--shadow-lg)",
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-            }}
-          >
-       
-      
-          </div>
+         
         </div>
 
         <div>
