@@ -4,6 +4,7 @@ import { useState, type ComponentType, type ReactNode } from "react";
 import Select, { type StylesConfig, type GroupBase } from "react-select";
 import { I, type IconProps } from "./Icons";
 import { SuccessModal } from "./SuccessModal";
+import { KvkkModal } from "./KvkkModal";
 import { submitLead } from "@/lib/lead-client";
 
 interface ServiceOption {
@@ -235,6 +236,7 @@ export const Contact = () => {
   };
 
   const [submitError, setSubmitError] = useState<string>("");
+  const [kvkkOpen, setKvkkOpen] = useState(false);
 
   const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
@@ -414,15 +416,16 @@ export const Contact = () => {
                     }}
                   />
                   <span>
-                    <a
-                      href="#footer"
-                      style={{
-                        color: "var(--brand-500)",
-                        textDecoration: "underline",
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setKvkkOpen(true);
                       }}
+                      className="qf-kvkk-link"
                     >
                       KVKK aydınlatma metnini
-                    </a>{" "}
+                    </button>{" "}
                     okudum, kişisel verilerimin işlenmesine onay veriyorum. *
                   </span>
                 </label>
@@ -595,6 +598,7 @@ export const Contact = () => {
         title="Mesajınız bize ulaştı"
         message="Formunuz başarıyla dolduruldu. Ekibimiz en kısa sürede sizinle iletişime geçecek."
       />
+      <KvkkModal open={kvkkOpen} onClose={() => setKvkkOpen(false)} />
     </section>
   );
 };

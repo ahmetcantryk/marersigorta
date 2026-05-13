@@ -807,6 +807,162 @@ html { scroll-behavior: smooth; }
 /* Prevent horizontal scroll on body */
 html, body { overflow-x: hidden; }
 
+/* KVKK link inside checkbox label — looks like a link, behaves like a button */
+.qf-kvkk-link {
+  color: var(--brand-500);
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.qf-kvkk-link:hover { color: var(--brand-700); }
+.qf-kvkk-link:focus-visible { outline: 2px solid var(--brand-400); outline-offset: 2px; border-radius: 2px; }
+
+/* KVKK Modal */
+.kvkk-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(11,26,44,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  animation: successFade .22s ease;
+}
+.kvkk-modal-card {
+  width: 100%;
+  max-width: 640px;
+  max-height: calc(100vh - 40px);
+  background: var(--paper);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: successPop .35s cubic-bezier(.18,.89,.32,1.28);
+  font-family: var(--font-sans);
+}
+.kvkk-modal-head {
+  padding: 24px 28px 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--ink-100);
+}
+.kvkk-modal-eyebrow {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--brand-500);
+  margin-bottom: 6px;
+}
+.kvkk-modal-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink-900);
+  line-height: 1.3;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.kvkk-modal-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--ink-50);
+  color: var(--ink-500);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: background .15s, color .15s;
+}
+.kvkk-modal-close:hover { background: var(--ink-100); color: var(--ink-900); }
+.kvkk-modal-body {
+  padding: 22px 28px;
+  overflow-y: auto;
+  flex: 1;
+}
+.kvkk-meta {
+  margin-bottom: 20px;
+  padding: 16px 18px;
+  background: var(--ink-50);
+  border-radius: var(--radius);
+  border: 1px solid var(--ink-100);
+}
+.kvkk-meta dl {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.kvkk-meta dl > div {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  font-size: 14px;
+}
+.kvkk-meta dt {
+  font-weight: 700;
+  color: var(--ink-500);
+  font-size: 12.5px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.kvkk-meta dd {
+  margin: 0;
+  color: var(--ink-900);
+  line-height: 1.5;
+}
+.kvkk-meta a {
+  color: var(--brand-500);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.kvkk-meta a:hover { color: var(--brand-700); }
+
+.kvkk-article h3 {
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink-900);
+  margin: 22px 0 8px;
+  letter-spacing: -0.01em;
+}
+.kvkk-article h3:first-child { margin-top: 0; }
+.kvkk-article p {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--ink-700);
+  margin: 0;
+}
+.kvkk-article a {
+  color: var(--brand-500);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.kvkk-article a:hover { color: var(--brand-700); }
+.kvkk-modal-foot {
+  padding: 16px 28px 22px;
+  border-top: 1px solid var(--ink-100);
+  background: var(--paper);
+}
+
+@media (max-width: 600px) {
+  .kvkk-modal-head { padding: 20px 22px 14px; }
+  .kvkk-modal-title { font-size: 18px; }
+  .kvkk-modal-body { padding: 18px 22px; }
+  .kvkk-modal-foot { padding: 14px 22px 18px; }
+  .kvkk-meta dl > div { grid-template-columns: 1fr; gap: 4px; }
+  .kvkk-meta dd { font-size: 14px; }
+}
+
 /* ---------------- Marketing pages (Hakkımızda / Şirketler / SSS / İletişim) ---------------- */
 
 /* Partners — wordmark grid */

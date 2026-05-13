@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { I } from "@/components/Icons";
 import { SuccessModal } from "@/components/SuccessModal";
+import { KvkkModal } from "@/components/KvkkModal";
 import {
   formatName,
   formatPhone,
@@ -56,6 +57,7 @@ export const ProductQuoteForm = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>("idle");
   const [submitMessage, setSubmitMessage] = useState<string>("");
+  const [kvkkOpen, setKvkkOpen] = useState(false);
 
   const update = <K extends keyof FormState>(k: K, v: FormState[K]) => {
     setForm((s) => ({ ...s, [k]: v }));
@@ -230,18 +232,17 @@ export const ProductQuoteForm = ({
                   inputMode="numeric"
                 />
               )}
+              {fields.addressText && (
+                <Field
+                  label="Adres"
+                  error={errors.addressText}
+                  value={form.addressText}
+                  onChange={(v) => update("addressText", v)}
+                  placeholder="Mah / Sokak / İl"
+                  autoComplete="street-address"
+                />
+              )}
             </div>
-
-            {fields.addressText && (
-              <Field
-                label="Adres"
-                error={errors.addressText}
-                value={form.addressText}
-                onChange={(v) => update("addressText", v)}
-                placeholder="Mahalle / Sokak / İlçe / İl"
-                autoComplete="street-address"
-              />
-            )}
 
             <label
               className={`qf-kvkk${errors.kvkk ? " qf-kvkk-error" : ""}`}
@@ -253,15 +254,16 @@ export const ProductQuoteForm = ({
                 aria-invalid={Boolean(errors.kvkk)}
               />
               <span>
-                <a
-                  href="/#footer"
-                  style={{
-                    color: "var(--brand-500)",
-                    textDecoration: "underline",
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setKvkkOpen(true);
                   }}
+                  className="qf-kvkk-link"
                 >
                   KVKK metnini
-                </a>{" "}
+                </button>{" "}
                 okudum, onaylıyorum.
               </span>
             </label>
@@ -328,6 +330,7 @@ export const ProductQuoteForm = ({
         title="Talebiniz alındı"
         message={`${productLabel} için talebiniz başarıyla iletildi. Uzman ekibimiz en kısa sürede sizinle iletişime geçecek.`}
       />
+      <KvkkModal open={kvkkOpen} onClose={() => setKvkkOpen(false)} />
     </>
   );
 };
