@@ -7,8 +7,9 @@ let cached: Transporter | null = null;
 function getTransporter(): Transporter {
   if (cached) return cached;
   const host = process.env.SMTP_HOST;
-  const port = Number(process.env.SMTP_PORT ?? "465");
-  const secure = (process.env.SMTP_SECURE ?? "true") === "true";
+  const port = Number(process.env.SMTP_PORT ?? "587");
+  const secure = (process.env.SMTP_SECURE ?? "false") === "true";
+  const requireTLS = (process.env.SMTP_REQUIRE_TLS ?? "true") === "true";
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
   if (!host || !user || !pass) {
@@ -17,12 +18,19 @@ function getTransporter(): Transporter {
   cached = nodemailer.createTransport({
     host,
     port,
+    // For Office 365 / Outlook: port 587 + STARTTLS → secure=false + requireTLS=true.
+    // For SSL (port 465): secure=true (requireTLS ignored).
     secure,
+    requireTLS: secure ? undefined : requireTLS,
     auth: { user, pass },
-    // 8-second connection timeout — don't hold the request hostage on bad DNS
-    connectionTimeout: 8000,
-    greetingTimeout: 8000,
-    socketTimeout: 12000,
+    // 10-second timeouts so a bad SMTP host doesn't hang the API request.
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+    tls: {
+      // Office 365 sometimes needs minimum TLS version forced.
+      minVersion: "TLSv1.2",
+    },
   });
   return cached;
 }
