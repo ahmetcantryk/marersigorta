@@ -1,10 +1,16 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { I, LogoMarer } from "./Icons";
 import { SocialLinks } from "./SocialLinks";
 
+interface FooterLink {
+  label: string;
+  href: string;
+}
+
 interface FooterColProps {
   title: string;
-  links?: string[];
+  links?: FooterLink[];
   custom?: ReactNode;
 }
 
@@ -34,14 +40,34 @@ const FooterCol = ({ title, links, custom }: FooterColProps) => (
         }}
       >
         {links?.map((l) => (
-          <a key={l} href="#">
-            {l}
-          </a>
+          <Link key={l.href} href={l.href}>
+            {l.label}
+          </Link>
         ))}
       </div>
     )}
   </div>
 );
+
+const SERVICES: FooterLink[] = [
+  { label: "Trafik Sigortası", href: "/zorunlu-trafik-sigortasi" },
+  { label: "Kasko Sigortası", href: "/kasko-sigortasi" },
+  { label: "DASK", href: "/dask-zorunlu-deprem-sigortasi" },
+  { label: "Konut Sigortası", href: "/konut-sigortasi" },
+  { label: "Tamamlayıcı Sağlık", href: "/tamamlayici-saglik-sigortasi" },
+  { label: "Özel Sağlık", href: "/ozel-saglik-sigortasi" },
+  { label: "Seyahat Sağlık", href: "/seyahat-saglik-sigortasi" },
+  { label: "Yeşil Kart", href: "/yesil-kart-sigortasi" },
+  { label: "İşyeri / KOBİ", href: "/kobi-isyeri-sigortasi" },
+  { label: "Ferdi Kaza & Hayat", href: "/ferdi-kaza-hayat-sigortasi" },
+];
+
+const CORPORATE: FooterLink[] = [
+  { label: "Hakkımızda", href: "/hakkimizda" },
+  { label: "Anlaşmalı Şirketler", href: "/anlasmali-sirketler" },
+  { label: "Sıkça Sorulan Sorular", href: "/sikca-sorulan-sorular" },
+  { label: "İletişim", href: "/iletisim" },
+];
 
 export const Footer = () => (
   <footer
@@ -82,31 +108,8 @@ export const Footer = () => (
           </div>
         </div>
 
-        <FooterCol
-          title="Hizmetler"
-          links={[
-            "Trafik Sigortası",
-            "Kasko",
-            "DASK",
-            "Konut Sigortası",
-            "Tamamlayıcı Sağlık",
-            "Özel Sağlık",
-            "Seyahat Sağlık",
-            "İşyeri",
-            "Ferdi Kaza",
-          ]}
-        />
-        <FooterCol
-          title="Kurumsal"
-          links={[
-            "Hakkımızda",
-            "Anlaşmalı Şirketler",
-            "Hasar İşlemleri",
-            "SSS",
-            "Blog",
-            "Kariyer",
-          ]}
-        />
+        <FooterCol title="Hizmetler" links={SERVICES} />
+        <FooterCol title="Kurumsal" links={CORPORATE} />
         <FooterCol
           title="İletişim"
           custom={
@@ -174,31 +177,11 @@ export const Footer = () => (
         style={{
           paddingTop: 24,
           borderTop: "1px solid rgba(255,255,255,0.10)",
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: 16,
           fontSize: 13,
           color: "rgba(255,255,255,0.55)",
         }}
       >
-        <div>© 2026 Marer Sigorta. Tüm hakları saklıdır.</div>
-        <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-          <a href="#">KVKK Aydınlatma</a>
-          <a href="#">Çerez Politikası</a>
-          <a href="#">Gizlilik Politikası</a>
-          <a href="#">Kullanım Şartları</a>
-        </div>
-      </div>
-
-      <div
-        style={{
-          marginTop: 16,
-          fontSize: 12,
-          color: "rgba(255,255,255,0.4)",
-        }}
-      >
-        TOBB Sicil No: ##### · Levha No: ##### · SBM Sicil No: #####
+        © 2026 Marer Sigorta. Tüm hakları saklıdır.
       </div>
     </div>
   </footer>
