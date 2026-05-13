@@ -49,13 +49,13 @@ export async function POST(req: NextRequest): Promise<NextResponse<LeadResponse>
   const userAgent = req.headers.get("user-agent");
   const ipAddress = clientIp(req);
 
-  // Insert into Supabase
+  // Route inserts through SECURITY DEFINER RPC to keep anon role honest
+  // while still letting public form submissions land in the leads table.
   let leadId: string;
   try {
     const supabase = getSupabase();
-    const { data, error } = await supabase
-      .from("lead_submissions")
-      .insert({
+    const { data, error } = await supabase.rpc("insert_lead", {
+      payload: {
         source: lead.source,
         product_slug: lead.productSlug ?? null,
         product_label: lead.productLabel ?? null,
@@ -72,18 +72,17 @@ export async function POST(req: NextRequest): Promise<NextResponse<LeadResponse>
         kvkk_consent: lead.kvkkConsent,
         user_agent: userAgent,
         ip_address: ipAddress,
-      })
-      .select("id")
-      .single();
+      },
+    });
 
     if (error || !data) {
-      console.error("Supabase insert error:", error);
+      console.error("Supabase rpc error:", error);
       return NextResponse.json(
         { ok: false, message: "Kayıt sırasında bir hata oluştu." },
         { status: 500 }
       );
     }
-    leadId = data.id;
+    leadId = data as string;
   } catch (e: unknown) {
     console.error("Supabase exception:", e);
     return NextResponse.json(
