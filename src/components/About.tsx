@@ -16,7 +16,7 @@ export const About = () => (
         style={{
           display: "grid",
           gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)",
-          gap: 56,
+          gap: 40,
           alignItems: "center",
         }}
       >

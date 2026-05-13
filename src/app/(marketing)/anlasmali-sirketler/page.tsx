@@ -187,8 +187,8 @@ export default function PartnersPage() {
 
       <section
         style={{
-          paddingTop: "clamp(56px, 7vw, 96px)",
-          paddingBottom: "clamp(40px, 5vw, 64px)",
+          paddingTop: "clamp(40px, 5vw, 72px)",
+          paddingBottom: "clamp(28px, 3.5vw, 48px)",
           background: "var(--paper)",
         }}
       >
@@ -216,8 +216,8 @@ export default function PartnersPage() {
 
       <section
         style={{
-          paddingTop: "clamp(40px, 5vw, 64px)",
-          paddingBottom: "clamp(56px, 7vw, 96px)",
+          paddingTop: "clamp(28px, 3.5vw, 48px)",
+          paddingBottom: "clamp(40px, 5vw, 72px)",
           background: "var(--ink-50)",
         }}
       >
@@ -316,8 +316,8 @@ export default function PartnersPage() {
 
       <section
         style={{
-          paddingTop: "clamp(56px, 7vw, 96px)",
-          paddingBottom: "clamp(56px, 7vw, 96px)",
+          paddingTop: "clamp(40px, 5vw, 72px)",
+          paddingBottom: "clamp(40px, 5vw, 72px)",
           background: "var(--paper)",
         }}
       >
@@ -326,7 +326,7 @@ export default function PartnersPage() {
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.2fr)",
-            gap: 48,
+            gap: 36,
             alignItems: "center",
           }}
         >

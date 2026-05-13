@@ -85,7 +85,7 @@ export const Why = () => (
         style={{
           display: "grid",
           gridTemplateColumns: "minmax(0,1fr) minmax(0,1.4fr)",
-          gap: 64,
+          gap: 44,
           alignItems: "start",
         }}
       >
@@ -207,7 +207,7 @@ export const How = () => (
     }}
   >
     <div className="container">
-      <div style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 56px" }}>
+      <div style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 36px" }}>
         <div className="eyebrow" style={{ justifyContent: "center" }}>
           Nasıl Çalışıyoruz?
         </div>

@@ -37,7 +37,7 @@
   --shadow-lg: 0 24px 60px -20px rgba(11, 42, 68, 0.25), 0 8px 18px -8px rgba(11, 42, 68, 0.10);
   --shadow-xl: 0 40px 80px -30px rgba(11, 42, 68, 0.35);
 
-  --pad-section: clamp(56px, 7vw, 96px);
+  --pad-section: clamp(40px, 5vw, 72px);
   --maxw: 1240px;
 
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -782,7 +782,7 @@ html { scroll-behavior: smooth; }
 
 /* Section padding scales down nicely */
 @media (max-width: 600px) {
-  :root { --pad-section: clamp(40px, 8vw, 64px); }
+  :root { --pad-section: clamp(28px, 6vw, 48px); }
 }
 
 /* Container side padding refines on tiny screens */

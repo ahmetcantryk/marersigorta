@@ -28,8 +28,8 @@ export const PageHero = ({
         "linear-gradient(135deg, var(--brand-700), var(--brand-500))",
       color: "white",
       overflow: "hidden",
-      paddingTop: "clamp(48px, 6vw, 80px)",
-      paddingBottom: "clamp(56px, 7vw, 96px)",
+      paddingTop: "clamp(36px, 4.5vw, 64px)",
+      paddingBottom: "clamp(40px, 5vw, 72px)",
     }}
   >
     <div
@@ -50,7 +50,7 @@ export const PageHero = ({
         gridTemplateColumns: Illustration
           ? "minmax(0,1.2fr) minmax(0,1fr)"
           : "1fr",
-        gap: 56,
+        gap: 40,
         alignItems: "center",
       }}
     >

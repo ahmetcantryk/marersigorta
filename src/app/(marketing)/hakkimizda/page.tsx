@@ -99,8 +99,8 @@ export default function AboutPage() {
 
       <section
         style={{
-          paddingTop: "clamp(56px, 7vw, 96px)",
-          paddingBottom: "clamp(56px, 7vw, 96px)",
+          paddingTop: "clamp(40px, 5vw, 72px)",
+          paddingBottom: "clamp(40px, 5vw, 72px)",
           background: "var(--paper)",
         }}
       >
@@ -109,7 +109,7 @@ export default function AboutPage() {
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(0, 1.05fr) minmax(0, 1fr)",
-            gap: 56,
+            gap: 40,
             alignItems: "center",
           }}
         >
@@ -192,8 +192,8 @@ export default function AboutPage() {
 
       <section
         style={{
-          paddingTop: "clamp(56px, 7vw, 96px)",
-          paddingBottom: "clamp(56px, 7vw, 96px)",
+          paddingTop: "clamp(40px, 5vw, 72px)",
+          paddingBottom: "clamp(40px, 5vw, 72px)",
           background: "var(--ink-50)",
         }}
       >
@@ -257,8 +257,8 @@ export default function AboutPage() {
 
       <section
         style={{
-          paddingTop: "clamp(56px, 7vw, 96px)",
-          paddingBottom: "clamp(56px, 7vw, 96px)",
+          paddingTop: "clamp(40px, 5vw, 72px)",
+          paddingBottom: "clamp(40px, 5vw, 72px)",
           background: "var(--paper)",
         }}
       >
@@ -317,8 +317,8 @@ export default function AboutPage() {
 
       <section
         style={{
-          paddingTop: "clamp(56px, 7vw, 96px)",
-          paddingBottom: "clamp(56px, 7vw, 96px)",
+          paddingTop: "clamp(40px, 5vw, 72px)",
+          paddingBottom: "clamp(40px, 5vw, 72px)",
           background: "var(--ink-50)",
         }}
       >

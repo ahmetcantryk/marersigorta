@@ -20,8 +20,8 @@ export const PageFinalCta = ({
 }: PageFinalCtaProps) => (
   <section
     style={{
-      paddingTop: "clamp(56px, 7vw, 96px)",
-      paddingBottom: "clamp(56px, 7vw, 96px)",
+      paddingTop: "clamp(40px, 5vw, 72px)",
+      paddingBottom: "clamp(40px, 5vw, 72px)",
       background:
         "linear-gradient(135deg, var(--brand-700), var(--brand-500))",
       color: "white",

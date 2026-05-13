@@ -71,7 +71,7 @@ export default function ContactPage() {
 
       <section
         style={{
-          paddingTop: "clamp(56px, 7vw, 96px)",
+          paddingTop: "clamp(40px, 5vw, 72px)",
           paddingBottom: "clamp(32px, 4vw, 56px)",
           background: "var(--paper)",
         }}

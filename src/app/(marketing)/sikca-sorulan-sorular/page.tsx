@@ -213,8 +213,8 @@ export default function FaqPage() {
 
       <section
         style={{
-          paddingTop: "clamp(40px, 5vw, 64px)",
-          paddingBottom: "clamp(40px, 5vw, 64px)",
+          paddingTop: "clamp(28px, 3.5vw, 48px)",
+          paddingBottom: "clamp(28px, 3.5vw, 48px)",
           background: "var(--paper)",
         }}
       >
@@ -223,7 +223,7 @@ export default function FaqPage() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: 48,
+            gap: 36,
           }}
         >
           {FAQ_GROUPS.map((g) => (
@@ -283,8 +283,8 @@ export default function FaqPage() {
 
       <section
         style={{
-          paddingTop: "clamp(48px, 6vw, 80px)",
-          paddingBottom: "clamp(48px, 6vw, 80px)",
+          paddingTop: "clamp(36px, 4.5vw, 64px)",
+          paddingBottom: "clamp(36px, 4.5vw, 64px)",
           background: "var(--ink-50)",
         }}
       >

@@ -60,7 +60,7 @@ export const FaqSection = () => {
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(0,1fr) minmax(0,1.6fr)",
-            gap: 56,
+            gap: 40,
             alignItems: "start",
           }}
         >
@@ -75,8 +75,8 @@ export const FaqSection = () => {
               WhatsApp üzerinden yazabilirsiniz. Her sorunuza net ve sade bir
               cevap vermeye söz veriyoruz.
             </p>
-            <a href="#contact" className="btn btn-primary">
-              Sorunuzu Yazın <I.ArrowRight size={16} />
+            <a href="/sikca-sorulan-sorular" className="btn btn-primary">
+              Devamını Gör <I.ArrowRight size={16} />
             </a>
           </div>
 

@@ -23,9 +23,9 @@ export const ProductPage = ({ product }: ProductPageProps) => {
             position: "relative",
             display: "flex",
             flexDirection: "column",
-            gap: 56,
-            paddingTop: "clamp(40px, 5vw, 64px)",
-            paddingBottom: "clamp(40px, 5vw, 64px)",
+            gap: 40,
+            paddingTop: "clamp(24px, 3vw, 40px)",
+            paddingBottom: "clamp(24px, 3vw, 40px)",
           }}
         >
           <Nedir product={product} />
@@ -104,8 +104,8 @@ const Hero = ({ product }: { product: ProductData }) => {
           "linear-gradient(135deg, var(--brand-700), var(--brand-500))",
         color: "white",
         overflow: "hidden",
-        paddingTop: "clamp(48px, 6vw, 80px)",
-        paddingBottom: "clamp(56px, 7vw, 96px)",
+        paddingTop: "clamp(36px, 4.5vw, 64px)",
+        paddingBottom: "clamp(40px, 5vw, 72px)",
       }}
     >
       <div
@@ -138,7 +138,7 @@ const Hero = ({ product }: { product: ProductData }) => {
           position: "relative",
           display: "grid",
           gridTemplateColumns: "minmax(0,1fr) minmax(360px,460px)",
-          gap: 48,
+          gap: 36,
           alignItems: "center",
         }}
       >
@@ -723,6 +723,11 @@ const FaqAccordion = ({ items }: { items: FaqItem[] }) => (
         </details>
       ))}
     </div>
+    <div style={{ marginTop: 20, display: "flex", justifyContent: "center" }}>
+      <Link href="/sikca-sorulan-sorular" className="btn btn-outline">
+        Devamını Gör <I.ArrowRight size={16} />
+      </Link>
+    </div>
   </section>
 );
 
@@ -737,8 +742,8 @@ const CrossSell = ({ slugs }: { slugs: string[] }) => {
     <section
       style={{
         background: "var(--ink-50)",
-        paddingTop: "clamp(48px, 6vw, 80px)",
-        paddingBottom: "clamp(48px, 6vw, 80px)",
+        paddingTop: "clamp(36px, 4.5vw, 64px)",
+        paddingBottom: "clamp(36px, 4.5vw, 64px)",
         borderTop: "1px solid var(--ink-100)",
       }}
     >
@@ -817,8 +822,8 @@ const CrossSell = ({ slugs }: { slugs: string[] }) => {
 const FinalCta = ({ product }: { product: ProductData }) => (
   <section
     style={{
-      paddingTop: "clamp(56px, 7vw, 96px)",
-      paddingBottom: "clamp(56px, 7vw, 96px)",
+      paddingTop: "clamp(40px, 5vw, 72px)",
+      paddingBottom: "clamp(40px, 5vw, 72px)",
       background:
         "linear-gradient(135deg, var(--brand-700), var(--brand-500))",
       color: "white",

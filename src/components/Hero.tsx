@@ -479,8 +479,8 @@ export const Hero = () => {
       id="hero"
       style={{
         position: "relative",
-        paddingTop: "clamp(48px, 6vw, 80px)",
-        paddingBottom: "clamp(64px, 8vw, 110px)",
+        paddingTop: "clamp(36px, 4.5vw, 64px)",
+        paddingBottom: "clamp(40px, 5vw, 80px)",
         color: "white",
         overflow: "hidden",
       }}
@@ -492,7 +492,7 @@ export const Hero = () => {
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(0,1fr) minmax(0,460px)",
-            gap: 56,
+            gap: 40,
             alignItems: "center",
           }}
         >
