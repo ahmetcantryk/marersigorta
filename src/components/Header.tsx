@@ -326,7 +326,6 @@ export const Header = ({ onQuote }: HeaderProps) => {
                         className="mobile-nav-item"
                       >
                         <span>{it.label}</span>
-                        <I.ChevronRight size={16} color="var(--ink-300)" />
                       </Link>
                     );
                   })}
@@ -345,7 +344,6 @@ export const Header = ({ onQuote }: HeaderProps) => {
                       className="mobile-nav-item"
                     >
                       <span>{c.label}</span>
-                      <I.ChevronRight size={16} color="var(--ink-300)" />
                     </Link>
                   ))}
                 </nav>
