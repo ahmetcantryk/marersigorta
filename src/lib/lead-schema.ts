@@ -1,7 +1,14 @@
 import { z } from "zod";
+import { VALID_TR_MOBILE_PREFIXES } from "./form-utils";
 
 const turkishLettersRegex = /^[A-Za-zÇĞİÖŞÜçğıöşü ]+$/;
-const phoneDigitsOnly = (v: string) => v.replace(/\D/g, "");
+
+const phoneDigitsOnly = (v: string): string => {
+  let d = v.replace(/\D/g, "");
+  if (d.startsWith("90") && d.length > 10) d = d.slice(2);
+  if (d.startsWith("0")) d = d.slice(1);
+  return d.slice(0, 10);
+};
 
 export const leadSourceSchema = z.enum([
   "hero_quote",
@@ -23,7 +30,12 @@ export const fullNameSchema = z
 export const phoneSchema = z
   .string()
   .transform((v) => phoneDigitsOnly(v))
-  .refine((d) => d.length === 10, "10 haneli telefon girin");
+  .refine((d) => d.length === 10, "10 haneli telefon girin")
+  .refine((d) => d.startsWith("5"), "Mobil hat olmalı (5 ile başlamalı)")
+  .refine(
+    (d) => VALID_TR_MOBILE_PREFIXES.has(d.slice(0, 3)),
+    "Geçersiz operatör kodu"
+  );
 
 export const tcSchema = z
   .string()

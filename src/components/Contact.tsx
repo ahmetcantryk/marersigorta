@@ -6,6 +6,7 @@ import { I, type IconProps } from "./Icons";
 import { SuccessModal } from "./SuccessModal";
 import { KvkkModal } from "./KvkkModal";
 import { submitLead } from "@/lib/lead-client";
+import { formatPhone, phoneDigits, validateTRMobile } from "@/lib/form-utils";
 
 interface ServiceOption {
   value: string;
@@ -14,13 +15,17 @@ interface ServiceOption {
 }
 
 const SERVICE_OPTIONS: ServiceOption[] = [
-  { value: "trafik", label: "Trafik Sigortası", Icon: I.Car },
-  { value: "kasko", label: "Kasko", Icon: I.CarShield },
-  { value: "saglik", label: "Sağlık Sigortası", Icon: I.Heart },
-  { value: "konut", label: "Konut / DASK", Icon: I.Home },
-  { value: "isyeri", label: "İşyeri", Icon: I.Building },
-  { value: "seyahat", label: "Seyahat Sağlık", Icon: I.Plane },
-  { value: "diger", label: "Diğer", Icon: I.Sparkle },
+  { value: "Trafik Sigortası", label: "Trafik Sigortası", Icon: I.Car },
+  { value: "Kasko Sigortası", label: "Kasko Sigortası", Icon: I.CarShield },
+  { value: "DASK (Zorunlu Deprem)", label: "DASK (Zorunlu Deprem)", Icon: I.Quake },
+  { value: "Konut Sigortası", label: "Konut Sigortası", Icon: I.Home },
+  { value: "Tamamlayıcı Sağlık", label: "Tamamlayıcı Sağlık", Icon: I.Heart },
+  { value: "Özel Sağlık Sigortası", label: "Özel Sağlık Sigortası", Icon: I.Hospital },
+  { value: "Seyahat Sağlık Sigortası", label: "Seyahat Sağlık Sigortası", Icon: I.Plane },
+  { value: "Yeşil Kart Sigortası", label: "Yeşil Kart Sigortası", Icon: I.Doc },
+  { value: "İşyeri / KOBİ", label: "İşyeri / KOBİ", Icon: I.Building },
+  { value: "Ferdi Kaza & Hayat", label: "Ferdi Kaza & Hayat", Icon: I.HandHeart },
+  { value: "Diğer", label: "Diğer", Icon: I.Sparkle },
 ];
 
 const buildSelectStyles = (
@@ -227,10 +232,14 @@ export const Contact = () => {
 
   const validate = () => {
     const e: Record<string, string> = {};
-    if (!form.name.trim()) e.name = "Ad soyadınızı girin";
-    if (!form.phone.trim()) e.phone = "Telefon numarası gerekli";
-    else if (!/^[\d\s+()-]{10,}$/.test(form.phone))
-      e.phone = "Geçerli bir numara girin";
+    const name = form.name.trim();
+    if (!name) e.name = "Ad soyadınızı girin";
+    else if (name.split(/\s+/).filter(Boolean).length < 2)
+      e.name = "Ad ve soyad girin";
+
+    const phoneCheck = validateTRMobile(phoneDigits(form.phone));
+    if (phoneCheck !== true) e.phone = phoneCheck;
+
     if (form.email && !/^\S+@\S+\.\S+$/.test(form.email))
       e.email = "Geçerli e-posta girin";
     if (!form.service) e.service = "Bir hizmet seçin";
@@ -251,7 +260,7 @@ export const Contact = () => {
     const res = await submitLead({
       source: "contact_form",
       fullName: form.name.trim(),
-      phone: form.phone.replace(/\D/g, ""),
+      phone: phoneDigits(form.phone),
       email: form.email || undefined,
       message: form.message || undefined,
       service: form.service || undefined,
@@ -263,6 +272,22 @@ export const Contact = () => {
     } else {
       setStatus("idle");
       setSubmitError(res.message ?? "Bir hata oluştu, lütfen tekrar deneyin.");
+      if (res.errors) {
+        // Server-side Zod errors → ilgili alanlara yansıt
+        const mapped: Record<string, string | null> = {};
+        const aliasMap: Record<string, string> = {
+          fullName: "name",
+          phone: "phone",
+          email: "email",
+          service: "service",
+          kvkkConsent: "kvkk",
+        };
+        Object.entries(res.errors).forEach(([k, v]) => {
+          const local = aliasMap[k] ?? k;
+          mapped[local] = v[0] ?? "Geçersiz değer";
+        });
+        setErrors((cur) => ({ ...cur, ...mapped }));
+      }
     }
   };
 
@@ -343,10 +368,12 @@ export const Contact = () => {
                   <Field label="Telefon *" error={errors.phone}>
                     <input
                       value={form.phone}
-                      onChange={(e) => set("phone", e.target.value)}
-                      placeholder="0 (5xx) xxx xx xx"
+                      onChange={(e) => set("phone", formatPhone(e.target.value))}
+                      placeholder="(5xx) xxx xx xx"
                       style={inputStyle(errors.phone)}
                       inputMode="tel"
+                      autoComplete="tel"
+                      maxLength={16}
                     />
                   </Field>
                 </div>

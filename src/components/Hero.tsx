@@ -4,6 +4,11 @@ import { useState, type ComponentType } from "react";
 import { I, type IconProps } from "./Icons";
 import { SuccessModal } from "./SuccessModal";
 import { submitLead } from "@/lib/lead-client";
+import {
+  formatPhone as formatPhoneShared,
+  phoneDigits,
+  validateTRMobile,
+} from "@/lib/form-utils";
 
 type FieldType = "tc" | "plate" | "date" | "text";
 
@@ -117,13 +122,7 @@ const formatDate = (v: string) => {
   if (digits.length > 2) return digits.slice(0, 2) + "." + digits.slice(2);
   return digits;
 };
-const formatPhone = (v: string) => {
-  const d = v.replace(/\D/g, "").slice(0, 10);
-  if (d.length > 6) return `(${d.slice(0, 3)}) ${d.slice(3, 6)} ${d.slice(6)}`;
-  if (d.length > 3) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
-  if (d.length > 0) return `(${d}`;
-  return "";
-};
+const formatPhone = formatPhoneShared;
 const formatName = (v: string) =>
   v.replace(/[^A-Za-zÇĞİÖŞÜçğıöşü ]/g, "").slice(0, 60);
 
@@ -214,12 +213,12 @@ const QuoteWidget = () => {
   const validate = () => {
     const e: Record<string, string> = {};
     const name = (values.fullname || "").trim();
-    const phone = (values.phone || "").replace(/\D/g, "");
     if (!name) e.fullname = "Ad soyad gerekli";
     else if (name.split(" ").filter(Boolean).length < 2)
       e.fullname = "Ad ve soyad girin";
-    if (!phone) e.phone = "Telefon gerekli";
-    else if (phone.length !== 10) e.phone = "10 haneli olmalı";
+
+    const phoneCheck = validateTRMobile(phoneDigits(values.phone || ""));
+    if (phoneCheck !== true) e.phone = phoneCheck;
 
     cur.fields.forEach((f) => {
       const v = (values[f.key] || "").trim();

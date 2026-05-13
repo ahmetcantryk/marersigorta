@@ -18,17 +18,16 @@ function getTransporter(): Transporter {
   cached = nodemailer.createTransport({
     host,
     port,
-    // For Office 365 / Outlook: port 587 + STARTTLS → secure=false + requireTLS=true.
-    // For SSL (port 465): secure=true (requireTLS ignored).
     secure,
     requireTLS: secure ? undefined : requireTLS,
     auth: { user, pass },
-    // 10-second timeouts so a bad SMTP host doesn't hang the API request.
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
     tls: {
-      // Office 365 sometimes needs minimum TLS version forced.
+      // Shared hosting (isimtescil, cPanel) sertifikaları domain ile birebir
+      // eşleşmeyebilir — bağlantı reddini önlemek için strict modu gevşet.
+      rejectUnauthorized: false,
       minVersion: "TLSv1.2",
     },
   });
@@ -60,8 +59,23 @@ const formatPhoneDisplay = (digits: string): string => {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)} ${digits.slice(6, 8)} ${digits.slice(8)}`;
 };
 
+const formatDateTR = (d: Date): string => {
+  const fmt = new Intl.DateTimeFormat("tr-TR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Istanbul",
+    hour12: false,
+  });
+  // tr-TR çıktısı: "13.05.2026 22:41"
+  return fmt.format(d).replace(",", "");
+};
+
 function buildHtml(opts: LeadEmailOptions): string {
-  const { lead, leadId, userAgent, ipAddress } = opts;
+  const { lead } = opts;
+  const submittedAt = formatDateTR(new Date());
   const rows: Array<[string, string | undefined]> = [
     ["Kaynak", SOURCE_LABEL[lead.source]],
     ["Ürün", lead.productLabel ?? lead.productSlug],
@@ -75,47 +89,53 @@ function buildHtml(opts: LeadEmailOptions): string {
     ["Adres", lead.addressText],
     ["İlgilendiği Hizmet", lead.service],
     ["Mesaj", lead.message],
+    ["Gönderilme Zamanı", submittedAt],
+
   ];
 
   const filled = rows
     .filter(([, v]) => v && String(v).trim().length > 0)
     .map(
-      ([k, v]) => `
+      ([k, v], i) => {
+        const isPhone = k === "Telefon";
+        const stripe = i % 2 === 0 ? "#FFFFFF" : "#F6F9FC";
+        return `
         <tr>
-          <td style="padding:10px 14px;background:#f6f9fc;color:#5C6B7E;font-size:13px;font-weight:600;width:160px;border-bottom:1px solid #EEF2F6;">${esc(k)}</td>
-          <td style="padding:10px 14px;color:#0B1A2C;font-size:14px;border-bottom:1px solid #EEF2F6;">${esc(v)}</td>
-        </tr>`
+          <td style="padding:12px 16px;background:${stripe};color:#5C6B7E;font-size:12.5px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;width:160px;border-bottom:1px solid #EEF2F6;vertical-align:top;">${esc(k)}</td>
+          <td style="padding:12px 16px;background:${stripe};color:${isPhone ? "#0277BD" : "#0B1A2C"};font-size:14.5px;font-weight:${isPhone ? "700" : "600"};border-bottom:1px solid #EEF2F6;">${esc(v)}</td>
+        </tr>`;
+      }
     )
     .join("");
 
   return `<!doctype html>
 <html lang="tr">
-<head><meta charset="utf-8"><title>Yeni Lead — Marer Sigorta</title></head>
-<body style="margin:0;padding:24px;background:#F6F9FC;font-family:Inter,system-ui,Segoe UI,sans-serif;color:#0B1A2C;">
-  <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;border:1px solid #EEF2F6;">
-    <div style="padding:24px 28px;background:linear-gradient(135deg,#56ACD6,#2D7299);color:#fff;">
-      <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700;">Marer Sigorta</div>
-      <div style="font-size:20px;font-weight:800;margin-top:6px;">Yeni teklif talebi geldi</div>
-      <div style="font-size:13px;opacity:.9;margin-top:4px;">${esc(SOURCE_LABEL[lead.source])}</div>
+<head><meta charset="utf-8"><title>Yeni teklif talebi — Marer Sigorta</title></head>
+<body style="margin:0;padding:24px;background:#F6F9FC;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#0B1A2C;">
+  <div style="max-width:600px;margin:0 auto;background:#FFFFFF;border:1px solid #EEF2F6;border-radius:12px;overflow:hidden;">
+    <div style="padding:20px 24px;background:#EFF8FC;border-bottom:2px solid #56ACD6;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:11.5px;color:#2D7299;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">
+        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10B981;"></span>
+        Marer Sigorta
+      </div>
+      <div style="font-size:18px;font-weight:700;color:#0B1A2C;">Yeni teklif talebi geldi</div>
+      <div style="font-size:13px;color:#5C6B7E;margin-top:2px;">${esc(SOURCE_LABEL[lead.source])}${lead.productLabel ? ` · ${esc(lead.productLabel)}` : ""}</div>
     </div>
     <table style="width:100%;border-collapse:collapse;">
       <tbody>${filled}</tbody>
     </table>
-    <div style="padding:16px 28px;font-size:11.5px;color:#8493A5;background:#F6F9FC;border-top:1px solid #EEF2F6;">
-      Lead ID: ${esc(leadId)}<br>
-      ${userAgent ? `User-Agent: ${esc(userAgent)}<br>` : ""}
-      ${ipAddress ? `IP: ${esc(ipAddress)}` : ""}
-    </div>
   </div>
 </body></html>`;
 }
 
 function buildText(opts: LeadEmailOptions): string {
-  const { lead, leadId } = opts;
+  const { lead } = opts;
+  const submittedAt = formatDateTR(new Date());
   const lines = [
-    `MARER SİGORTA — Yeni Lead`,
+    `Yeni teklif talebi — Marer Sigorta`,
     `Kaynak: ${SOURCE_LABEL[lead.source]}`,
     lead.productLabel || lead.productSlug ? `Ürün: ${lead.productLabel ?? lead.productSlug}` : "",
+    `Gönderilme Zamanı: ${submittedAt}`,
     ``,
     `Ad Soyad: ${lead.fullName}`,
     `Telefon: ${formatPhoneDisplay(lead.phone)}`,
@@ -127,8 +147,6 @@ function buildText(opts: LeadEmailOptions): string {
     lead.addressText ? `Adres: ${lead.addressText}` : "",
     lead.service ? `Hizmet: ${lead.service}` : "",
     lead.message ? `Mesaj: ${lead.message}` : "",
-    ``,
-    `Lead ID: ${leadId}`,
   ];
   return lines.filter(Boolean).join("\n");
 }

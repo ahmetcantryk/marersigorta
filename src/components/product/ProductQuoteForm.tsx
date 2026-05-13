@@ -12,6 +12,7 @@ import {
   formatPlate,
   formatBirthDate,
   phoneDigits,
+  validateTRMobile,
   getProductFields,
 } from "@/lib/form-utils";
 import { submitLead } from "@/lib/lead-client";
@@ -77,9 +78,8 @@ export const ProductQuoteForm = ({
     else if (name.split(/\s+/).filter(Boolean).length < 2)
       e.fullName = "Ad ve soyad girin";
 
-    const tel = phoneDigits(form.phone);
-    if (!tel) e.phone = "Telefon gerekli";
-    else if (tel.length !== 10) e.phone = "10 haneli olmalı";
+    const phoneCheck = validateTRMobile(phoneDigits(form.phone));
+    if (phoneCheck !== true) e.phone = phoneCheck;
 
     if (fields.tcKimlik) {
       if (!form.tcKimlik) e.tcKimlik = "TC kimlik gerekli";
