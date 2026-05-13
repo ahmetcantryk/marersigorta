@@ -1,13 +1,10 @@
 /**
  * Lead bildirim e-postalarının nereye gideceği — env dışı bir konfig.
- * Bu dosyayı düzenleyip yeni alıcı ekleyebilirsiniz.
+ * Bu dosyayı düzenleyip alıcıları güncelleyebilirsiniz.
  *
- * `to`: gerekli, en az bir adres.
- * `cc`: opsiyonel kopya alıcılar (şu an boş).
- * `bcc`: opsiyonel gizli kopya alıcılar (şu an boş).
- *
- * Yayına geçtiğinizde info@marersigorta.com veya başka kurumsal
- * adresleri buraya ekleyebilirsiniz.
+ * `to`: gerekli, en az bir adres (asıl alıcı).
+ * `cc`: opsiyonel kopya alıcılar.
+ * `bcc`: opsiyonel gizli kopya alıcılar.
  */
 
 export interface MailRecipientsConfig {
@@ -17,7 +14,6 @@ export interface MailRecipientsConfig {
 }
 
 export const MAIL_RECIPIENTS: MailRecipientsConfig = {
-  to: ["ahmetcan.1855@gmail.com"],
-  // cc: [], // şu an boş — gerekirse adres ekleyin
-  // bcc: [],
+  to: ["teknik@marersigorta.com"],
+  cc: ["hamzag@marersigorta.com", "mahsumk@marersigorta.com"],
 };
