@@ -38,4 +38,8 @@ declare module "react-undraw-illustrations" {
   export const UndrawHealthyHabit: FC<UndrawProps>;
   export const UndrawOnlineShopping: FC<UndrawProps>;
   export const UndrawWindowShopping: FC<UndrawProps>;
+  export const UndrawLost: FC<UndrawProps>;
+  export const UndrawFileSearching: FC<UndrawProps>;
+  export const UndrawEmpty: FC<UndrawProps>;
+  export const UndrawSearch: FC<UndrawProps>;
 }
