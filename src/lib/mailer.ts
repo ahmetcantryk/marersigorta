@@ -134,13 +134,39 @@ function buildText(opts: LeadEmailOptions): string {
 }
 
 export async function sendLeadEmail(opts: LeadEmailOptions): Promise<void> {
-  const transporter = getTransporter();
   const subject =
     `[Lead] ${SOURCE_LABEL[opts.lead.source]}` +
     (opts.lead.productLabel ? ` — ${opts.lead.productLabel}` : "");
+  const from = process.env.MAIL_FROM ?? "noreply@marersigorta.com";
 
+  // Resend takes priority if API key is configured. Office 365 SMTP AUTH is
+  // disabled by default at the tenant level, so this gives us a reliable
+  // delivery path while the admin enables SMTP AUTH (or App Password).
+  const resendKey = process.env.RESEND_API_KEY;
+  if (resendKey) {
+    const { Resend } = await import("resend");
+    const client = new Resend(resendKey);
+    const result = await client.emails.send({
+      from,
+      to: MAIL_RECIPIENTS.to,
+      cc: MAIL_RECIPIENTS.cc,
+      bcc: MAIL_RECIPIENTS.bcc,
+      replyTo: opts.lead.email ?? undefined,
+      subject,
+      html: buildHtml(opts),
+      text: buildText(opts),
+    });
+    if (result.error) {
+      throw new Error(`Resend error: ${result.error.message}`);
+    }
+    return;
+  }
+
+  // Fallback: classic SMTP (Office 365 / custom). Requires SMTP AUTH enabled
+  // on the mailbox + tenant; otherwise see RESEND_API_KEY path above.
+  const transporter = getTransporter();
   await transporter.sendMail({
-    from: process.env.MAIL_FROM ?? "noreply@marersigorta.com",
+    from,
     to: MAIL_RECIPIENTS.to,
     cc: MAIL_RECIPIENTS.cc,
     bcc: MAIL_RECIPIENTS.bcc,
