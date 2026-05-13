@@ -36,7 +36,10 @@ export const TopBar = () => {
             overflow: "hidden",
           }}
         >
-          <span
+          <a
+            href="https://share.google/bHzB3dtVtCEhMBjUQ"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -46,8 +49,8 @@ export const TopBar = () => {
             }}
           >
             <I.Pin size={14} />
-            Levent Mah. Sigorta Cad. No:12, Beşiktaş / İstanbul
-          </span>
+            Doğu Mah. Ihlamur Sk. No:34, Pendik / İstanbul
+          </a>
           <span
             className="topbar-hours"
             style={{
@@ -93,7 +96,7 @@ export const TopBar = () => {
             }}
           />
           <SocialLinks
-            only={["facebook", "instagram", "x", "linkedin"]}
+            only={["instagram", "linkedin", "whatsapp"]}
             variant="mono"
             size={28}
             gap={2}

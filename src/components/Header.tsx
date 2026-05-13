@@ -1,39 +1,45 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { I, LogoMarer } from "./Icons";
+
+interface NavChild {
+  label: string;
+  slug: string;
+}
 
 interface NavItem {
   label: string;
   href: string;
-  children?: string[];
+  children?: NavChild[];
 }
 
 const NAV_ITEMS: NavItem[] = [
   {
     label: "Hizmetlerimiz",
-    href: "#branches",
+    href: "/#branches",
     children: [
-      "Trafik Sigortası",
-      "Kasko Sigortası",
-      "DASK",
-      "Konut Sigortası",
-      "Tamamlayıcı Sağlık",
-      "Özel Sağlık",
-      "Seyahat Sağlık",
-      "Yeşil Kart Sigortası",
-      "İşyeri",
-      "Ferdi Kaza",
+      { label: "Trafik Sigortası", slug: "zorunlu-trafik-sigortasi" },
+      { label: "Kasko Sigortası", slug: "kasko-sigortasi" },
+      { label: "DASK", slug: "dask-zorunlu-deprem-sigortasi" },
+      { label: "Konut Sigortası", slug: "konut-sigortasi" },
+      { label: "Tamamlayıcı Sağlık", slug: "tamamlayici-saglik-sigortasi" },
+      { label: "Özel Sağlık", slug: "ozel-saglik-sigortasi" },
+      { label: "Seyahat Sağlık", slug: "seyahat-saglik-sigortasi" },
+      { label: "Yeşil Kart Sigortası", slug: "yesil-kart-sigortasi" },
+      { label: "İşyeri / KOBİ", slug: "kobi-isyeri-sigortasi" },
+      { label: "Ferdi Kaza & Hayat", slug: "ferdi-kaza-hayat-sigortasi" },
     ],
   },
-  { label: "Hakkımızda", href: "#about" },
-  { label: "Anlaşmalı Şirketler", href: "#partners" },
-  { label: "Sıkça Sorulan Sorular", href: "#faq" },
-  { label: "İletişim", href: "#contact" },
+  { label: "Hakkımızda", href: "/hakkimizda" },
+  { label: "Anlaşmalı Şirketler", href: "/anlasmali-sirketler" },
+  { label: "Sıkça Sorulan Sorular", href: "/sikca-sorulan-sorular" },
+  { label: "İletişim", href: "/iletisim" },
 ];
 
 interface HeaderProps {
-  onQuote: () => void;
+  onQuote?: () => void;
 }
 
 export const Header = ({ onQuote }: HeaderProps) => {
@@ -73,9 +79,9 @@ export const Header = ({ onQuote }: HeaderProps) => {
             transition: "height .25s ease",
           }}
         >
-          <a href="#hero" aria-label="Marer Sigorta" style={{ display: "flex" }}>
+          <Link href="/" aria-label="Marer Sigorta — Ana Sayfa" style={{ display: "flex" }}>
             <LogoMarer iconOnly={scrolled} height={scrolled ? 48 : 60} />
-          </a>
+          </Link>
 
           <nav
             className="desktop-nav"
@@ -118,7 +124,7 @@ export const Header = ({ onQuote }: HeaderProps) => {
                       top: "100%",
                       left: 0,
                       paddingTop: 8,
-                      minWidth: 240,
+                      minWidth: 260,
                       animation: "fadeUp .18s ease",
                     }}
                   >
@@ -132,9 +138,9 @@ export const Header = ({ onQuote }: HeaderProps) => {
                       }}
                     >
                       {item.children.map((c) => (
-                        <a
-                          key={c}
-                          href="#branches"
+                        <Link
+                          key={c.slug}
+                          href={`/${c.slug}`}
                           style={{
                             display: "block",
                             padding: "10px 14px",
@@ -151,8 +157,8 @@ export const Header = ({ onQuote }: HeaderProps) => {
                             e.currentTarget.style.color = "var(--ink-700)";
                           }}
                         >
-                          {c}
-                        </a>
+                          {c.label}
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -163,7 +169,7 @@ export const Header = ({ onQuote }: HeaderProps) => {
 
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <a
-              href="tel:+902120000000"
+              href="tel:+905011014725"
               className="call-now"
               style={{
                 display: "inline-flex",
@@ -206,14 +212,21 @@ export const Header = ({ onQuote }: HeaderProps) => {
               </span>
               <span className="call-now-label">Hemen Ara</span>
             </a>
-            <button
-              className="btn btn-primary btn-sm"
-              onClick={onQuote}
-              type="button"
-            >
-              Teklif Al
-              <I.ArrowRight size={16} />
-            </button>
+            {onQuote ? (
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={onQuote}
+                type="button"
+              >
+                Teklif Al
+                <I.ArrowRight size={16} />
+              </button>
+            ) : (
+              <Link href="/#hero" className="btn btn-primary btn-sm">
+                Teklif Al
+                <I.ArrowRight size={16} />
+              </Link>
+            )}
             <button
               className="mobile-burger"
               onClick={() => setMobileOpen(true)}
@@ -288,7 +301,7 @@ export const Header = ({ onQuote }: HeaderProps) => {
               </button>
             </div>
             {NAV_ITEMS.map((it) => (
-              <a
+              <Link
                 key={it.label}
                 href={it.href}
                 onClick={() => setMobileOpen(false)}
@@ -300,21 +313,32 @@ export const Header = ({ onQuote }: HeaderProps) => {
                 }}
               >
                 {it.label}
-              </a>
+              </Link>
             ))}
-            <button
-              className="btn btn-primary"
-              type="button"
-              style={{ marginTop: 16 }}
-              onClick={() => {
-                setMobileOpen(false);
-                onQuote();
-              }}
-            >
-              Hemen Teklif Al <I.ArrowRight size={16} />
-            </button>
-            <a href="tel:+902120000000" className="btn btn-outline">
-              <I.Phone size={16} /> 0 (212) 555 00 00
+            {onQuote ? (
+              <button
+                className="btn btn-primary"
+                type="button"
+                style={{ marginTop: 16 }}
+                onClick={() => {
+                  setMobileOpen(false);
+                  onQuote();
+                }}
+              >
+                Hemen Teklif Al <I.ArrowRight size={16} />
+              </button>
+            ) : (
+              <Link
+                href="/#hero"
+                className="btn btn-primary"
+                style={{ marginTop: 16 }}
+                onClick={() => setMobileOpen(false)}
+              >
+                Hemen Teklif Al <I.ArrowRight size={16} />
+              </Link>
+            )}
+            <a href="tel:+905011014725" className="btn btn-outline">
+              <I.Phone size={16} /> +90 (501) 101 47 25
             </a>
           </div>
         </div>

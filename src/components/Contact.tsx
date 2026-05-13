@@ -4,6 +4,7 @@ import { useState, type ComponentType, type ReactNode } from "react";
 import Select, { type StylesConfig, type GroupBase } from "react-select";
 import { I, type IconProps } from "./Icons";
 import { SuccessModal } from "./SuccessModal";
+import { submitLead } from "@/lib/lead-client";
 
 interface ServiceOption {
   value: string;
@@ -194,8 +195,14 @@ const ContactRow = ({ Icon, title, value, href, inverse }: ContactRowProps) => {
     gap: 14,
     alignItems: "center",
   };
+  const external = href?.startsWith("http");
   return href ? (
-    <a href={href} style={wrap}>
+    <a
+      href={href}
+      style={wrap}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+    >
       {inner}
     </a>
   ) : (
@@ -227,11 +234,30 @@ export const Contact = () => {
     return Object.keys(e).length === 0;
   };
 
-  const submit = (ev: React.FormEvent) => {
+  const [submitError, setSubmitError] = useState<string>("");
+
+  const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
     if (!validate()) return;
     setStatus("loading");
-    setTimeout(() => setStatus("success"), 1100);
+    setSubmitError("");
+
+    const res = await submitLead({
+      source: "contact_form",
+      fullName: form.name.trim(),
+      phone: form.phone.replace(/\D/g, ""),
+      email: form.email || undefined,
+      message: form.message || undefined,
+      service: form.service || undefined,
+      kvkkConsent: true,
+    });
+
+    if (res.ok) {
+      setStatus("success");
+    } else {
+      setStatus("idle");
+      setSubmitError(res.message ?? "Bir hata oluştu, lütfen tekrar deneyin.");
+    }
   };
 
   return (
@@ -406,10 +432,36 @@ export const Contact = () => {
                   </div>
                 )}
 
+                {submitError && (
+                  <div
+                    role="alert"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      padding: "10px 14px",
+                      borderRadius: 8,
+                      background:
+                        "color-mix(in oklch, #EF4444 10%, white)",
+                      border:
+                        "1px solid color-mix(in oklch, #EF4444 22%, white)",
+                      color: "#B91C1C",
+                      fontSize: 13.5,
+                    }}
+                  >
+                    <I.AlertTriangle size={14} /> {submitError}
+                  </div>
+                )}
+
                 <button
                   type="submit"
                   className="btn btn-primary btn-lg"
-                  style={{ justifyContent: "center" }}
+                  disabled={status === "loading"}
+                  style={{
+                    justifyContent: "center",
+                    opacity: status === "loading" ? 0.7 : 1,
+                    cursor: status === "loading" ? "wait" : "pointer",
+                  }}
                 >
                   {status === "loading" ? (
                     <>
@@ -494,15 +546,15 @@ export const Contact = () => {
                   <ContactRow
                     Icon={I.Phone}
                     title="Telefon"
-                    value="0 (212) 555 00 00"
-                    href="tel:+902120000000"
+                    value="+90 (501) 101 47 25"
+                    href="tel:+905011014725"
                     inverse
                   />
                   <ContactRow
                     Icon={I.Whatsapp}
                     title="WhatsApp"
-                    value="0 (532) 555 00 00"
-                    href="https://wa.me/905320000000"
+                    value="+90 (501) 101 47 25"
+                    href="https://wa.me/905011014725"
                     inverse
                   />
                   <ContactRow
@@ -515,7 +567,8 @@ export const Contact = () => {
                   <ContactRow
                     Icon={I.Pin}
                     title="Adres"
-                    value="Levent Mah. Sigorta Cad. No: 12, Kat: 4, Beşiktaş / İstanbul"
+                    value="Doğu Mah. Ihlamur Sk. No:34 D:2, 34890 Pendik / İstanbul"
+                    href="https://share.google/bHzB3dtVtCEhMBjUQ"
                     inverse
                   />
                   <ContactRow

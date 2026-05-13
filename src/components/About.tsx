@@ -1,4 +1,5 @@
-import { I, InfinityMark } from "./Icons";
+import { UndrawAgreement } from "react-undraw-illustrations";
+import { I } from "./Icons";
 
 export const About = () => (
   <section
@@ -22,124 +23,76 @@ export const About = () => (
         <div
           style={{
             position: "relative",
-            aspectRatio: "1/1",
-            maxHeight: 460,
             width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px 20px 40px",
           }}
         >
           <div
+            aria-hidden
             style={{
               position: "absolute",
-              inset: 0,
-              borderRadius: "var(--radius-xl)",
+              inset: "10% -5%",
+              borderRadius: "40% 60% 55% 45% / 50% 45% 55% 50%",
               background:
-                "linear-gradient(160deg, var(--brand-700), var(--brand-500))",
-              overflow: "hidden",
+                "radial-gradient(circle at 30% 30%, var(--brand-100), transparent 65%)",
+              zIndex: 0,
+            }}
+          />
+          <div
+            style={{
+              position: "relative",
+              zIndex: 1,
+              width: "100%",
+              maxWidth: 480,
+            }}
+          >
+            <UndrawAgreement primaryColor="#56ACD6" height="360px" />
+          </div>
+
+          <div
+            style={{
+              position: "absolute",
+              left: 4,
+              bottom: 4,
+              background: "var(--paper)",
+              padding: "12px 16px",
+              borderRadius: "var(--radius)",
               boxShadow: "var(--shadow-lg)",
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              zIndex: 2,
             }}
           >
             <div
-              aria-hidden
               style={{
-                position: "absolute",
-                top: "-30%",
-                right: "-30%",
-                width: "90%",
-                height: "90%",
-                borderRadius: "50%",
-                background:
-                  "radial-gradient(circle, rgba(255,255,255,0.18), transparent 65%)",
-              }}
-            />
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                bottom: "-25%",
-                left: "-15%",
-                width: "70%",
-                height: "70%",
-                borderRadius: "50%",
-                background:
-                  "radial-gradient(circle, rgba(16,185,129,0.22), transparent 65%)",
-              }}
-            />
-
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: 18,
+                width: 38,
+                height: 38,
+                borderRadius: 10,
+                background: "var(--accent-500)",
                 color: "white",
-                padding: 40,
-                textAlign: "center",
+                display: "grid",
+                placeItems: "center",
               }}
             >
-              <div className="about-mark">
-                <InfinityMark size={88} color="white" stroke={2.4} />
+              <I.Shield size={18} />
+            </div>
+            <div>
+              <div style={{ fontSize: 11.5, color: "var(--ink-500)" }}>
+                Lisanslı Acente
               </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.7)",
-                }}
-              >
-                Marer Sigorta
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(22px, 2.6vw, 30px)",
-                  fontWeight: 700,
-                  lineHeight: 1.2,
-                  maxWidth: 320,
-                }}
-              >
-                Sonsuz güvence, kesintisiz destek.
-              </div>
-              <div
-                style={{
-                  marginTop: 6,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "6px 14px",
-                  borderRadius: 999,
-                  background: "rgba(255,255,255,0.14)",
-                  border: "1px solid rgba(255,255,255,0.25)",
-                  fontSize: 12.5,
-                  fontWeight: 600,
-                  letterSpacing: "0.04em",
-                }}
-              >
-                <span
-                  style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: 999,
-                    background: "var(--accent-500)",
-                  }}
-                />
-                2013&apos;ten beri
-              </div>
+              <div style={{ fontSize: 13, fontWeight: 700 }}>TOBB Levha No</div>
             </div>
           </div>
-
-         
         </div>
 
         <div>
           <div className="eyebrow">Marer Sigorta Hakkında</div>
           <h2 className="section-h">
-            12 yılı aşkın deneyim, tek bir vaat: süreklilik.
+            Tek bir vaat: süreklilik.
           </h2>
           <p
             style={{
@@ -162,14 +115,13 @@ export const About = () => (
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: "repeat(2, 1fr)",
               gap: 16,
               paddingTop: 24,
               borderTop: "1px solid var(--ink-200)",
             }}
           >
             {[
-              { v: "12+", l: "Yıllık tecrübe" },
               { v: "8.500+", l: "Mutlu müşteri" },
               { v: "30+", l: "Şirket anlaşması" },
             ].map((s, i) => (

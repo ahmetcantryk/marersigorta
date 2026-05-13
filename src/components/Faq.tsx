@@ -23,7 +23,7 @@ const FAQ: FaqItem[] = [
   },
   {
     q: "Hasar anında ilk ne yapmalıyım?",
-    a: "Önce can güvenliğinizi sağlayın. Trafik kazasıysa 155'i, yangın/deprem gibi durumlarda 112'yi arayın. Ardından bizi 0 (212) 555 00 00 numaralı acil hattan veya WhatsApp'tan arayın; uzman ekibimiz hasar bildirim sürecini sizin adınıza yönetir.",
+    a: "Önce can güvenliğinizi sağlayın. Trafik kazasıysa 155'i, yangın/deprem gibi durumlarda 112'yi arayın. Ardından bizi +90 (501) 101 47 25 numaralı acil hattan veya WhatsApp&apos;tan arayın; uzman ekibimiz hasar bildirim sürecini sizin adınıza yönetir.",
   },
   {
     q: "Online satın aldığım poliçe ne zaman geçerli olur?",

@@ -1,8 +1,9 @@
 "use client";
 
-import { forwardRef, useState, type ComponentType } from "react";
+import { useState, type ComponentType } from "react";
 import { I, type IconProps } from "./Icons";
 import { SuccessModal } from "./SuccessModal";
+import { submitLead } from "@/lib/lead-client";
 
 type FieldType = "tc" | "plate" | "date" | "text";
 
@@ -126,7 +127,14 @@ const formatPhone = (v: string) => {
 const formatName = (v: string) =>
   v.replace(/[^A-Za-zÇĞİÖŞÜçğıöşü ]/g, "").slice(0, 60);
 
-type Status = "idle" | "loading" | "success";
+type Status = "idle" | "loading" | "success" | "error";
+
+const tabToProduct: Record<string, { slug: string; label: string }> = {
+  trafik: { slug: "zorunlu-trafik-sigortasi", label: "Trafik Sigortası" },
+  kasko: { slug: "kasko-sigortasi", label: "Kasko Sigortası" },
+  konut: { slug: "konut-sigortasi", label: "Konut Sigortası" },
+  saglik: { slug: "tamamlayici-saglik-sigortasi", label: "Tamamlayıcı Sağlık" },
+};
 
 interface QFieldProps {
   label: string;
@@ -226,17 +234,48 @@ const QuoteWidget = () => {
     return Object.keys(e).length === 0;
   };
 
-  const submit = (ev: React.FormEvent) => {
+  const [submitError, setSubmitError] = useState<string>("");
+
+  const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
     if (!validate()) return;
     setStatus("loading");
-    setTimeout(() => setStatus("success"), 1300);
+    setSubmitError("");
+
+    const product = tabToProduct[cur.id];
+    const tc = values.tc?.replace(/\D/g, "");
+    const plaka = values.plaka?.trim().toUpperCase();
+    const birthDate = values.dt;
+    const address = values.il || values.uavt
+      ? [values.il, values.uavt].filter(Boolean).join(" — ")
+      : undefined;
+
+    const res = await submitLead({
+      source: "hero_quote",
+      productSlug: product?.slug,
+      productLabel: product?.label ?? cur.label,
+      fullName: (values.fullname || "").trim(),
+      phone: (values.phone || "").replace(/\D/g, ""),
+      tcKimlik: tc || undefined,
+      plaka: plaka || undefined,
+      birthDate: birthDate || undefined,
+      addressText: address,
+      kvkkConsent: true,
+    });
+
+    if (res.ok) {
+      setStatus("success");
+    } else {
+      setStatus("error");
+      setSubmitError(res.message ?? "Bir hata oluştu, lütfen tekrar deneyin.");
+    }
   };
 
   const reset = () => {
     setStatus("idle");
     setValues({});
     setErrors({});
+    setSubmitError("");
   };
 
   return (
@@ -352,15 +391,37 @@ const QuoteWidget = () => {
             ))}
           </div>
 
+          {status === "error" && submitError && (
+            <div
+              role="alert"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "8px 12px",
+                borderRadius: 8,
+                background: "color-mix(in oklch, #EF4444 10%, white)",
+                border: "1px solid color-mix(in oklch, #EF4444 22%, white)",
+                color: "#B91C1C",
+                fontSize: 13,
+              }}
+            >
+              <I.AlertTriangle size={14} /> {submitError}
+            </div>
+          )}
+
           <button
             type="submit"
             className="btn btn-primary btn-lg"
+            disabled={status === "loading"}
             style={{
               width: "100%",
               justifyContent: "center",
               marginTop: 4,
               background:
                 "linear-gradient(135deg, var(--brand-500), var(--brand-600))",
+              opacity: status === "loading" ? 0.7 : 1,
+              cursor: status === "loading" ? "wait" : "pointer",
             }}
           >
             {status === "loading" ? (
@@ -412,11 +473,10 @@ const HERO_TRUST: { Icon: ComponentType<IconProps>; text: string }[] = [
   { Icon: I.Shield, text: "Hasar anında 7/24 yanınızda" },
 ];
 
-export const Hero = forwardRef<HTMLElement>((_props, ref) => {
+export const Hero = () => {
   return (
     <section
       id="hero"
-      ref={ref}
       style={{
         position: "relative",
         paddingTop: "clamp(48px, 6vw, 80px)",
@@ -518,7 +578,7 @@ export const Hero = forwardRef<HTMLElement>((_props, ref) => {
                 Tüm Hizmetler <I.ArrowRight size={18} />
               </a>
               <a
-                href="tel:+902120000000"
+                href="tel:+905011014725"
                 className="btn btn-lg"
                 style={{
                   color: "white",
@@ -550,6 +610,4 @@ export const Hero = forwardRef<HTMLElement>((_props, ref) => {
 
     </section>
   );
-});
-
-Hero.displayName = "Hero";
+};

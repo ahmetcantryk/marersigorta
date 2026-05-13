@@ -2,11 +2,8 @@
 
 import type { CSSProperties, ComponentType } from "react";
 import {
-  FaFacebookF,
   FaInstagram,
-  FaXTwitter,
   FaLinkedinIn,
-  FaYoutube,
   FaWhatsapp,
 } from "react-icons/fa6";
 
@@ -24,44 +21,23 @@ export interface SocialItem {
 
 export const SOCIAL_ITEMS: SocialItem[] = [
   {
-    key: "facebook",
-    label: "Facebook",
-    href: "https://facebook.com/marersigorta",
-    Icon: FaFacebookF,
-    color: "#1877F2",
-  },
-  {
     key: "instagram",
     label: "Instagram",
-    href: "https://instagram.com/marersigorta",
+    href: "https://www.instagram.com/marer_sigorta/",
     Icon: FaInstagram,
     color: "#E4405F",
   },
   {
-    key: "x",
-    label: "X (Twitter)",
-    href: "https://x.com/marersigorta",
-    Icon: FaXTwitter,
-    color: "#000000",
-  },
-  {
     key: "linkedin",
     label: "LinkedIn",
-    href: "https://linkedin.com/company/marersigorta",
+    href: "https://www.linkedin.com/company/marer-sigorta",
     Icon: FaLinkedinIn,
     color: "#0A66C2",
   },
   {
-    key: "youtube",
-    label: "YouTube",
-    href: "https://youtube.com/@marersigorta",
-    Icon: FaYoutube,
-    color: "#FF0000",
-  },
-  {
     key: "whatsapp",
     label: "WhatsApp",
-    href: "https://wa.me/905320000000",
+    href: "https://wa.me/905011014725",
     Icon: FaWhatsapp,
     color: "#25D366",
   },

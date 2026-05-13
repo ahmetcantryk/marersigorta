@@ -73,9 +73,9 @@ export const Footer = () => (
               maxWidth: 320,
             }}
           >
-            Bağımsız sigorta acentesi olarak 12+ yıldır 30+ sigorta şirketinin en
-            uygun tekliflerini sizin için bir araya getiriyoruz. Sigortanız
-            bizimle, kesintisiz.
+            Bağımsız sigorta acentesi olarak 30+ sigorta şirketinin en uygun
+            tekliflerini sizin için bir araya getiriyoruz. Sigortanız bizimle,
+            kesintisiz.
           </p>
           <div style={{ marginTop: 24 }}>
             <SocialLinks size={38} gap={10} />
@@ -118,18 +118,21 @@ export const Footer = () => (
                 fontSize: 14,
               }}
             >
-              <div
+              <a
+                href="https://share.google/bHzB3dtVtCEhMBjUQ"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{ display: "flex", gap: 10, alignItems: "flex-start" }}
               >
                 <I.Pin size={16} color="var(--brand-300)" />
                 <span>
-                  Levent Mah. Sigorta Cad. No: 12
+                  Doğu Mah. Ihlamur Sk. No:34 D:2
                   <br />
-                  Kat: 4, Beşiktaş / İstanbul
+                  34890 Pendik / İstanbul
                 </span>
-              </div>
+              </a>
               <a
-                href="tel:+902120000000"
+                href="tel:+905011014725"
                 style={{
                   display: "flex",
                   gap: 10,
@@ -138,7 +141,7 @@ export const Footer = () => (
                 }}
               >
                 <I.Phone size={16} color="var(--brand-300)" />
-                <span>0 (212) 555 00 00</span>
+                <span>+90 (501) 101 47 25</span>
               </a>
               <a
                 href="mailto:info@marersigorta.com"

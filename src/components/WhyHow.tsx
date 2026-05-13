@@ -1,5 +1,17 @@
-import type { ComponentType } from "react";
+"use client";
+
+import type { ComponentType, FC } from "react";
+import {
+  UndrawTakingNotes,
+  UndrawChoose,
+  UndrawConfirmed,
+} from "react-undraw-illustrations";
 import { I, InfinityMark, type IconProps } from "./Icons";
+
+interface UndrawComponent {
+  primaryColor?: string;
+  height?: string | number;
+}
 
 interface Value {
   Icon: ComponentType<IconProps>;
@@ -30,21 +42,31 @@ const VALUES: Value[] = [
   },
 ];
 
-const STEPS = [
+interface Step {
+  n: string;
+  title: string;
+  desc: string;
+  Illustration: FC<UndrawComponent>;
+}
+
+const STEPS: Step[] = [
   {
     n: "01",
     title: "Bilgilerinizi paylaşın",
     desc: "Online formu doldurun ya da bizi arayın. Talebinizi kısa sürede iletin.",
+    Illustration: UndrawTakingNotes,
   },
   {
     n: "02",
     title: "Tekliflerinizi inceleyin",
     desc: "Uzman danışmanımız 30+ şirket arasından en uygun seçenekleri karşılaştırarak sunar.",
+    Illustration: UndrawChoose,
   },
   {
     n: "03",
     title: "Poliçeniz anında elinizde",
     desc: "Ödemenizi yapın, poliçeniz e-postanıza dakikalar içinde düşsün. Hasar anında biz buradayız.",
+    Illustration: UndrawConfirmed,
   },
 ];
 
@@ -238,9 +260,24 @@ export const How = () => (
                   fontWeight: 800,
                   color: "var(--brand-500)",
                   boxShadow: "var(--shadow-sm)",
+                  position: "relative",
+                  zIndex: 1,
                 }}
               >
                 {s.n}
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  maxWidth: 240,
+                  margin: "0 auto 20px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: 160,
+                }}
+              >
+                <s.Illustration primaryColor="#56ACD6" height="160px" />
               </div>
               <h3 style={{ fontSize: 19, fontWeight: 700, marginBottom: 8 }}>
                 {s.title}

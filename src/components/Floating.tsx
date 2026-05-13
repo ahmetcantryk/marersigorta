@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { I, InfinityMark } from "./Icons";
 
 export const Floating = () => {
@@ -94,7 +95,7 @@ export const Floating = () => {
       )}
 
       <a
-        href="https://wa.me/905320000000"
+        href="https://wa.me/905011014725"
         aria-label="WhatsApp"
         style={{
           width: 60,
@@ -134,11 +135,7 @@ export const Floating = () => {
   );
 };
 
-interface ExitIntentProps {
-  onQuote: () => void;
-}
-
-export const ExitIntent = ({ onQuote }: ExitIntentProps) => {
+export const ExitIntent = () => {
   const [open, setOpen] = useState(false);
   const fired = useRef(false);
   const [mounted, setMounted] = useState(false);
@@ -244,19 +241,16 @@ export const ExitIntent = ({ onQuote }: ExitIntentProps) => {
         </p>
 
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          <button
-            type="button"
-            onClick={() => {
-              setOpen(false);
-              onQuote();
-            }}
+          <Link
+            href="/#hero"
+            onClick={() => setOpen(false)}
             className="btn btn-primary btn-lg"
             style={{ flex: 1, justifyContent: "center", minWidth: 200 }}
           >
             Hemen teklif al <I.ArrowRight size={18} />
-          </button>
+          </Link>
           <a
-            href="tel:+902120000000"
+            href="tel:+905011014725"
             className="btn btn-outline btn-lg"
             style={{ minWidth: 140, justifyContent: "center" }}
           >

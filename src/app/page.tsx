@@ -1,6 +1,3 @@
-"use client";
-
-import { useCallback, useRef } from "react";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -15,22 +12,16 @@ import { Footer } from "@/components/Footer";
 import { Floating, ExitIntent } from "@/components/Floating";
 
 export default function HomePage() {
-  const heroRef = useRef<HTMLElement>(null);
-
-  const goToQuote = useCallback(() => {
-    heroRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
-
   return (
     <>
       <TopBar />
-      <Header onQuote={goToQuote} />
+      <Header />
       <main>
-        <Hero ref={heroRef} />
+        <Hero />
         <Partners />
-        <Branches onQuote={goToQuote} />
-        <Why />
+        <Branches />
         <How />
+        <Why />
         <Reviews />
         <About />
         <Claims />
@@ -39,7 +30,7 @@ export default function HomePage() {
       </main>
       <Footer />
       <Floating />
-      <ExitIntent onQuote={goToQuote} />
+      <ExitIntent />
     </>
   );
 }

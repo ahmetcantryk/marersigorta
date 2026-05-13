@@ -1,42 +1,37 @@
 "use client";
 
-import { useEffect, useRef, useState, type ComponentType, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
+import Link from "next/link";
 import { I, type IconProps } from "./Icons";
 
 interface Branch {
-  id: string;
+  slug: string;
   Icon: ComponentType<IconProps>;
   title: string;
   desc: string;
 }
 
 const BRANCHES: Branch[] = [
-  { id: "trafik", Icon: I.Car, title: "Trafik Sigortası", desc: "3. şahıs maddi ve bedeni teminatı." },
-  { id: "kasko", Icon: I.CarShield, title: "Kasko Sigortası", desc: "Çarpışma, çalınma ve hasarlara karşı koruma." },
-  { id: "dask", Icon: I.Quake, title: "DASK", desc: "Zorunlu deprem sigortası." },
-  { id: "konut", Icon: I.Home, title: "Konut Sigortası", desc: "Eviniz ve eşyalarınız geniş kapsamlı güvende." },
-  { id: "tss", Icon: I.Heart, title: "Tamamlayıcı Sağlık", desc: "Anlaşmalı özel hastanelerde fark ücreti yok." },
-  { id: "saglik", Icon: I.Hospital, title: "Özel Sağlık", desc: "Yatılı ve ayakta tedavi güvencesi." },
-  { id: "seyahat", Icon: I.Plane, title: "Seyahat Sağlık", desc: "Yurt dışı vize ve seyahat güvencesi." },
-  { id: "yesilkart", Icon: I.Doc, title: "Yeşil Kart Sigortası", desc: "Yurt dışı araç trafik sorumluluk teminatı." },
-  { id: "isyeri", Icon: I.Building, title: "İşyeri Sigortası", desc: "İşyeri, stok ve sorumluluklar tek poliçede." },
-  { id: "ferdi", Icon: I.HandHeart, title: "Ferdi Kaza", desc: "Beklenmedik durumlara bireysel güvence." },
+  { slug: "zorunlu-trafik-sigortasi", Icon: I.Car, title: "Trafik Sigortası", desc: "3. şahıs maddi ve bedeni teminatı." },
+  { slug: "kasko-sigortasi", Icon: I.CarShield, title: "Kasko Sigortası", desc: "Çarpışma, çalınma ve hasarlara karşı koruma." },
+  { slug: "dask-zorunlu-deprem-sigortasi", Icon: I.Quake, title: "DASK", desc: "Zorunlu deprem sigortası." },
+  { slug: "konut-sigortasi", Icon: I.Home, title: "Konut Sigortası", desc: "Eviniz ve eşyalarınız geniş kapsamlı güvende." },
+  { slug: "tamamlayici-saglik-sigortasi", Icon: I.Heart, title: "Tamamlayıcı Sağlık", desc: "Anlaşmalı özel hastanelerde fark ücreti yok." },
+  { slug: "ozel-saglik-sigortasi", Icon: I.Hospital, title: "Özel Sağlık", desc: "Yatılı ve ayakta tedavi güvencesi." },
+  { slug: "seyahat-saglik-sigortasi", Icon: I.Plane, title: "Seyahat Sağlık", desc: "Yurt dışı vize ve seyahat güvencesi." },
+  { slug: "yesil-kart-sigortasi", Icon: I.Doc, title: "Yeşil Kart Sigortası", desc: "Yurt dışı araç trafik sorumluluk teminatı." },
+  { slug: "kobi-isyeri-sigortasi", Icon: I.Building, title: "İşyeri Sigortası", desc: "İşyeri, stok ve sorumluluklar tek poliçede." },
+  { slug: "ferdi-kaza-hayat-sigortasi", Icon: I.HandHeart, title: "Ferdi Kaza", desc: "Beklenmedik durumlara bireysel güvence." },
 ];
 
 interface BranchSlideProps {
   b: Branch;
-  onQuote: () => void;
 }
 
-const BranchSlide = ({ b, onQuote }: BranchSlideProps) => {
-  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    onQuote();
-  };
+const BranchSlide = ({ b }: BranchSlideProps) => {
   return (
-    <a
-      href="#hero"
-      onClick={handleClick}
+    <Link
+      href={`/${b.slug}`}
       className="branch-slide"
       style={{
         scrollSnapAlign: "start",
@@ -101,17 +96,13 @@ const BranchSlide = ({ b, onQuote }: BranchSlideProps) => {
           color: "var(--brand-500)",
         }}
       >
-        Teklif Al <I.ArrowRight size={14} />
+        Detayları Gör <I.ArrowRight size={14} />
       </div>
-    </a>
+    </Link>
   );
 };
 
-interface BranchesProps {
-  onQuote: () => void;
-}
-
-export const Branches = ({ onQuote }: BranchesProps) => {
+export const Branches = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
@@ -212,7 +203,7 @@ export const Branches = ({ onQuote }: BranchesProps) => {
           }}
         >
           {BRANCHES.map((b) => (
-            <BranchSlide key={b.id} b={b} onQuote={onQuote} />
+            <BranchSlide key={b.slug} b={b} />
           ))}
         </div>
       </div>

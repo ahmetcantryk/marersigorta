@@ -1,6 +1,7 @@
 "use client";
 
 import type { ComponentType } from "react";
+import { UndrawActiveSupport } from "react-undraw-illustrations";
 import { I, type IconProps } from "./Icons";
 
 interface ClaimCard {
@@ -50,24 +51,43 @@ export const Claims = () => (
   >
     <div className="container">
       <div
+        className="claims-header"
         style={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "space-between",
+          display: "grid",
+          gridTemplateColumns: "minmax(0,1.2fr) minmax(0,1fr)",
+          alignItems: "center",
+          gap: 32,
           marginBottom: 40,
-          gap: 24,
-          flexWrap: "wrap",
         }}
       >
         <div>
           <div className="eyebrow">Mevcut Müşterilerimiz</div>
-          <h2 className="section-h" style={{ maxWidth: 640 }}>
+          <h2 className="section-h" style={{ maxWidth: 640, marginBottom: 14 }}>
             Hasar ve poliçe işlemleriniz tek noktada.
           </h2>
+          <p
+            className="section-sub"
+            style={{ marginBottom: 22, maxWidth: 540 }}
+          >
+            Hasar bildirimi, poliçe sorgulama ve belge işlemleri için her zaman
+            yanınızdayız.
+          </p>
+          <a href="tel:+905011014725" className="btn btn-outline">
+            <I.Phone size={16} /> Acil hasar hattı
+          </a>
         </div>
-        <a href="tel:+902120000000" className="btn btn-outline">
-          <I.Phone size={16} /> Acil hasar hattı
-        </a>
+        <div
+          className="claims-illustration"
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ width: "100%", maxWidth: 360 }}>
+            <UndrawActiveSupport primaryColor="#56ACD6" height="240px" />
+          </div>
+        </div>
       </div>
 
       <div
