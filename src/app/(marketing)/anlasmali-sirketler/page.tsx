@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { UndrawBusinessDeal } from "react-undraw-illustrations";
 import type { ComponentType } from "react";
 import { I, type IconProps } from "@/components/Icons";
-import { PageHero } from "@/components/marketing/PageHero";
 import { PageBreadcrumb } from "@/components/marketing/PageBreadcrumb";
 import { SectionTitle } from "@/components/marketing/SectionTitle";
 import { PageFinalCta } from "@/components/marketing/PageFinalCta";
@@ -172,17 +170,6 @@ export default function PartnersPage() {
           { label: "Ana Sayfa", href: "/" },
           { label: "Anlaşmalı Şirketler" },
         ]}
-      />
-      <PageHero
-        eyebrow="30+ Sigorta Şirketi"
-        title="Tek çatı altında, en uygun teklif"
-        subtitle="Türkiye'nin önde gelen sigorta şirketleriyle çalışıyoruz. Tek bir şirkete bağlı kalmadan, her ürün için en uygun teklifi bulup size sunuyoruz."
-        badges={[
-          "Tüm büyük sigorta şirketleri",
-          "Tarafsız karşılaştırma",
-          "Aynı gün poliçe garantisi",
-        ]}
-        Illustration={UndrawBusinessDeal}
       />
 
       <section

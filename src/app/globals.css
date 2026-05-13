@@ -813,6 +813,173 @@ html { scroll-behavior: smooth; }
 /* Prevent horizontal scroll on body */
 html, body { overflow-x: hidden; }
 
+/* ---------------- Mobile drawer ---------------- */
+.mobile-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(11, 26, 44, 0.5);
+  animation: fadeUp 0.15s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.mobile-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(380px, 90vw);
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: -16px 0 48px -16px rgba(11, 42, 68, 0.25);
+  animation: slideInRight 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.mobile-drawer-head {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--ink-100);
+  min-height: 68px;
+}
+.mobile-close-btn,
+.mobile-back-btn {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--ink-200);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  color: var(--ink-700);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+.mobile-close-btn { width: 40px; }
+.mobile-back-btn {
+  gap: 6px;
+  padding: 0 14px 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand-500);
+  border-color: var(--brand-100);
+  background: var(--brand-50);
+}
+.mobile-back-btn:hover {
+  background: var(--brand-100);
+}
+
+.mobile-drawer-track {
+  flex: 1;
+  display: flex;
+  width: 200%;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+.mobile-drawer[data-view="services"] .mobile-drawer-track {
+  transform: translateX(-50%);
+}
+.mobile-drawer-pane {
+  flex: 0 0 50%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 16px 20px;
+}
+.mobile-submenu-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-500);
+  padding: 8px 8px 14px;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+}
+.mobile-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 12px;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink-900);
+  border-bottom: 1px solid var(--ink-100);
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  min-height: 52px;
+}
+.mobile-nav-item:hover,
+.mobile-nav-item:active {
+  background: var(--brand-50);
+  color: var(--brand-700);
+}
+.mobile-nav-item:last-child { border-bottom: none; }
+.mobile-nav-trigger { width: 100%; }
+
+.mobile-drawer-cta {
+  flex-shrink: 0;
+  padding: 16px 18px calc(16px + env(safe-area-inset-bottom));
+  background: var(--paper);
+  border-top: 1px solid var(--ink-100);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 -8px 24px -16px rgba(11, 42, 68, 0.18);
+}
+.mobile-cta-primary {
+  width: 100%;
+  justify-content: center;
+  min-height: 48px;
+}
+.mobile-cta-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.mobile-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 700;
+  transition: transform 0.15s ease, filter 0.2s ease;
+}
+.mobile-cta-secondary:active {
+  transform: scale(0.97);
+}
+.mobile-cta-call {
+  background: var(--paper);
+  color: var(--brand-700);
+  border: 1.5px solid var(--brand-200);
+}
+.mobile-cta-call:hover {
+  border-color: var(--brand-500);
+  background: var(--brand-50);
+}
+.mobile-cta-wa {
+  background: #25d366;
+  color: white;
+}
+.mobile-cta-wa:hover {
+  filter: brightness(1.05);
+}
+
 /* 404 not-found page */
 .nf-link-card:hover {
   transform: translateY(-2px);

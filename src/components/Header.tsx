@@ -42,16 +42,34 @@ interface HeaderProps {
   onQuote?: () => void;
 }
 
+type MobileView = "main" | "services";
+
 export const Header = ({ onQuote }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileView, setMobileView] = useState<MobileView>("main");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) {
+      // reset to main view whenever drawer closes
+      const t = setTimeout(() => setMobileView("main"), 250);
+      return () => clearTimeout(t);
+    }
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const closeMobile = () => setMobileOpen(false);
+  const servicesItem = NAV_ITEMS.find((i) => i.children);
 
   return (
     <>
@@ -250,96 +268,132 @@ export const Header = ({ onQuote }: HeaderProps) => {
 
       {mobileOpen && (
         <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 100,
-            background: "rgba(11,26,44,0.5)",
-            animation: "fadeUp .15s ease",
-          }}
-          onClick={() => setMobileOpen(false)}
+          className="mobile-drawer-backdrop"
+          onClick={closeMobile}
         >
           <div
+            className="mobile-drawer"
             onClick={(e) => e.stopPropagation()}
-            style={{
-              position: "absolute",
-              top: 0,
-              right: 0,
-              bottom: 0,
-              width: "min(360px, 86vw)",
-              background: "var(--paper)",
-              padding: 24,
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-            }}
+            data-view={mobileView}
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: 16,
-              }}
-            >
-              <LogoMarer />
+            <div className="mobile-drawer-head">
+              {mobileView === "services" ? (
+                <button
+                  type="button"
+                  onClick={() => setMobileView("main")}
+                  aria-label="Geri"
+                  className="mobile-back-btn"
+                >
+                  <I.ChevronLeft size={18} />
+                  <span>Geri</span>
+                </button>
+              ) : (
+                <LogoMarer />
+              )}
               <button
-                onClick={() => setMobileOpen(false)}
                 type="button"
-                aria-label="Kapat"
-                style={{
-                  width: 42,
-                  height: 42,
-                  borderRadius: 10,
-                  border: "1px solid var(--ink-200)",
-                  display: "grid",
-                  placeItems: "center",
-                  background: "var(--paper)",
-                }}
+                onClick={closeMobile}
+                aria-label="Menüyü kapat"
+                className="mobile-close-btn"
               >
                 <I.Close size={20} />
               </button>
             </div>
-            {NAV_ITEMS.map((it) => (
-              <Link
-                key={it.label}
-                href={it.href}
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  padding: "14px 12px",
-                  fontSize: 16,
-                  fontWeight: 500,
-                  borderBottom: "1px solid var(--ink-100)",
-                }}
-              >
-                {it.label}
-              </Link>
-            ))}
-            {onQuote ? (
-              <button
-                className="btn btn-primary"
-                type="button"
-                style={{ marginTop: 16 }}
-                onClick={() => {
-                  setMobileOpen(false);
-                  onQuote();
-                }}
-              >
-                Hemen Teklif Al <I.ArrowRight size={16} />
-              </button>
-            ) : (
-              <Link
-                href="/#hero"
-                className="btn btn-primary"
-                style={{ marginTop: 16 }}
-                onClick={() => setMobileOpen(false)}
-              >
-                Hemen Teklif Al <I.ArrowRight size={16} />
-              </Link>
-            )}
-            <a href="tel:+905011014725" className="btn btn-outline">
-              <I.Phone size={16} /> +90 (501) 101 47 25
-            </a>
+
+            <div className="mobile-drawer-track">
+              {/* MAIN VIEW */}
+              <div className="mobile-drawer-pane">
+                <nav className="mobile-nav" aria-label="Ana menü">
+                  {NAV_ITEMS.map((it) => {
+                    if (it.children) {
+                      return (
+                        <button
+                          key={it.label}
+                          type="button"
+                          onClick={() => setMobileView("services")}
+                          className="mobile-nav-item mobile-nav-trigger"
+                        >
+                          <span>{it.label}</span>
+                          <I.ChevronRight size={18} />
+                        </button>
+                      );
+                    }
+                    return (
+                      <Link
+                        key={it.label}
+                        href={it.href}
+                        onClick={closeMobile}
+                        className="mobile-nav-item"
+                      >
+                        <span>{it.label}</span>
+                        <I.ChevronRight size={16} color="var(--ink-300)" />
+                      </Link>
+                    );
+                  })}
+                </nav>
+              </div>
+
+              {/* SERVICES VIEW */}
+              <div className="mobile-drawer-pane">
+                <div className="mobile-submenu-title">Hizmetlerimiz</div>
+                <nav className="mobile-nav" aria-label="Hizmetler">
+                  {servicesItem?.children?.map((c) => (
+                    <Link
+                      key={c.slug}
+                      href={`/${c.slug}`}
+                      onClick={closeMobile}
+                      className="mobile-nav-item"
+                    >
+                      <span>{c.label}</span>
+                      <I.ChevronRight size={16} color="var(--ink-300)" />
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            </div>
+
+            <div className="mobile-drawer-cta">
+              {onQuote ? (
+                <button
+                  type="button"
+                  className="btn btn-primary mobile-cta-primary"
+                  onClick={() => {
+                    closeMobile();
+                    onQuote();
+                  }}
+                >
+                  Hemen Teklif Al <I.ArrowRight size={16} />
+                </button>
+              ) : (
+                <Link
+                  href="/#hero"
+                  className="btn btn-primary mobile-cta-primary"
+                  onClick={closeMobile}
+                >
+                  Hemen Teklif Al <I.ArrowRight size={16} />
+                </Link>
+              )}
+              <div className="mobile-cta-row">
+                <a
+                  href="tel:+905011014725"
+                  className="mobile-cta-secondary mobile-cta-call"
+                  aria-label="Telefonla ara"
+                >
+                  <I.Phone size={16} />
+                  <span>Ara</span>
+                </a>
+                <a
+                  href="https://wa.me/905011014725"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mobile-cta-secondary mobile-cta-wa"
+                  aria-label="WhatsApp ile yaz"
+                >
+                  <I.Whatsapp size={16} />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       )}
