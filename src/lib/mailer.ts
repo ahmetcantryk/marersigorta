@@ -1,4 +1,5 @@
 import nodemailer, { type Transporter } from "nodemailer";
+import { MAIL_RECIPIENTS } from "@/config/mail-recipients";
 import type { LeadInput } from "./lead-schema";
 
 let cached: Transporter | null = null;
@@ -132,7 +133,9 @@ export async function sendLeadEmail(opts: LeadEmailOptions): Promise<void> {
 
   await transporter.sendMail({
     from: process.env.MAIL_FROM ?? "noreply@marersigorta.com",
-    to: process.env.MAIL_TO ?? "info@marersigorta.com",
+    to: MAIL_RECIPIENTS.to,
+    cc: MAIL_RECIPIENTS.cc,
+    bcc: MAIL_RECIPIENTS.bcc,
     replyTo: opts.lead.email ?? undefined,
     subject,
     html: buildHtml(opts),

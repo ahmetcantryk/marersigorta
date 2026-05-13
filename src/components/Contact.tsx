@@ -152,38 +152,42 @@ const ContactRow = ({ Icon, title, value, href, inverse }: ContactRowProps) => {
     <>
       <div
         style={{
-          width: 40,
-          height: 40,
-          borderRadius: 10,
-          background: inverse ? "rgba(255,255,255,0.14)" : "var(--brand-50)",
+          width: 44,
+          height: 44,
+          borderRadius: 12,
+          background: inverse ? "rgba(255,255,255,0.16)" : "var(--brand-50)",
           color: inverse ? "white" : "var(--brand-500)",
           display: "grid",
           placeItems: "center",
           flexShrink: 0,
-          border: inverse ? "1px solid rgba(255,255,255,0.16)" : "none",
+          border: inverse ? "1px solid rgba(255,255,255,0.2)" : "none",
         }}
       >
-        <Icon size={18} />
+        <Icon size={20} />
       </div>
-      <div>
+      <div style={{ minWidth: 0, flex: 1 }}>
         <div
           style={{
-            fontSize: 12,
-            opacity: inverse ? 0.75 : 1,
+            fontSize: 11.5,
+            opacity: inverse ? 0.8 : 1,
             color: inverse ? "white" : "var(--ink-500)",
-            letterSpacing: ".05em",
+            letterSpacing: ".08em",
             textTransform: "uppercase",
-            fontWeight: 600,
+            fontWeight: 700,
+            marginBottom: 4,
           }}
         >
           {title}
         </div>
         <div
           style={{
-            fontSize: 15,
-            fontWeight: 600,
-            marginTop: 2,
+            fontFamily: "var(--font-display)",
+            fontSize: 15.5,
+            fontWeight: 700,
             color: inverse ? "white" : "var(--ink-900)",
+            letterSpacing: "-0.005em",
+            lineHeight: 1.4,
+            wordBreak: "break-word",
           }}
         >
           {value}
@@ -194,7 +198,7 @@ const ContactRow = ({ Icon, title, value, href, inverse }: ContactRowProps) => {
   const wrap: React.CSSProperties = {
     display: "flex",
     gap: 14,
-    alignItems: "center",
+    alignItems: "flex-start",
   };
   const external = href?.startsWith("http");
   return href ? (
@@ -303,10 +307,10 @@ export const Contact = () => {
           className="contact-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)",
-            gap: 18,
+            gridTemplateColumns: "minmax(0,1.25fr) minmax(0,1fr)",
+            gap: 24,
             alignItems: "start",
-            maxWidth: 1080,
+            maxWidth: 1120,
             margin: "0 auto",
           }}
         >
@@ -387,6 +391,24 @@ export const Contact = () => {
                     />
                   </Field>
                 </div>
+
+                <Field label="Mesajınız (opsiyonel)">
+                  <textarea
+                    value={form.message}
+                    onChange={(e) =>
+                      set("message", e.target.value.slice(0, 1000))
+                    }
+                    placeholder="Eklemek istediğiniz detaylar varsa buraya yazabilirsiniz."
+                    rows={3}
+                    style={{
+                      ...inputStyle(false),
+                      resize: "vertical",
+                      minHeight: 84,
+                      fontFamily: "inherit",
+                      lineHeight: 1.55,
+                    }}
+                  />
+                </Field>
 
                 <label
                   style={{
@@ -507,7 +529,7 @@ export const Contact = () => {
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div
               style={{
-                padding: 24,
+                padding: "28px 26px",
                 borderRadius: "var(--radius-xl)",
                 background:
                   "linear-gradient(135deg, var(--brand-700), var(--brand-500))",
@@ -522,8 +544,8 @@ export const Contact = () => {
                   position: "absolute",
                   right: -40,
                   top: -40,
-                  width: 200,
-                  height: 200,
+                  width: 220,
+                  height: 220,
                   borderRadius: 999,
                   background:
                     "radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%)",
@@ -532,20 +554,31 @@ export const Contact = () => {
               <div style={{ position: "relative" }}>
                 <div
                   style={{
-                    fontSize: 13,
-                    opacity: 0.8,
-                    marginBottom: 6,
-                    letterSpacing: ".08em",
+                    fontSize: 11.5,
+                    fontWeight: 700,
+                    opacity: 0.85,
+                    marginBottom: 8,
+                    letterSpacing: ".12em",
                     textTransform: "uppercase",
                   }}
                 >
                   Bize Ulaşın
                 </div>
-                <h3 style={{ color: "white", fontSize: 20, marginBottom: 18 }}>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    color: "white",
+                    fontSize: 22,
+                    fontWeight: 700,
+                    lineHeight: 1.3,
+                    marginBottom: 22,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
                   Sorularınız için 7/24 yanınızdayız.
                 </h3>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
                   <ContactRow
                     Icon={I.Phone}
                     title="Telefon"

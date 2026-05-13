@@ -33,6 +33,7 @@ interface FormState {
   plaka: string;
   birthDate: string;
   addressText: string;
+  message: string;
   kvkk: boolean;
 }
 
@@ -44,6 +45,7 @@ const INITIAL: FormState = {
   plaka: "",
   birthDate: "",
   addressText: "",
+  message: "",
   kvkk: false,
 };
 
@@ -127,6 +129,7 @@ export const ProductQuoteForm = ({
       plaka: fields.plaka ? form.plaka.trim().toUpperCase() : undefined,
       birthDate: fields.birthDate ? form.birthDate : undefined,
       addressText: fields.addressText ? form.addressText.trim() : undefined,
+      message: form.message.trim() || undefined,
       kvkkConsent: true,
     });
 
@@ -243,6 +246,17 @@ export const ProductQuoteForm = ({
                 />
               )}
             </div>
+
+            <label className="qf-field">
+              <span className="qf-label">Mesaj (opsiyonel)</span>
+              <textarea
+                value={form.message}
+                onChange={(e) => update("message", e.target.value.slice(0, 800))}
+                placeholder="Eklemek istediğiniz detaylar varsa buraya yazabilirsiniz."
+                rows={3}
+                className="qf-input qf-textarea"
+              />
+            </label>
 
             <label
               className={`qf-kvkk${errors.kvkk ? " qf-kvkk-error" : ""}`}
