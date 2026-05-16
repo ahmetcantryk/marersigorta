@@ -51,7 +51,7 @@ const SERVICE_GROUPS: ServiceGroup[] = [
 ];
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Hizmetlerimiz", href: "/#branches", groups: SERVICE_GROUPS },
+  { label: "Ürünlerimiz", href: "/#branches", groups: SERVICE_GROUPS },
   { label: "Hakkımızda", href: "/hakkimizda" },
   { label: "Anlaşmalı Şirketler", href: "/anlasmali-sirketler" },
   { label: "Sıkça Sorulan Sorular", href: "/sikca-sorulan-sorular" },
@@ -681,7 +681,7 @@ export const Header = ({ onQuote }: HeaderProps) => {
               </div>
 
               <div className="mobile-drawer-pane">
-                <div className="mobile-submenu-title">Hizmetlerimiz</div>
+                <div className="mobile-submenu-title">Ürünlerimiz</div>
                 {servicesItem?.groups?.map((g) => (
                   <MobileGroup
                     key={g.label}

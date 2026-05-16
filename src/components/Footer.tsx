@@ -49,9 +49,10 @@ const FooterCol = ({ title, links, custom }: FooterColProps) => (
   </div>
 );
 
-const SERVICES: FooterLink[] = [
-  { label: "Trafik Sigortası", href: "/zorunlu-trafik-sigortasi" },
+/** İki alt-grup başlığı (Bireysel / Kurumsal) — Header mega menüsüyle aynı yapı */
+const FOOTER_PRODUCTS_INDIVIDUAL: FooterLink[] = [
   { label: "Kasko Sigortası", href: "/kasko-sigortasi" },
+  { label: "Trafik Sigortası", href: "/zorunlu-trafik-sigortasi" },
   { label: "DASK", href: "/dask-zorunlu-deprem-sigortasi" },
   { label: "Konut Sigortası", href: "/konut-sigortasi" },
   { label: "Tamamlayıcı Sağlık", href: "/tamamlayici-saglik-sigortasi" },
@@ -59,13 +60,16 @@ const SERVICES: FooterLink[] = [
   { label: "Seyahat Sağlık", href: "/seyahat-saglik-sigortasi" },
   { label: "Yeşil Kart", href: "/yesil-kart-sigortasi" },
   { label: "Ferdi Kaza & Hayat", href: "/ferdi-kaza-hayat-sigortasi" },
-  { label: "İşyeri / KOBİ", href: "/kobi-isyeri-sigortasi" },
-  { label: "Nakliyat Sigortası", href: "/nakliyat-sigortasi" },
-  { label: "Yat ve Tekne Sigortası", href: "/yat-tekne-sigortasi" },
-  { label: "Mühendislik Sigortaları", href: "/muhendislik-sigortalari" },
 ];
 
-const CORPORATE: FooterLink[] = [
+const FOOTER_PRODUCTS_CORPORATE: FooterLink[] = [
+  { label: "İşyeri Sigortası", href: "/kobi-isyeri-sigortasi" },
+  { label: "Mühendislik Sigortaları", href: "/muhendislik-sigortalari" },
+  { label: "Nakliyat Sigortası", href: "/nakliyat-sigortasi" },
+  { label: "Yat ve Tekne Sigortası", href: "/yat-tekne-sigortasi" },
+];
+
+const CORPORATE_PAGES: FooterLink[] = [
   { label: "Hakkımızda", href: "/hakkimizda" },
   { label: "Anlaşmalı Şirketler", href: "/anlasmali-sirketler" },
   { label: "Sıkça Sorulan Sorular", href: "/sikca-sorulan-sorular" },
@@ -87,11 +91,12 @@ export const Footer = () => (
         className="footer-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "1.4fr 1fr 1fr 1.2fr",
-          gap: 40,
+          gridTemplateColumns: "1.3fr 1fr 1fr 0.9fr 1.2fr",
+          gap: 36,
           marginBottom: 56,
         }}
       >
+        {/* 1 — Marka tanıtım */}
         <div>
           <LogoMarer inverse />
           <p
@@ -111,8 +116,22 @@ export const Footer = () => (
           </div>
         </div>
 
-        <FooterCol title="Hizmetler" links={SERVICES} />
-        <FooterCol title="Kurumsal" links={CORPORATE} />
+        {/* 2 — Ürünlerimiz: Bireysel */}
+        <FooterCol
+          title="Ürünlerimiz — Bireysel"
+          links={FOOTER_PRODUCTS_INDIVIDUAL}
+        />
+
+        {/* 3 — Ürünlerimiz: Kurumsal */}
+        <FooterCol
+          title="Ürünlerimiz — Kurumsal"
+          links={FOOTER_PRODUCTS_CORPORATE}
+        />
+
+        {/* 4 — Kurumsal sayfalar */}
+        <FooterCol title="Kurumsal" links={CORPORATE_PAGES} />
+
+        {/* 5 — İletişim */}
         <FooterCol
           title="İletişim"
           custom={
