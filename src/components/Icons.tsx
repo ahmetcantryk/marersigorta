@@ -257,6 +257,67 @@ export const I = {
       <path d="M16 4c2 .3 3.7 2 4 4M15.5 7.5c1 .2 1.8 1 2 2" />
     </Stroke>
   ),
+  Truck: (p: IconProps) => (
+    <Stroke {...p}>
+      <path d="M3 7h11v9H3z" />
+      <path d="M14 10h4l3 3v3h-7" />
+      <circle cx="7" cy="18" r="1.6" />
+      <circle cx="17" cy="18" r="1.6" />
+    </Stroke>
+  ),
+  Boat: (p: IconProps) => (
+    <Stroke {...p}>
+      <path d="M3 16h18l-2 4H5l-2-4Z" />
+      <path d="M5 16V9l7-5 7 5v7" />
+      <path d="M12 4v12" />
+    </Stroke>
+  ),
+  Wrench: (p: IconProps) => (
+    <Stroke {...p}>
+      <path d="M15 3a5 5 0 0 1 4.7 6.7L21 11l-2 2-1.3-1.3A5 5 0 0 1 11 7L4.3 13.7a2 2 0 1 0 2.8 2.8L13.8 9.8" />
+    </Stroke>
+  ),
+  Anchor: (p: IconProps) => (
+    <Stroke {...p}>
+      <circle cx="12" cy="5" r="2" />
+      <path d="M12 7v14" />
+      <path d="M9 11h6" />
+      <path d="M5 15a7 7 0 0 0 14 0" />
+    </Stroke>
+  ),
+  Package: (p: IconProps) => (
+    <Stroke {...p}>
+      <path d="m12 3 9 5v8l-9 5-9-5V8l9-5Z" />
+      <path d="m3 8 9 5 9-5M12 13v8" />
+    </Stroke>
+  ),
+  Globe: (p: IconProps) => (
+    <Stroke {...p}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+    </Stroke>
+  ),
+  Factory: (p: IconProps) => (
+    <Stroke {...p}>
+      <path d="M3 21V10l5 3V10l5 3V8l8 3v10H3Z" />
+      <path d="M7 17h2M12 17h2M17 17h2" />
+    </Stroke>
+  ),
+  Crane: (p: IconProps) => (
+    <Stroke {...p}>
+      <path d="M3 4h12l-2 3M5 4v17" />
+      <path d="M13 7v5h6" />
+      <path d="M19 12v3a2 2 0 0 1-2 2h-2" />
+      <rect x="3" y="19" width="6" height="2" />
+    </Stroke>
+  ),
+  Chip: (p: IconProps) => (
+    <Stroke {...p}>
+      <rect x="6" y="6" width="12" height="12" rx="2" />
+      <path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" />
+      <rect x="9" y="9" width="6" height="6" />
+    </Stroke>
+  ),
 } as const;
 
 export interface InfinityMarkProps {

@@ -13,6 +13,8 @@ import {
   formatBirthDate,
   phoneDigits,
   validateTRMobile,
+  validateTCKimlik,
+  validatePlate,
   getProductFields,
 } from "@/lib/form-utils";
 import { submitLead } from "@/lib/lead-client";
@@ -82,17 +84,16 @@ export const ProductQuoteForm = ({
     if (phoneCheck !== true) e.phone = phoneCheck;
 
     if (fields.tcKimlik) {
-      if (!form.tcKimlik) e.tcKimlik = "TC kimlik gerekli";
-      else if (form.tcKimlik.length !== 11) e.tcKimlik = "11 haneli olmalı";
+      const tcCheck = validateTCKimlik(form.tcKimlik);
+      if (tcCheck !== true) e.tcKimlik = tcCheck;
     }
     if (fields.vkn) {
       if (!form.vkn) e.vkn = "VKN gerekli";
       else if (form.vkn.length !== 10) e.vkn = "10 haneli olmalı";
     }
     if (fields.plaka) {
-      if (!form.plaka.trim()) e.plaka = "Plaka gerekli";
-      else if (form.plaka.replace(/\s/g, "").length < 5)
-        e.plaka = "Geçerli plaka girin";
+      const plateCheck = validatePlate(form.plaka);
+      if (plateCheck !== true) e.plaka = plateCheck;
     }
     if (fields.birthDate) {
       if (!form.birthDate) e.birthDate = "Doğum tarihi gerekli";
@@ -220,6 +221,7 @@ export const ProductQuoteForm = ({
                   value={form.plaka}
                   onChange={(v) => update("plaka", formatPlate(v))}
                   placeholder="34 ABC 123"
+                  maxLength={10}
                 />
               )}
               {fields.birthDate && (
@@ -343,6 +345,7 @@ interface FieldProps {
   placeholder?: string;
   inputMode?: "text" | "tel" | "numeric";
   autoComplete?: string;
+  maxLength?: number;
 }
 
 const Field = ({
@@ -353,6 +356,7 @@ const Field = ({
   placeholder,
   inputMode,
   autoComplete,
+  maxLength,
 }: FieldProps) => (
   <label className="qf-field">
     <span className="qf-label">{label}</span>
@@ -362,6 +366,7 @@ const Field = ({
       placeholder={placeholder}
       inputMode={inputMode}
       autoComplete={autoComplete}
+      maxLength={maxLength}
       aria-invalid={Boolean(error)}
       className={`qf-input${error ? " qf-input-error" : ""}`}
     />

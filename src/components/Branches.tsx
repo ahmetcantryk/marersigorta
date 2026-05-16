@@ -12,16 +12,19 @@ interface Branch {
 }
 
 const BRANCHES: Branch[] = [
-  { slug: "zorunlu-trafik-sigortasi", Icon: I.Car, title: "Trafik Sigortası", desc: "3. şahıs maddi ve bedeni teminatı." },
-  { slug: "kasko-sigortasi", Icon: I.CarShield, title: "Kasko Sigortası", desc: "Çarpışma, çalınma ve hasarlara karşı koruma." },
-  { slug: "dask-zorunlu-deprem-sigortasi", Icon: I.Quake, title: "DASK", desc: "Zorunlu deprem sigortası." },
-  { slug: "konut-sigortasi", Icon: I.Home, title: "Konut Sigortası", desc: "Eviniz ve eşyalarınız geniş kapsamlı güvende." },
-  { slug: "tamamlayici-saglik-sigortasi", Icon: I.Heart, title: "Tamamlayıcı Sağlık", desc: "Anlaşmalı özel hastanelerde fark ücreti yok." },
-  { slug: "ozel-saglik-sigortasi", Icon: I.Hospital, title: "Özel Sağlık", desc: "Yatılı ve ayakta tedavi güvencesi." },
-  { slug: "seyahat-saglik-sigortasi", Icon: I.Plane, title: "Seyahat Sağlık", desc: "Yurt dışı vize ve seyahat güvencesi." },
+  { slug: "zorunlu-trafik-sigortasi", Icon: I.Car, title: "Trafik Sigortası", desc: "3. şahıs maddi ve bedeni zararları yasal teminat altına alır." },
+  { slug: "kasko-sigortasi", Icon: I.CarShield, title: "Kasko Sigortası", desc: "Aracınızı çarpma, çalınma, yanma ve doğal afet gibi durumlarda oluşabilecek zararlara karşı korur." },
+  { slug: "dask-zorunlu-deprem-sigortasi", Icon: I.Quake, title: "DASK", desc: "Zorunlu deprem sigortası ile konutunuzu yasal güvence altına alır." },
+  { slug: "konut-sigortasi", Icon: I.Home, title: "Konut Sigortası", desc: "Evinizi ve içindeki eşyaları yangın, hırsızlık, sel/su baskını gibi risklere karşı güvence altına alır." },
+  { slug: "tamamlayici-saglik-sigortasi", Icon: I.Heart, title: "Tamamlayıcı Sağlık", desc: "SGK anlaşmalı özel hastanelerde fark ücreti ödemeden sağlık hizmeti alabilirsiniz." },
+  { slug: "ozel-saglik-sigortasi", Icon: I.Hospital, title: "Özel Sağlık", desc: "SGK şartı olmadan özel hastanelerde sağlık hizmetlerinden yararlanmanızı sağlar." },
+  { slug: "seyahat-saglik-sigortasi", Icon: I.Plane, title: "Seyahat Sağlık", desc: "Yurt dışı vize ve seyahat süresince sağlık güvencesi." },
   { slug: "yesil-kart-sigortasi", Icon: I.Doc, title: "Yeşil Kart Sigortası", desc: "Yurt dışı araç trafik sorumluluk teminatı." },
-  { slug: "kobi-isyeri-sigortasi", Icon: I.Building, title: "İşyeri Sigortası", desc: "İşyeri, stok ve sorumluluklar tek poliçede." },
-  { slug: "ferdi-kaza-hayat-sigortasi", Icon: I.HandHeart, title: "Ferdi Kaza", desc: "Beklenmedik durumlara bireysel güvence." },
+  { slug: "kobi-isyeri-sigortasi", Icon: I.Building, title: "İşyeri Sigortası", desc: "İşletmenizi yangın, hırsızlık, sel/su baskını ve benzeri risklere karşı güvence altına alır." },
+  { slug: "ferdi-kaza-hayat-sigortasi", Icon: I.HandHeart, title: "Ferdi Kaza & Hayat", desc: "Beklenmedik durumlara karşı bireysel ve aile güvencesi." },
+  { slug: "muhendislik-sigortalari", Icon: I.Wrench, title: "Mühendislik Sigortaları", desc: "İnşaat, montaj, makine kırılması ve elektronik cihaz için tam koruma." },
+  { slug: "nakliyat-sigortasi", Icon: I.Truck, title: "Nakliyat Sigortası", desc: "İthalat, ihracat ve yurt içi sevkiyatlarınız için ICC klozlarıyla emtia güvencesi." },
+  { slug: "yat-tekne-sigortasi", Icon: I.Boat, title: "Yat ve Tekne Sigortası", desc: "Institute Yacht Clauses standardında deniz, marina ve çekek dahil tam koruma." },
 ];
 
 interface BranchSlideProps {
@@ -163,7 +166,7 @@ export const Branches = () => {
               Her ihtiyaca uygun, sonsuz güvence
             </h2>
             <p className="section-sub" style={{ margin: 0 }}>
-              9 ana branşta uçtan uca poliçe çözümleri.
+              Bireysel ve kurumsal sigorta branşlarında uçtan uca poliçe çözümleri.
             </p>
           </div>
 

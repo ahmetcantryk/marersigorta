@@ -58,8 +58,11 @@ const SERVICES: FooterLink[] = [
   { label: "Özel Sağlık", href: "/ozel-saglik-sigortasi" },
   { label: "Seyahat Sağlık", href: "/seyahat-saglik-sigortasi" },
   { label: "Yeşil Kart", href: "/yesil-kart-sigortasi" },
-  { label: "İşyeri / KOBİ", href: "/kobi-isyeri-sigortasi" },
   { label: "Ferdi Kaza & Hayat", href: "/ferdi-kaza-hayat-sigortasi" },
+  { label: "İşyeri / KOBİ", href: "/kobi-isyeri-sigortasi" },
+  { label: "Nakliyat Sigortası", href: "/nakliyat-sigortasi" },
+  { label: "Yat ve Tekne Sigortası", href: "/yat-tekne-sigortasi" },
+  { label: "Mühendislik Sigortaları", href: "/muhendislik-sigortalari" },
 ];
 
 const CORPORATE: FooterLink[] = [
@@ -165,7 +168,12 @@ export const Footer = () => (
                 <span>
                   Hafta içi 09:00 – 18:00
                   <br />
-                  Cumartesi 10:00 – 14:00
+                  Cumartesi 09:00 – 17:00
+                  <br />
+                  <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 12 }}>
+                    Ofis saatleri dışında bize 7/24 WhatsApp&apos;tan
+                    ulaşabilirsiniz.
+                  </span>
                 </span>
               </div>
             </div>

@@ -62,7 +62,7 @@ export const TopBar = () => {
             }}
           >
             <I.Clock size={14} />
-            Hafta içi 09:00 – 18:00
+            Hafta içi 09:00 – 18:00 · Cmt 09:00 – 17:00 · 7/24 WhatsApp
           </span>
         </div>
 

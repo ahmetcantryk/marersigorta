@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { VALID_TR_MOBILE_PREFIXES } from "./form-utils";
+import {
+  VALID_TR_MOBILE_PREFIXES,
+  validateTCKimlik,
+  validatePlate,
+  splitPlate,
+} from "./form-utils";
 
 const turkishLettersRegex = /^[A-Za-zÇĞİÖŞÜçğıöşü ]+$/;
 
@@ -40,20 +45,28 @@ export const phoneSchema = z
 export const tcSchema = z
   .string()
   .transform((v) => v.replace(/\D/g, ""))
-  .refine((d) => d.length === 11, "11 haneli TC kimlik girin");
+  .refine((d) => {
+    const r = validateTCKimlik(d);
+    return r === true;
+  }, "Geçersiz TC kimlik no");
 
 export const vknSchema = z
   .string()
   .transform((v) => v.replace(/\D/g, ""))
   .refine((d) => d.length === 10, "10 haneli VKN girin");
 
+/**
+ * Plaka — algoritmik validasyon (il kodu 01–81, harf/rakam kombinasyonu).
+ * Kabul edilen formatlar: NN L NNNN, NN LL NNN/NNNN, NN LLL NN/NNN
+ * Server'a normalize edilmiş halde (boşluksuz, uppercase) yazılır.
+ */
 export const plakaSchema = z
   .string()
-  .trim()
-  .toUpperCase()
-  .min(5, "Geçerli plaka girin")
-  .max(10, "Plaka çok uzun")
-  .regex(/^[0-9A-ZÇĞİÖŞÜ ]+$/, "Sadece harf ve rakam");
+  .refine((v) => validatePlate(v) === true, "Geçerli plaka girin")
+  .transform((v) => {
+    const { city, letters, nums } = splitPlate(v);
+    return `${city} ${letters} ${nums}`;
+  });
 
 export const birthDateSchema = z
   .string()

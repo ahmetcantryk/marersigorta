@@ -15,13 +15,14 @@ const PARTNERS = [
   "Aksigorta",
   "Zurich",
   "Sompo",
-  "Generali",
+  "Referans",
   "Doğa",
   "Neova",
   "Unico",
   "Türk Nippon",
-  "Groupama",
   "Eureko",
+  "GIG",
+  "Emaa",
 ];
 
 interface PartnerWordmarkProps {

@@ -102,14 +102,27 @@ export const About = () => (
               marginTop: 14,
             }}
           >
-            2013&apos;ten bu yana İstanbul merkezli ofisimizden tüm Türkiye&apos;ye
-            sigortacılık hizmeti sunuyoruz. Bireysel müşterilerden KOBİ&apos;lere
-            kadar geniş bir portföyle çalışıyoruz.
+            2023 yılından bu yana İstanbul merkezli ofisimizden tüm
+            Türkiye&apos;ye sigortacılık hizmeti sunuyoruz. Bireysel
+            müşterilerden KOBİ&apos;lere kadar geniş bir müşteri portföyüyle
+            çalışmaktayız.
+          </p>
+          <p
+            style={{
+              fontSize: 16,
+              color: "var(--ink-500)",
+              marginBottom: 16,
+            }}
+          >
+            Genç ve dinamik yapımız sayesinde, güncel sigorta mevzuatlarını
+            yakından takip eden ve bu gelişmeleri iş süreçlerine en hızlı
+            entegre eden şirketlerden biri olmanın avantajını kullanıyoruz.
           </p>
           <p style={{ fontSize: 16, color: "var(--ink-500)", marginBottom: 28 }}>
-            Misyonumuz net: müşterilerimize tarafsız danışmanlıkla en uygun
-            teminatı bulmak ve poliçe sonrası süreçte de yanlarında olmak.
-            Logomuzdaki sonsuzluk (∞) sembolü bu sözün karşılığıdır.
+            Misyonumuz net: müşterilerimize tarafsız danışmanlık sunarak en
+            uygun teminatı bulmak ve poliçe sonrası süreçte de her zaman
+            yanlarında yer almak. Logomuzda yer alan sonsuzluk (∞) sembolü, bu
+            süreklilik ve güven anlayışımızın bir yansımasıdır.
           </p>
 
           <div

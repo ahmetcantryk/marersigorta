@@ -6,8 +6,14 @@ import { SuccessModal } from "./SuccessModal";
 import { submitLead } from "@/lib/lead-client";
 import {
   formatPhone as formatPhoneShared,
+  formatTC as formatTCShared,
+  formatPlate as formatPlateShared,
+  formatBirthDate as formatBirthDateShared,
+  formatName as formatNameShared,
   phoneDigits,
   validateTRMobile,
+  validateTCKimlik,
+  validatePlate,
 } from "@/lib/form-utils";
 
 type FieldType = "tc" | "plate" | "date" | "text";
@@ -112,19 +118,11 @@ const HeroBackdrop = () => (
   </svg>
 );
 
-const formatTC = (v: string) => v.replace(/\D/g, "").slice(0, 11);
-const formatPlate = (v: string) =>
-  v.toUpperCase().replace(/[^0-9A-ZÇĞİÖŞÜ ]/g, "").slice(0, 10);
-const formatDate = (v: string) => {
-  const digits = v.replace(/\D/g, "").slice(0, 8);
-  if (digits.length > 4)
-    return digits.slice(0, 2) + "." + digits.slice(2, 4) + "." + digits.slice(4);
-  if (digits.length > 2) return digits.slice(0, 2) + "." + digits.slice(2);
-  return digits;
-};
+const formatTC = formatTCShared;
+const formatPlate = formatPlateShared;
+const formatDate = formatBirthDateShared;
 const formatPhone = formatPhoneShared;
-const formatName = (v: string) =>
-  v.replace(/[^A-Za-zÇĞİÖŞÜçğıöşü ]/g, "").slice(0, 60);
+const formatName = formatNameShared;
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -142,6 +140,7 @@ interface QFieldProps {
   placeholder: string;
   error?: string | null;
   inputMode?: "text" | "tel" | "numeric";
+  maxLength?: number;
 }
 
 const QField = ({
@@ -151,6 +150,7 @@ const QField = ({
   placeholder,
   error,
   inputMode,
+  maxLength,
 }: QFieldProps) => (
   <label style={{ display: "flex", flexDirection: "column", gap: 3 }}>
     <span
@@ -168,6 +168,7 @@ const QField = ({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       inputMode={inputMode}
+      maxLength={maxLength}
       style={{
         width: "100%",
         padding: "10px 11px",
@@ -222,12 +223,19 @@ const QuoteWidget = () => {
 
     cur.fields.forEach((f) => {
       const v = (values[f.key] || "").trim();
-      if (!v) e[f.key] = "Bu alan zorunlu";
-      else if (f.type === "tc" && v.length !== 11) e[f.key] = "11 haneli olmalı";
-      else if (f.type === "date" && v.length !== 10)
-        e[f.key] = "GG.AA.YYYY formatında";
-      else if (f.type === "plate" && v.replace(/\s/g, "").length < 5)
-        e[f.key] = "Geçerli plaka girin";
+      if (!v) {
+        e[f.key] = "Bu alan zorunlu";
+        return;
+      }
+      if (f.type === "tc") {
+        const tcCheck = validateTCKimlik(v);
+        if (tcCheck !== true) e[f.key] = tcCheck;
+      } else if (f.type === "date") {
+        if (v.length !== 10) e[f.key] = "GG.AA.YYYY formatında";
+      } else if (f.type === "plate") {
+        const plateCheck = validatePlate(v);
+        if (plateCheck !== true) e[f.key] = plateCheck;
+      }
     });
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -385,6 +393,15 @@ const QuoteWidget = () => {
                 error={errors[f.key]}
                 inputMode={
                   f.type === "tc" || f.type === "date" ? "numeric" : undefined
+                }
+                maxLength={
+                  f.type === "tc"
+                    ? 11
+                    : f.type === "plate"
+                      ? 10
+                      : f.type === "date"
+                        ? 10
+                        : undefined
                 }
               />
             ))}

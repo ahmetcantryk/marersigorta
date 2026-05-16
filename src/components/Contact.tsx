@@ -23,8 +23,11 @@ const SERVICE_OPTIONS: ServiceOption[] = [
   { value: "Özel Sağlık Sigortası", label: "Özel Sağlık Sigortası", Icon: I.Hospital },
   { value: "Seyahat Sağlık Sigortası", label: "Seyahat Sağlık Sigortası", Icon: I.Plane },
   { value: "Yeşil Kart Sigortası", label: "Yeşil Kart Sigortası", Icon: I.Doc },
-  { value: "İşyeri / KOBİ", label: "İşyeri / KOBİ", Icon: I.Building },
   { value: "Ferdi Kaza & Hayat", label: "Ferdi Kaza & Hayat", Icon: I.HandHeart },
+  { value: "İşyeri / KOBİ", label: "İşyeri / KOBİ", Icon: I.Building },
+  { value: "Nakliyat Sigortası", label: "Nakliyat Sigortası", Icon: I.Truck },
+  { value: "Yat ve Tekne Sigortası", label: "Yat ve Tekne Sigortası", Icon: I.Boat },
+  { value: "Mühendislik Sigortaları", label: "Mühendislik Sigortaları", Icon: I.Wrench },
   { value: "Diğer", label: "Diğer", Icon: I.Sparkle },
 ];
 
@@ -637,7 +640,7 @@ export const Contact = () => {
                   <ContactRow
                     Icon={I.Clock}
                     title="Çalışma saatleri"
-                    value="Hafta içi 09:00 – 18:00 · Cumartesi 10:00 – 14:00"
+                    value="Hafta içi 09:00 – 18:00 · Cumartesi 09:00 – 17:00 · 7/24 WhatsApp"
                     inverse
                   />
                 </div>

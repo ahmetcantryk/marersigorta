@@ -10,6 +10,9 @@ import {
   UndrawHealthyHabit,
   UndrawDestination,
   UndrawAgreement,
+  UndrawSecureServer,
+  UndrawBusinessDeal,
+  UndrawCharts,
 } from "react-undraw-illustrations";
 import { I, type IconProps } from "@/components/Icons";
 
@@ -190,11 +193,7 @@ export const PRODUCTS: ProductData[] = [
     faq: [
       {
         q: "Trafik sigortası ile kasko arasındaki fark nedir?",
-        a: "Trafik sigortası karşı tarafa verdiğiniz zararları, kasko ise kendi aracınıza gelen zararları karşılar. Tam koruma için ikisi birlikte yapılmalıdır.",
-      },
-      {
-        q: "Hasar durumunda hasarsızlık indirimim bozulur mu?",
-        a: "Kusurlu olduğunuz kazalarda bir basamak geriler. Tamamen karşı tarafın kusuru ise indiriminiz korunur.",
+        a: "Trafik sigortası, kazada karşı tarafa verilen maddi ve bedeni zararları zorunlu olarak karşılarken; kasko sigortası isteğe bağlı olup, kendi aracınızı kaza, çalınma, yangın ve benzeri risklere karşı güvence altına alır.",
       },
       {
         q: "2. el araç aldığımda mevcut poliçe geçerli mi?",
@@ -349,7 +348,7 @@ export const PRODUCTS: ProductData[] = [
       },
       {
         q: "Hasarsızlık indirimimi başka şirkete taşıyabilir miyim?",
-        a: "Evet. Önceki sigorta şirketinden hasarsızlık belgesi alarak yeni şirkete sunabilirsiniz.",
+        a: "Evet. Yenileme döneminizde hasarınız yok ise hangi şirkete geçerseniz geçin hasarsızlık aktarımı yapılabilir.",
       },
       {
         q: "Eski aracımı satıp yenisini aldığımda indirimim devam eder mi?",
@@ -1026,7 +1025,7 @@ export const PRODUCTS: ProductData[] = [
       },
       {
         q: "Mevcut hastalığım var, kapsama girer mi?",
-        a: "Beyan zorunludur. Önceden mevcut hastalıklar bekleme süresine ve özel şartlara tabidir.",
+        a: "Mevcut hastalıklar genellikle sağlık sigortalarında teminat kapsamı dışında değerlendirilir; ancak bu durum poliçenin türüne ve özel şartlarına göre değişebilir. ÖBYG (Ömür boyu yenileme garantisi) kapsamında iseniz hiçbir muafiyet konmayacaktır.",
       },
       {
         q: "Acil durumda ne yapmalıyım?",
@@ -1161,8 +1160,8 @@ export const PRODUCTS: ProductData[] = [
         a: "Bekleme süreleri sıfırdan başlayabilir, önceki rahatsızlıklar mevcut hastalık sayılabilir. Marer Sigorta uzmanları en avantajlı transfer şartlarını sizin için müzakere eder.",
       },
       {
-        q: "Acıbadem'de tedavi olmak istiyorum, hangi sigorta?",
-        a: "Acıbadem grubu için ÖSS (özellikle Bupa Acıbadem Sigorta). Çoğu TSS poliçesi bu grubu kapsamaz.",
+        q: "Bebeğime tek başına sağlık sigortası yaptırabilir miyim?",
+        a: "Evet. Doğumdan 15 gün sonra bebeğiniz için sağlık sigortası poliçesi yaptırabilirsiniz. Doğumdan hemen sonra poliçe başlatmanız halinde, bebeğiniz sigorta şirketleri açısından 'yeni doğan' statüsünde değerlendirilir ve bu sayede bazı teminat ve haklardan daha erken yararlanma imkânı elde eder.",
       },
     ],
     crossSell: [
@@ -1452,6 +1451,654 @@ export const PRODUCTS: ProductData[] = [
       "ozel-saglik-sigortasi",
       "tamamlayici-saglik-sigortasi",
       "konut-sigortasi",
+    ],
+  },
+
+  // 11 — KURUMSAL: NAKLİYAT SİGORTASI
+  {
+    slug: "nakliyat-sigortasi",
+    short: "Nakliyat",
+    card: "Nakliyat Sigortası",
+    cardDesc: "Emtia, CMR ve taşıyıcı sorumluluk; ICC klozları ile tam koruma.",
+    CardIcon: I.Truck,
+    seo: {
+      title: "Nakliyat Sigortası — Emtia, CMR, Taşıyıcı Sorumluluk | Marer Sigorta",
+      description:
+        "İthalat, ihracat ve yurt içi sevkiyatlarınız için ICC (A), (B), (C) klozlarıyla emtia nakliyat sigortası. Abonman poliçe, taşıyıcı sorumluluk, CMR. Uzman desteği.",
+      h1: "Nakliyat Sigortası — Yükünüzün Çıkış Deposundan Varış Noktasına Sigortalı Yolculuk",
+      keywords: [
+        "nakliyat sigortası",
+        "emtia sigortası",
+        "ICC klozları",
+        "CMR sigortası",
+        "taşıyıcı sorumluluk",
+        "abonman poliçe",
+      ],
+    },
+    hero: {
+      eyebrow: "Kurumsal — Uzman Danışmanlık",
+      title: "Dünyanın her köşesine giden yükünüz Marer Sigorta güvencesinde",
+      subtitle:
+        "İthalat-ihracat, yurt içi sevkiyat ve fuar-sergi taşımalarınızda; Lloyd's standartlarındaki ICC klozlarıyla emtianızın çıkış deposundan varış noktasına kadar tüm risklerini güvence altına alın.",
+      badges: [
+        "ICC (A) — All Risks teminatına kadar tüm seçenekler",
+        "Abonman poliçe ile %20–30 prim avantajı",
+        "Lloyd's hasar acenteleri & yurt dışı eksper ağı",
+      ],
+      Illustration: UndrawDestination,
+    },
+    nedir: {
+      paragraphs: [
+        "Nakliyat Sigortası, ticari değeri olan malların (emtianın) kara, deniz, hava veya demir yolu ile bir yerden bir yere taşınması sırasında uğrayabileceği kayıp ve hasarları teminat altına alan sigorta türüdür.",
+        "Teminat, mallar nakliyeciye teslim edildiği/araca yüklendiği anda başlar; alıcı malları teslim aldığında sona erer. Uluslararası standart olan Institute Cargo Clauses (ICC) çerçevesinde A, B veya C seviye teminat tercih edilebilir.",
+      ],
+      callout:
+        "Yurt dışı sevkiyatlarda alıcı malları teslim almamışsa havayolu taşımalarında 30 gün, deniz/karayolu taşımalarında 60 gün boyunca gümrük depolarında bekleme süresi teminat kapsamındadır.",
+    },
+    teminatlar: {
+      title: "Ana Teminat Seviyeleri",
+      items: [
+        {
+          Icon: I.Shield,
+          title: "ICC (A) — All Risks",
+          desc: "En kapsamlı teminat; taşıma sırasındaki istisna dışı tüm kayıp ve hasarlar dahil.",
+        },
+        {
+          Icon: I.AlertTriangle,
+          title: "ICC (C) / Dar Teminat",
+          desc: "Sadece nakil aracının kazalanması, yangın, infilak ve büyük doğal afetlerden kaynaklı hasarlar.",
+        },
+        {
+          Icon: I.Bolt,
+          title: "Tam Ziya Teminatı",
+          desc: "Nakil aracının ve emtianın tamamen yok olması (hakiki/hükmi tam ziya).",
+        },
+        {
+          Icon: I.Truck,
+          title: "Karayolu Klozu",
+          desc: "Kamyon Klozu — karayolu taşımalarında dar teminat eşdeğeri.",
+        },
+        {
+          Icon: I.Plane,
+          title: "ICC (Air) — Havayolu",
+          desc: "Havayolu taşımalarında geniş teminat; Tam Ziya veya All Risks.",
+        },
+        {
+          Icon: I.Package,
+          title: "Müşterek Avarya",
+          desc: "Deniz yolculuğunda kasten yapılan fedakarlık masraflarına katkı payı.",
+        },
+      ],
+    },
+    ekTeminatlar: {
+      title: "Ek Teminatlar (Ek Primle Alınabilir)",
+      items: [
+        {
+          Icon: I.Building,
+          title: "Gümrük Depolarında Bekleme",
+          desc: "Standart süreyi aşan bekleme süreleri için kapsam.",
+        },
+        {
+          Icon: I.Handshake,
+          title: "Aktarma & Güzergah Dışı",
+          desc: "Çoklu aktarma riskleri ve güzergah dışı aktarma kapsamı.",
+        },
+        {
+          Icon: I.AlertTriangle,
+          title: "Harp Teminatı",
+          desc: "Savaş, terör, çatışma — sadece deniz ve hava taşımaları için.",
+        },
+        {
+          Icon: I.Shield,
+          title: "Grev / Lokavt / Halk Hareketleri",
+          desc: "Toplumsal olaylar ve terör — tüm taşıma türlerinde verilebilir.",
+        },
+        {
+          Icon: I.Sparkle,
+          title: "Soğuk Zincir Hasarı",
+          desc: "Gıda, ilaç ve sıcaklığa duyarlı yükler için özel kloz.",
+        },
+        {
+          Icon: I.Coins,
+          title: "%10 Artırım Marjı",
+          desc: "Akreditifli işlemlerde standart kar marjı koruması.",
+        },
+        {
+          Icon: I.Package,
+          title: "Sergi / Fuar Teminatı",
+          desc: "Etkinlik sırasında kalış süresince emtia koruması.",
+        },
+        {
+          Icon: I.ArrowRight,
+          title: "Gidiş-Dönüş & İade Sevkiyatı",
+          desc: "Tek poliçede çift yön veya göndericiye geri dönüş.",
+        },
+      ],
+    },
+    teminatDisi: [
+      "Sigortalının kasti hareketleri",
+      "Ayb-ı zati — malın kendi bünyesinde meydana gelen hasarlar (örn. nemden bozulma)",
+      "Yakın sebebi gecikme olan hasarlar (teslimat gecikmesi)",
+      "Hatalı paketleme veya istifleme",
+      "Yıkanma, çürüme, doğal eksilme",
+      "Geminin sefere elverişsiz olması",
+      "Nakliyecinin iflası ve mali çöküş",
+      "Nükleer riskler",
+      "Harp ve grev (ek teminatla alınabilir)",
+    ],
+    comparison: {
+      title: "ICC (A) vs ICC (C) vs Tam Ziya",
+      headers: ["Risk", "ICC (A)", "ICC (C) / Dar", "Tam Ziya"],
+      rows: [
+        ["Aracın kazası", "Var", "Var", "Sadece tam ziya"],
+        ["Yangın, infilak", "Var", "Var", "Sadece tam ziya"],
+        ["Hırsızlık", "Var", "Yok", "Yok"],
+        ["Yükleme / boşaltma", "Var", "Yok", "Yok"],
+        ["Islanma, eksilme", "Var", "Yok", "Yok"],
+        ["Doğal afet", "Var", "Kısmen", "Yok"],
+        ["Müşterek avarya", "Var", "Var", "Yok"],
+        ["Prim seviyesi", "En yüksek", "Orta", "En düşük"],
+      ],
+      note: "Karayolunda ICC (C) yerine 'Kamyon Klozu', demiryolunda 'Demiryolu Klozu' uygulanır.",
+    },
+    limitTable: {
+      title: "Poliçe Türleri & Sevkiyat Profili",
+      headers: ["Poliçe Türü", "Kapsam", "Uygun Profil"],
+      rows: [
+        ["Münferit (Kati) Poliçe", "Tek sevkiyat için düzenlenir", "Düşük frekanslı sevkiyatlar"],
+        ["Flotan (Geçici) Poliçe", "Yükleme bilgileri netleşmeden açılan ön poliçe", "Banka akreditifi ile çalışan ithalatçılar"],
+        ["Abonman Sözleşmesi", "1 yıllık çerçeve — tüm sevkiyatlar otomatik kapsamda", "Aylık 20+ sevkiyat yapan firmalar"],
+        ["Blok Abonman", "Yıllık taşıma cirosu tek seferde bildirilir", "Çok yüksek hacimli ihracatçılar / e-ticaret"],
+      ],
+      note: "Abonman sözleşmesinde sevkiyat başına %20–30 prim avantajı sağlanabilir.",
+    },
+    fiyatKriterleri: [
+      "Emtia cinsi ve özellikleri (kırılgan, soğuk zincir, tehlikeli madde vb.)",
+      "Taşıma şekli (kara, deniz, hava, demiryolu) ve güzergah",
+      "Sigorta bedeli (CIF + %10 marj akreditifli işlemlerde)",
+      "Seçilen ICC kloz seviyesi (A / B / C / Tam Ziya)",
+      "Sevkiyat hacmi ve frekansı (abonman / blok abonman avantajı)",
+      "Aracın tipi, yaşı ve bayrak ülkesi",
+      "Geçmiş hasar performansı",
+      "Ek teminatlar (harp, grev, soğuk zincir, bekleme süresi vb.)",
+    ],
+    hasarSureci: [
+      "Hasarı tespit ettiğinizde en geç 5 iş günü içinde sigorta şirketine ve eksperinize bildirin.",
+      "Tahliye sırasında hasar tespit edilirse tahliye tutanağı, gümrükte alımda gümrük tutanağı tutulur.",
+      "Yurt dışı hasarlarda Lloyd's hasar acenteleri devreye girer; yerel eksper saha incelemesi yapar.",
+      "Evraklar: poliçe, fatura, çeki listesi, konşimento, navlun faturası, fotoğraflar, tazminat talep dilekçesi.",
+      "Eksper raporu sonrası genellikle 30–45 gün içinde tazminat ödenir.",
+    ],
+    faq: [
+      {
+        q: "ICC (A), (B), (C) klozları arasındaki fark nedir?",
+        a: "(A) en geniş kapsamdır — All Risks. (C) en dar — sadece aracın kazasında çalışan kapsam. (B) günümüzde Türkiye'de pek tercih edilmez. Karayolunda (C) yerine 'Kamyon Klozu' kullanılır.",
+      },
+      {
+        q: "Yurt dışında hasar olursa Türkiye'den nasıl takip ederim?",
+        a: "Sigorta şirketinin Lloyd's hasar acenteleri ağı sayesinde dünyanın her ülkesinde yerel eksper devreye girer. Türkiye'deki acentenize bildirin, süreç otomatik başlar.",
+      },
+      {
+        q: "Akreditifli ithalat için flotan poliçe şart mı?",
+        a: "Bankalar akreditif açılışında genellikle flotan poliçe ister; yükleme bilgileri henüz net değildir. Yükleme gerçekleşince kati poliçeye dönüştürülür.",
+      },
+      {
+        q: "Aynı yıl içinde çok sayıda sevkiyat yapıyoruz, her birine ayrı poliçe yapmak zorunda mıyız?",
+        a: "Hayır. Abonman sözleşmesi ile yıllık çerçeve oluşturulur; her sevkiyat otomatik kapsama girer ve %20–30 prim avantajı sağlanır.",
+      },
+      {
+        q: "Sigortalanması gereken sigorta bedeli ne olmalıdır?",
+        a: "Fatura bedeli + navlun + sigorta + diğer masraflar (CIF değeri). Akreditifli işlemlerde genellikle CIF bedelinin %10 fazlası sigortalanır.",
+      },
+      {
+        q: "Karayolu taşımasında harp teminatı alabilir miyim?",
+        a: "Hayır. Harp teminatı sadece deniz ve hava yolu için verilir. Karayolu ve demiryolunda yalnızca Grev / Halk Hareketleri / Terör teminatı verilebilir.",
+      },
+      {
+        q: "Müşterek avarya nedir, sigortamla ilgisi var mı?",
+        a: "Deniz yolculuğunda gemi ve yükü tehdit eden bir tehlikeden korumak için kasten yapılan masraf veya fedakarlık. Tüm yük sahipleri orantılı katkıda bulunur. ICC (A) ve (C) teminatları bunu kapsar.",
+      },
+      {
+        q: "Bir poliçe içerisinde hem yurt içi hem yurt dışı sevkiyat olabilir mi?",
+        a: "Evet. Abonman poliçesi içinde tüm sevkiyat türleri tek çatı altında toplanabilir.",
+      },
+      {
+        q: "CMR Sigortası nedir, ne zaman gerekir?",
+        a: "Uluslararası karayolu taşımacılığında taşıyıcının mali sorumluluğunu CMR Konvansiyonu çerçevesinde teminat altına alır. Yurt dışına ihracat yapan yerli nakliyeciler için fiilen zorunludur.",
+      },
+    ],
+    crossSell: [
+      "kobi-isyeri-sigortasi",
+      "muhendislik-sigortalari",
+      "yat-tekne-sigortasi",
+    ],
+  },
+
+  // 12 — KURUMSAL: YAT VE TEKNE SİGORTASI
+  {
+    slug: "yat-tekne-sigortasi",
+    short: "Yat / Tekne",
+    card: "Yat ve Tekne Sigortası",
+    cardDesc: "Institute Yacht Clauses standardında deniz, marina ve çekek dahil tam koruma.",
+    CardIcon: I.Boat,
+    seo: {
+      title: "Yat ve Tekne Sigortası — Institute Yacht Clauses Kapsamında | Marer Sigorta",
+      description:
+        "Tekne ve yatınızı uluslararası Institute Yacht Clauses standardında sigortalayın. Deniz, çekek, marina, transfer dahil tüm risklere karşı tam koruma.",
+      h1: "Yat ve Tekne Sigortası — Mavi Sulara Huzurla Açılın",
+      keywords: [
+        "yat sigortası",
+        "tekne sigortası",
+        "institute yacht clauses",
+        "IYC",
+        "deniz aracı sigortası",
+      ],
+    },
+    hero: {
+      eyebrow: "Kurumsal — Özel Risk Tasarımı",
+      title: "Teknenize ve sevdiklerinize, mavinin tehlikelerinden sigortalı bir yolculuk",
+      subtitle:
+        "Uluslararası geçerli Institute Yacht Clauses 1.11.85 (Cl.328) kapsamında; teknenizin gövdesinden makinesine, servis botundan donanımına kadar tüm değerlerinizi denizde, çekekte, marinada güvence altına alın.",
+      badges: [
+        "Institute Yacht Clauses standartlı",
+        "7/24 Yat Asistans Hizmeti",
+        "Avrupa marinaları dahil global teminat",
+      ],
+      Illustration: UndrawAirport,
+    },
+    nedir: {
+      paragraphs: [
+        "Yat ve Tekne Sigortası, özel veya ticari amaçla kullanılan deniz araçlarını uluslararası geçerli Institute Yacht Clauses (IYC) standardı çerçevesinde, çok geniş bir risk yelpazesine karşı teminat altına alan kasko türü bir sigortadır.",
+        "Teminat; seyir halinde, yatma mahallinde (liman / marina / duba), çekek yerinde, çekek yerine indirilirken/çekilirken, karada tamirde, kış saklamasında ve tehlikedeki başka bir tekneyi çekerken geçerlidir.",
+      ],
+      callout:
+        "Marinada da olsa tekneniz pek çok riskle karşı karşıyadır — komşu teknede çıkan bir yangın sizin teknenize sıçrayabilir. Bağlama yeri bile sigorta gerektirir.",
+    },
+    teminatlar: {
+      title: "Institute Yacht Clauses Kapsamındaki Ana Teminatlar",
+      items: [
+        {
+          Icon: I.Boat,
+          title: "Deniz Kazaları ve Tehlikeleri",
+          desc: "Fırtına, hortum, yıldırım, çarpma, karaya oturma, alabora, batma, dalga darbeleri.",
+        },
+        {
+          Icon: I.Bolt,
+          title: "Yangın, Patlama, Doğal Afet",
+          desc: "Yangın, infilak, denize mal atılması, deprem, volkanik patlama, yıldırım.",
+        },
+        {
+          Icon: I.Lock,
+          title: "Hırsızlık ve Kötü Niyetli Hareketler",
+          desc: "Teknenin / makinelerin / dıştan takma motorun çalınması, vandalizm, korsanlık.",
+        },
+        {
+          Icon: I.Handshake,
+          title: "3. Şahıs Sorumluluk",
+          desc: "Yatın sebep olduğu kaza neticesinde 3. kişilerin can ve mal kayıpları, enkaz kaldırma.",
+        },
+        {
+          Icon: I.Anchor,
+          title: "Liman / Rıhtım Teması",
+          desc: "Rıhtım, liman teçhizatı, kara/hava taşıtları ile temas veya bunlardan düşen şeyler.",
+        },
+        {
+          Icon: I.AlertTriangle,
+          title: "Gizli Kusur Patlamaları",
+          desc: "Tekne ve makinedeki gizli kusurlar nedeniyle patlamalar; kaptan ve gemi adamlarının barataryası.",
+        },
+      ],
+    },
+    ekTeminatlar: {
+      title: "Ek Teminatlar (Ek Primle Alınabilir)",
+      items: [
+        {
+          Icon: I.Wrench,
+          title: "Makine Hasarı Genişletme (Cl.332)",
+          desc: "Motor, elektronik cihaz arızaları, voltaj dalgalanmaları — IYC standartında bulunmaz.",
+        },
+        {
+          Icon: I.Star,
+          title: "Yarış Rizikosu (Cl.330)",
+          desc: "Tekne yarışları sırasındaki hasarlar; yelken dahil — yelkenli yat yarışları için zorunlu.",
+        },
+        {
+          Icon: I.Package,
+          title: "Kişisel Eşya (Cl.331)",
+          desc: "Tekne içindeki kişisel eşyaların zararı; standart poliçede kişisel eşya dahil değildir.",
+        },
+        {
+          Icon: I.AlertTriangle,
+          title: "Savaş & Grev Klozları (Cl.329)",
+          desc: "Savaş, terör, grev, halk hareketleri — Doğu Akdeniz gibi rotalar için kritik.",
+        },
+        {
+          Icon: I.Globe,
+          title: "Yurt Dışı Teminatı",
+          desc: "Avrupa marinaları dahil — Yunan adaları, İtalya, Hırvatistan rotaları.",
+        },
+        {
+          Icon: I.Sparkle,
+          title: "Çevre Kirliliği",
+          desc: "Yakıt sızıntısı, petrol kirliliği; ticari tekneler için kritik.",
+        },
+        {
+          Icon: I.HandHeart,
+          title: "Kaptan & Mürettebat Ferdi Kaza",
+          desc: "Kaptan ve miçolar için yıllık vefat / maluliyet teminatı.",
+        },
+        {
+          Icon: I.Shield,
+          title: "Çekme / Kurtarma",
+          desc: "Yıllık limit dahilinde tüm çekme ve kurtarma organizasyonları.",
+        },
+      ],
+    },
+    teminatDisi: [
+      "Sigortacı onayı olmadan yapılan ciddi tadilatlar",
+      "Sigortacı onayı olmadan yatın deniz evi olarak kullanılması",
+      "Sigortalının kasten verdiği zararlar",
+      "Yelken ve kılıflarının rüzgardan yırtılması (özel teminat olmazsa)",
+      "Yarışırken yelken, direk, seren ve çarmıh hasarları (Yarış Klozu olmazsa)",
+      "Dıştan takma motorun düşmesi veya denize yuvarlanması (özel teminat olmazsa)",
+      "Mutad olmadıkça yedekte çekilme veya başka tekneyi çekme",
+      "Su kayağı, sörf gibi su sporları sırasındaki sorumluluklar",
+      "Kira mahrumiyeti (özel teminat olmazsa)",
+      "Aşınma, paslanma, normal kullanımdan kaynaklı hasarlar",
+      "Yatın dizayn / konstrüksiyon hatalarının giderilme maliyetleri",
+      "17 mil/saat üzeri tekneler için Speedboat Klozu istisnaları (motor, dümen, şaft, elektrik)",
+    ],
+    fiyatKriterleri: [
+      "Tekne sigorta bedeli (kasko değeri) — Ana belirleyici",
+      "Tekne tipi (motoryat / yelkenli / sürat botu / katamaran)",
+      "Tekne yaşı — 15 yaş üstü için ön gözetim (survey) istenebilir",
+      "Bayrak ülkesi",
+      "Bağlama yeri (marina) — Profesyonel marinalar düşük risk",
+      "Seyrüsefer sahası (Türkiye iç suları / Akdeniz / Atlantik)",
+      "Kullanım amacı (özel / ticari / mavi tur / yarış)",
+      "Hız kategorisi — 17+ mil için Speedboat Klozu",
+      "Hasar geçmişi ve kaptan / mürettebat bilgisi",
+    ],
+    faq: [
+      {
+        q: "Tekne sigortası zorunlu mu?",
+        a: "Türk mevzuatında zorunlu değildir. Ancak finansmanla satın alınan teknelerde banka şart koşar, yabancı marinalarda giriş için sigorta belgesi istenir. Yunanistan gibi bazı ülkeler Zorunlu Sorumluluk Teminatı talep eder.",
+      },
+      {
+        q: "Sigortam yurt dışında geçerli mi?",
+        a: "Poliçenizde yazılı seyrüsefer sahası kapsamındaki ülkelerde geçerlidir. Avrupa marinaları için yurt dışı teminatı ek olarak alınmalıdır.",
+      },
+      {
+        q: "Yurt dışı kayıtlı teknemi Türkiye'de sigortalatabilir miyim?",
+        a: "Evet. Türk sigorta şirketleri yabancı bayraklı tekneler için de poliçe düzenleyebilir.",
+      },
+      {
+        q: "Teknemi başkası kullansa sigorta geçerli olur mu?",
+        a: "Tekne kayıt sahibi adına sigortalıdır. Sigortalı dışında tekne kullanımına yetkin biri (eş, çocuk, profesyonel kaptan) tarafından kullanıldığı ve poliçede belirtildiği sürece sorun olmaz.",
+      },
+      {
+        q: "Kış aylarında tekne çekekteyken sigortam ne olur?",
+        a: "Çekek yeri poliçenin coğrafi alanı içinde yer alır. Sigortacıya çekek yeri bilgisi verilirse teminat orada da geçerlidir. Çekekte de risk olduğu için poliçeyi dondurmak yerine açık tutmak tavsiye edilir.",
+      },
+      {
+        q: "Motor arızası sigortamdan ödenir mi?",
+        a: "Standart IYC'de makine arızaları teminat altında değildir. Makine Hasarı Genişletme Klozu (Cl.332) ek olarak alınmalıdır.",
+      },
+      {
+        q: "Teknemin tadilatı veya bayrak değişikliği yapacağım, sigortayı haberdar etmeli miyim?",
+        a: "Kesinlikle evet. Hem büyük tadilatlar hem bayrak değişiklikleri sigorta şirketine bildirilmek zorundadır. Aksi halde sigorta geçersiz kalabilir.",
+      },
+      {
+        q: "Çevre kirliliği teminatı standart mı?",
+        a: "Hayır. Yat poliçelerinde çevre kirliliği standart kapsam değildir. Yakıt sızıntısı vb. için ek olarak alınmalıdır — özellikle ticari tekneler için kritik.",
+      },
+      {
+        q: "Krediyle teknem var, sigorta zorunlu mu?",
+        a: "Evet. Tekne finansmanı veren bankalar dain-i mürtehin kaydı ile sigorta yapılmasını şart koşar.",
+      },
+      {
+        q: "Ön gözetim (survey) ne zaman istenir?",
+        a: "15 yaş üstü tekneler veya yüksek değerli yatlar için sigorta şirketi uzman bir survey'or'ün tekneyi inceleyip raporlaması talep edebilir.",
+      },
+    ],
+    crossSell: [
+      "seyahat-saglik-sigortasi",
+      "ferdi-kaza-hayat-sigortasi",
+      "nakliyat-sigortasi",
+    ],
+  },
+
+  // 13 — KURUMSAL: MÜHENDİSLİK SİGORTALARI
+  {
+    slug: "muhendislik-sigortalari",
+    short: "Mühendislik",
+    card: "Mühendislik Sigortaları",
+    cardDesc: "İnşaat, montaj, makine kırılması ve elektronik cihaz — proje yaşam döngüsünde tam koruma.",
+    CardIcon: I.Wrench,
+    seo: {
+      title: "Mühendislik Sigortaları — İnşaat (CAR), Montaj (EAR), Makine, Elektronik | Marer Sigorta",
+      description:
+        "İnşaat All Risk (CAR), Montaj All Risk (EAR), Makine Kırılması ve Elektronik Cihaz Sigortaları. Müteahhit, fabrika, enerji projeleri için tam mühendislik güvencesi.",
+      h1: "Mühendislik Sigortaları — Projelerinizin Görünmeyen Mühendisi",
+      keywords: [
+        "mühendislik sigortası",
+        "inşaat all risk",
+        "CAR sigortası",
+        "montaj all risk",
+        "EAR sigortası",
+        "makine kırılması",
+        "elektronik cihaz sigortası",
+      ],
+    },
+    hero: {
+      eyebrow: "Kurumsal — Risk Mühendisliği",
+      title: "Sermayenizi, işgücünüzü ve zamanı görünmeyen risklerden koruyun",
+      subtitle:
+        "İnşaattan montaja, makineden elektronik cihaza; projelerinizin başlangıcından işletmeye alınmasına kadar tüm aşamalarda Marer Sigorta mühendislik çözümleri yanınızda.",
+      badges: [
+        "Sektör uzmanı risk mühendisleri",
+        "Uluslararası reasürans desteği (Munich Re, Swiss Re standartları)",
+        "Anlaşmalı eksperler ile saha desteği",
+      ],
+      Illustration: UndrawSecureServer,
+    },
+    nedir: {
+      paragraphs: [
+        "Mühendislik Sigortaları; inşaat, montaj, makine ve elektronik cihazlarla ilgili faaliyetler sırasında karşılaşılabilecek ani ve beklenmedik tüm riskleri teminat altına alan, uzmanlık gerektiren bir sigorta dalıdır.",
+        "Dört ana ürün şu şekildedir: İnşaat All Risks (CAR — Construction All Risks), Montaj All Risks (EAR — Erection All Risks), Makine Kırılması ve Elektronik Cihaz Sigortası. Bu ürünler genellikle proje yaşam döngüsünde birlikte ya da paket olarak sunulur.",
+      ],
+      callout:
+        "Proje akışı: İnşaat (CAR) → Montaj (EAR) → İşletmeye alma (Makine Kırılması + Elektronik Cihaz + Yangın). Aralarda boşluk kalırsa kritik dönemde teminatsız kalınabilir.",
+    },
+    teminatlar: {
+      title: "4 Ana Mühendislik Sigortası Ürünü",
+      items: [
+        {
+          Icon: I.Crane,
+          title: "İnşaat All Risks (CAR)",
+          desc: "Yapı işleri, geçici işler, inşaat makineleri ve şantiye malzemelerinin tüm riskleri. Şantiye hazırlığından geçici kabule kadar.",
+        },
+        {
+          Icon: I.Factory,
+          title: "Montaj All Risks (EAR)",
+          desc: "Makine, ekipman ve tesislerin montaj/kurulum aşamasındaki tüm hasarlar. Test ve deneme devresi dahil.",
+        },
+        {
+          Icon: I.Wrench,
+          title: "Makine Kırılması",
+          desc: "İşletmedeki makinelerin işletme hatası, mekanik/elektriksel arıza, iç patlama ve operasyonel hasarları.",
+        },
+        {
+          Icon: I.Chip,
+          title: "Elektronik Cihaz",
+          desc: "Bilgisayar, sunucu, tıbbi cihaz, PLC, kamera sistemleri — voltaj dalgalanması, kısa devre, su zararları.",
+        },
+        {
+          Icon: I.Building,
+          title: "3. Şahıs Mali Mesuliyet",
+          desc: "Komşu binalara, yoldan geçenlere, üçüncü kişilere şantiyeden / montajdan kaynaklı zararlar.",
+        },
+        {
+          Icon: I.Shield,
+          title: "Bakım Devresi Teminatı",
+          desc: "Geçici kabul sonrası 12–24 ay ek koruma; müteahhitin sözleşme sorumluluğu için kritik.",
+        },
+      ],
+    },
+    ekTeminatlar: {
+      title: "Ek Teminatlar (Modüler Yapı)",
+      items: [
+        {
+          Icon: I.HandHeart,
+          title: "İşveren Mali Sorumluluk",
+          desc: "Şantiye / fabrika çalışanlarına karşı yasal sorumluluk.",
+        },
+        {
+          Icon: I.Home,
+          title: "Hazır İşler (Mevcut Bina)",
+          desc: "Tadilat projelerinde mevcut yapının korunması.",
+        },
+        {
+          Icon: I.Coins,
+          title: "MLOP — Kar Kaybı",
+          desc: "Makine Loss of Profit: arızadan kaynaklı üretim durması ve kar kaybı.",
+        },
+        {
+          Icon: I.Sparkle,
+          title: "Veri Kurtarma & Yeniden Yükleme",
+          desc: "Elektronik cihaz sigortasında veri kaybı için kritik.",
+        },
+        {
+          Icon: I.Package,
+          title: "Yedek Cihaz / Parça Kiralama",
+          desc: "Onarım sürecinde geçici çözüm maliyetleri ve ekspres yedek parça.",
+        },
+        {
+          Icon: I.Globe,
+          title: "Çevre Yapılarına Zarar",
+          desc: "Komşu binaların su sızması, çatlak, çökme türü zararları.",
+        },
+        {
+          Icon: I.Doc,
+          title: "Plan & Proje Hataları (LEG Klozları)",
+          desc: "Tasarımdaki kusurların inşaata yansıyan zararı; LEG-1/2/3 seçenekleri.",
+        },
+        {
+          Icon: I.AlertTriangle,
+          title: "Sözleşme Cezaları",
+          desc: "Kontratta gecikme cezası varsa montaj projelerinde kritik teminat.",
+        },
+      ],
+    },
+    teminatDisi: [
+      "Sözleşme cezaları, kar kaybı, kira kaybı (özel ek teminat gerekir)",
+      "Aşınma, paslanma, normal yıpranma",
+      "Dizayn hatalarının giderilme maliyeti (zararın kendisi karşılanır)",
+      "Hatalı işçilikten kaynaklanan yeniden inşa maliyeti",
+      "Üreticinin garanti kapsamındaki arızalar",
+      "Periyodik bakım kapsamındaki değişimler",
+      "Belge, plan, model kaybı; para, kıymetli evrak, çek",
+      "Estetik kusurlar (boya, çizik vb.)",
+      "Yazılım hataları (cyber sigortası kapsamında olabilir)",
+      "Savaş, nükleer riskler",
+      "Sigortalının kasti hareketleri",
+    ],
+    comparison: {
+      title: "Proje Yaşam Döngüsü — Hangi Ürün Ne Zaman?",
+      headers: ["Faz", "Süre", "Sigorta Ürünü"],
+      rows: [
+        ["Yapı inşaatı", "12–36 ay", "İnşaat All Risks (CAR)"],
+        ["Ekipman montajı", "3–12 ay", "Montaj All Risks (EAR)"],
+        ["Geçici kabul / deneme", "Bakım devresi", "Her iki poliçenin bakım devresi"],
+        ["İşletmeye alma", "Devamlı", "Makine Kırılması + Elektronik Cihaz + Yangın"],
+      ],
+      note: "Aralarda teminat boşluğu kalmaması için geçişler bir bütün olarak planlanmalıdır.",
+    },
+    fiyatKriterleri: [
+      "Proje değeri / sigorta bedeli (proje bitiminde ulaşılacak nihai değere eşit)",
+      "Proje tipi (konut / ticari / endüstriyel / enerji / altyapı)",
+      "Proje süresi ve bakım devresi uzunluğu",
+      "Şantiye / saha güvenlik önlemleri (çevre çiti, kamera, bekçi)",
+      "Müteahhitin tecrübesi ve geçmiş hasar performansı",
+      "Coğrafi konum ve doğal afet risk profili",
+      "Seçilen ek teminatlar (3. şahıs, işveren MMS, LEG, MLOP vb.)",
+      "Reasürans gerekliliği (büyük projelerde Lloyd's / Munich Re destekli)",
+    ],
+    nasilYaptirilir: [
+      {
+        title: "İlk Görüşme",
+        desc: "Proje detayları, sigorta bedeli ve süreyle ilgili ön değerlendirme.",
+      },
+      {
+        title: "Risk Anketi",
+        desc: "Detaylı soru formu ile proje ve şantiye riskleri haritalanır.",
+      },
+      {
+        title: "Saha Ziyareti",
+        desc: "Büyük projelerde mühendis incelemesi ve risk raporu hazırlanır.",
+      },
+      {
+        title: "Çoklu Şirket Teklifi",
+        desc: "4–5 sigortacının teklifi karşılaştırılarak en uygun çözüm üretilir.",
+      },
+      {
+        title: "Poliçe Tasarımı & Süreç Takibi",
+        desc: "Projeye özel klozlar; keşif artışı, ek teminat ve zeyilname takibi.",
+      },
+    ],
+    hasarSureci: [
+      "Anında bildirim (en geç 5 iş günü içinde).",
+      "Sigorta şirketince eksper atanması — büyük hasarlarda uluslararası eksper devreye girer.",
+      "Saha incelemesi ve hasar tutanağının düzenlenmesi.",
+      "Onarım tekliflerinin alınması ve eksper raporunun tamamlanması.",
+      "Tazminat ödemesi — evrak ve onarım sürecine bağlı olarak ortalama 30–60 gün.",
+    ],
+    faq: [
+      {
+        q: "İnşaat sigortası ne zaman başlamalı?",
+        a: "Şantiye hazırlık aşamasında veya en geç zemin tesviyesi başlamadan. Geç başlatılan poliçelerde önceki riskler kapsam dışı kalır.",
+      },
+      {
+        q: "Müteahhit ve işveren arasında kim sigortalayacak?",
+        a: "Genellikle müteahhit sigortalar çünkü inşaat sahası kontrolü ondadır. Ancak sözleşmede aksi belirtilebilir; işveren de sigortalayabilir veya lehtar olabilir.",
+      },
+      {
+        q: "Proje süresi uzarsa ne olur?",
+        a: "Zeyilname (ek sözleşme) ile süre uzatılır, ek prim alınır. Bildirilmemesi durumunda teminat boşluğu oluşur.",
+      },
+      {
+        q: "Keşif artışı oldu, ne yapmalıyım?",
+        a: "Mutlaka sigortacıya bildirin. Sigorta bedelinin artış kadar yükseltilmesi gerekir; aksi halde eksik sigorta nedeniyle orantılı kesinti yapılır.",
+      },
+      {
+        q: "Geçici kabul yapıldı, sigortam bitti mi?",
+        a: "Standart poliçede evet. Ancak Bakım Devresi Teminatı ile 12–24 ay daha uzatılabilir. Müteahhit sözleşme sorumluluğu için bu kritik.",
+      },
+      {
+        q: "Mevcut binam var, üzerine kat çıkıyorum; sigorta nasıl?",
+        a: "'Hazır İşler (Mevcut Bina)' Teminatı alınmalı. Aksi halde tadilat sırasında mevcut bina hasar görürse karşılanmaz.",
+      },
+      {
+        q: "Şantiyemde hırsızlık oldu, kapsamda mı?",
+        a: "Evet — İnşaat All Risks hırsızlığı kapsar. Ancak şantiye etrafında güvenlik önlemleri (çevre çiti, gece bekçisi, kamera) alınmış olması beklenir.",
+      },
+      {
+        q: "Makinem yeni alındı, makine kırılması mı, garantisi mi geçerli?",
+        a: "Üretici garantisi öncelikli. Garanti dışı kalan ani arızalar için Makine Kırılması Sigortası devreye girer.",
+      },
+      {
+        q: "Yangın sigortam var, Elektronik Cihaz Sigortasına gerek var mı?",
+        a: "Yangın sigortası sadece yangın, yıldırım, infilak kaynaklı hasarları öder. Voltaj dalgalanması, kısa devre, dahili elektronik arızalar yangın sigortasının kapsamı dışındadır.",
+      },
+      {
+        q: "Makine kırılmasından kaynaklı üretim durması karşılanır mı?",
+        a: "Standart Makine Kırılması poliçesi sadece cihazın tamir / yenileme maliyetini öder. Üretim durması / kar kaybı için MLOP (Machine Loss of Profit) ek teminatı gereklidir.",
+      },
+    ],
+    crossSell: [
+      "kobi-isyeri-sigortasi",
+      "nakliyat-sigortasi",
+      "ferdi-kaza-hayat-sigortasi",
     ],
   },
 ];

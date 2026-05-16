@@ -11,7 +11,7 @@ interface FaqItem {
 const FAQ: FaqItem[] = [
   {
     q: "Trafik sigortası ile kasko arasındaki fark nedir?",
-    a: "Trafik sigortası yasal zorunluluktur ve sadece karşı tarafa verdiğiniz hasarı karşılar. Kasko ise isteğe bağlıdır; kendi aracınızda oluşan çarpışma, yanma, çalınma gibi hasarları teminat altına alır. İkisi farklı amaçlara hizmet eder ve çoğu sürücü için ikisinin de olması önerilir.",
+    a: "Trafik sigortası, kazada karşı tarafa verilen maddi ve bedeni zararları zorunlu olarak karşılarken; kasko sigortası isteğe bağlı olup, kendi aracınızı kaza, çalınma, yangın ve benzeri risklere karşı güvence altına alır.",
   },
   {
     q: "DASK sigortasını kim ödemeli, ev sahibi mi kiracı mı?",

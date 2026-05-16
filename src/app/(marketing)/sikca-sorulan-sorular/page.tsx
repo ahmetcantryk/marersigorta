@@ -64,15 +64,11 @@ const FAQ_GROUPS: FaqGroup[] = [
     items: [
       {
         q: "Trafik sigortası ile kasko arasındaki fark nedir?",
-        a: "Trafik sigortası yasal zorunluluktur ve sadece karşı tarafa verdiğiniz hasarı karşılar. Kasko ise isteğe bağlıdır; kendi aracınızda oluşan çarpışma, yanma, çalınma gibi hasarları teminat altına alır. İkisi farklı amaçlara hizmet eder; çoğu sürücü için ikisinin de olması önerilir.",
-      },
-      {
-        q: "Hasarsızlık indirimim bozulur mu?",
-        a: "Kusurlu olduğunuz kazalarda bir basamak geriler. Tamamen karşı tarafın kusuru olan kazalarda indiriminiz korunur. Mini onarım teminatı ve hasarsızlık koruma teminatı bu indirimi korur.",
+        a: "Trafik sigortası, kazada karşı tarafa verilen maddi ve bedeni zararları zorunlu olarak karşılarken; kasko sigortası isteğe bağlı olup, kendi aracınızı kaza, çalınma, yangın ve benzeri risklere karşı güvence altına alır.",
       },
       {
         q: "Hasarsızlık indirimimi başka şirkete taşıyabilir miyim?",
-        a: "Evet. Önceki sigorta şirketinden hasarsızlık belgesi alarak yeni şirkete sunabilirsiniz. İndirim araca değil kişiye aittir; yeni aracınızda da geçerlidir.",
+        a: "Evet. Yenileme döneminizde hasarınız yok ise hangi şirkete geçerseniz geçin hasarsızlık aktarımı yapılabilir.",
       },
       {
         q: "Aracım çalınırsa ne kadar sürede ödeme alırım?",
@@ -93,12 +89,12 @@ const FAQ_GROUPS: FaqGroup[] = [
         a: "SGK'nız yoksa TSS yaptıramazsınız. Bunun yerine Özel Sağlık Sigortası (ÖSS) seçeneğine yönelmelisiniz. ÖSS, premium hastane ağları, yurt dışı tedavi ve doğum teminatı gibi avantajlar sunar.",
       },
       {
-        q: "Acıbadem'de tedavi olmak istiyorum, hangi sigorta uygun?",
-        a: "Acıbadem grubu için Özel Sağlık Sigortası (özellikle Bupa Acıbadem Sigorta) tercih edilir. Çoğu TSS poliçesi bu premium grubu kapsamaz.",
+        q: "Mevcut hastalığım var, kapsama girer mi?",
+        a: "Mevcut hastalıklar genellikle sağlık sigortalarında teminat kapsamı dışında değerlendirilir; ancak bu durum poliçenin türüne ve özel şartlarına göre değişebilir. ÖBYG (Ömür boyu yenileme garantisi) kapsamında iseniz hiçbir muafiyet konmayacaktır.",
       },
       {
-        q: "Mevcut hastalığım var, kapsama girer mi?",
-        a: "Beyan zorunludur. Önceden mevcut hastalıklar için bekleme süresine ve özel şartlara tabi olabilirsiniz; bazı durumlarda istisna, bazı durumlarda prim yüklemesi uygulanır.",
+        q: "Bebeğime tek başına sağlık sigortası yaptırabilir miyim?",
+        a: "Evet. Doğumdan 15 gün sonra bebeğiniz için sağlık sigortası poliçesi yaptırabilirsiniz. Doğumdan hemen sonra poliçe başlatmanız halinde, bebeğiniz sigorta şirketleri açısından 'yeni doğan' statüsünde değerlendirilir ve bu sayede bazı teminat ve haklardan daha erken yararlanma imkânı elde eder.",
       },
     ],
   },
@@ -162,7 +158,7 @@ export default function FaqPage() {
         title="Sigorta hakkında merak edilenler"
         subtitle="Müşterilerimizden en sık aldığımız sorulara verdiğimiz net cevapları kategoriler halinde sizin için derledik."
         badges={[
-          "5 kategori altında 22 soru",
+          "5 kategori altında 20 soru",
           "Uzman ekibimizden cevaplar",
           "Hâlâ sorunuz varsa bize ulaşın",
         ]}

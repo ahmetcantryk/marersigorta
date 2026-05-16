@@ -5,7 +5,6 @@ import { Branches } from "@/components/Branches";
 import { Why, How } from "@/components/WhyHow";
 import { Partners, Reviews } from "@/components/Trust";
 import { About } from "@/components/About";
-import { Claims } from "@/components/Claims";
 import { FaqSection } from "@/components/Faq";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -24,7 +23,6 @@ export default function HomePage() {
         <Why />
         <Reviews />
         <About />
-        <Claims />
         <FaqSection />
         <Contact />
       </main>

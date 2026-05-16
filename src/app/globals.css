@@ -164,6 +164,10 @@ input, select, textarea {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes megaFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes wPulse {
   0% { transform: scale(1); opacity: 0.35; }
@@ -228,12 +232,132 @@ input, select, textarea {
   .topbar-inner > .topbar-left span:first-child { font-size: 11px; }
 }
 
+/* Header — scroll-state bars */
+.header-bar {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.32s ease, transform 0.32s ease;
+  will-change: opacity, transform;
+}
+.header-bar[data-active="false"] {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+}
+.header-bar[data-active="true"] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scrolled-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-700);
+  background: var(--ink-50);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, background 0.15s, border-color 0.15s, transform 0.15s;
+}
+.scrolled-chip:hover {
+  background: var(--brand-50);
+  color: var(--brand-700);
+  border-color: var(--brand-200);
+  transform: translateY(-1px);
+}
+.scrolled-chip-icon {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  color: var(--brand-500);
+}
+
+.scrolled-iconbtn {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--ink-200);
+  background: var(--paper);
+  color: var(--ink-700);
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+  flex-shrink: 0;
+}
+.scrolled-iconbtn:hover {
+  border-color: var(--brand-300);
+  color: var(--brand-500);
+  background: var(--brand-50);
+  transform: translateY(-1px);
+}
+.scrolled-iconbtn--wa {
+  background: #25d366;
+  color: white;
+  border-color: #25d366;
+}
+.scrolled-iconbtn--wa:hover {
+  background: #1ebe5d;
+  color: white;
+  border-color: #1ebe5d;
+}
+
+.see-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-700);
+  background: var(--brand-50);
+  border: 1px solid var(--brand-100);
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s, color 0.15s;
+  cursor: pointer;
+}
+.see-all-btn:hover {
+  background: var(--brand-100);
+  border-color: var(--brand-200);
+  color: var(--brand-800);
+  transform: translateY(-1px);
+}
+.see-all-chevron {
+  transition: transform 0.2s ease;
+}
+.see-all-btn[data-open="true"] .see-all-chevron {
+  transform: rotate(180deg);
+}
+
+/* Daha dar desktop'ta bazı chip'leri saklayarak taşmayı önle */
+@media (max-width: 1180px) {
+  .scrolled-chip[data-priority="low"] { display: none; }
+}
+@media (max-width: 1080px) {
+  .scrolled-chip[data-priority="mid"] { display: none; }
+}
+
 /* Header media queries */
 @media (max-width: 1024px) {
   .desktop-nav { display: none !important; }
   .mobile-burger { display: grid !important; }
   .call-now-label { display: none; }
   .call-now { padding: 6px !important; }
+  /* Mobilde scrolled bar GİZLİ — default bar her zaman görünür */
+  .header-bar[data-variant="scrolled"] { display: none !important; }
+  .header-bar[data-variant="default"] {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
 }
 
 /* Hero media queries */
@@ -810,8 +934,17 @@ html { scroll-behavior: smooth; }
   .section-h { font-size: clamp(22px, 6vw, 28px) !important; }
 }
 
-/* Prevent horizontal scroll on body */
-html, body { overflow-x: hidden; }
+/* Prevent horizontal scroll without breaking position: sticky descendants.
+   `overflow-x: hidden` on html/body creates a new scroll container which
+   stops sticky from anchoring to the viewport — `clip` doesn't. */
+html, body {
+  overflow-x: clip;
+}
+@supports not (overflow-x: clip) {
+  /* Older browsers: accept that sticky header may not pin, but at least
+     no horizontal scroll bar. */
+  html, body { overflow-x: hidden; }
+}
 
 /* ---------------- Mobile drawer ---------------- */
 .mobile-drawer-backdrop {
