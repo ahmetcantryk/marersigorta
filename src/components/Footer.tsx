@@ -49,6 +49,44 @@ const FooterCol = ({ title, links, custom }: FooterColProps) => (
   </div>
 );
 
+interface FooterSubGroupProps {
+  label: string;
+  links: FooterLink[];
+}
+
+const FooterSubGroup = ({ label, links }: FooterSubGroupProps) => (
+  <div style={{ minWidth: 0 }}>
+    <div
+      style={{
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: ".14em",
+        textTransform: "uppercase",
+        color: "var(--brand-300)",
+        marginBottom: 14,
+        paddingBottom: 8,
+        borderBottom: "1px solid rgba(255,255,255,0.10)",
+      }}
+    >
+      {label}
+    </div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 9,
+        fontSize: 14,
+      }}
+    >
+      {links.map((l) => (
+        <Link key={l.href} href={l.href}>
+          {l.label}
+        </Link>
+      ))}
+    </div>
+  </div>
+);
+
 /** İki alt-grup başlığı (Bireysel / Kurumsal) — Header mega menüsüyle aynı yapı */
 const FOOTER_PRODUCTS_INDIVIDUAL: FooterLink[] = [
   { label: "Kasko Sigortası", href: "/kasko-sigortasi" },
@@ -91,8 +129,8 @@ export const Footer = () => (
         className="footer-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "1.3fr 1fr 1fr 0.9fr 1.2fr",
-          gap: 36,
+          gridTemplateColumns: "1.2fr 2.2fr 1fr 1.3fr",
+          gap: 40,
           marginBottom: 56,
         }}
       >
@@ -116,22 +154,34 @@ export const Footer = () => (
           </div>
         </div>
 
-        {/* 2 — Ürünlerimiz: Bireysel */}
+        {/* 2 — Ürünlerimiz: tek başlık, içinde Bireysel + Kurumsal alt-sütunları */}
         <FooterCol
-          title="Ürünlerimiz — Bireysel"
-          links={FOOTER_PRODUCTS_INDIVIDUAL}
+          title="Ürünlerimiz"
+          custom={
+            <div
+              className="footer-products"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 28,
+              }}
+            >
+              <FooterSubGroup
+                label="Bireysel"
+                links={FOOTER_PRODUCTS_INDIVIDUAL}
+              />
+              <FooterSubGroup
+                label="Kurumsal"
+                links={FOOTER_PRODUCTS_CORPORATE}
+              />
+            </div>
+          }
         />
 
-        {/* 3 — Ürünlerimiz: Kurumsal */}
-        <FooterCol
-          title="Ürünlerimiz — Kurumsal"
-          links={FOOTER_PRODUCTS_CORPORATE}
-        />
-
-        {/* 4 — Kurumsal sayfalar */}
+        {/* 3 — Kurumsal sayfalar */}
         <FooterCol title="Kurumsal" links={CORPORATE_PAGES} />
 
-        {/* 5 — İletişim */}
+        {/* 4 — İletişim */}
         <FooterCol
           title="İletişim"
           custom={
