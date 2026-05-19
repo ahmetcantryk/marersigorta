@@ -219,6 +219,18 @@ export const Footer = () => (
                 <span>+90 (501) 101 47 25</span>
               </a>
               <a
+                href="tel:+905010004725"
+                style={{
+                  display: "flex",
+                  gap: 10,
+                  alignItems: "center",
+                  color: "white",
+                }}
+              >
+                <I.Phone size={16} color="var(--brand-300)" />
+                <span>+90 (501) 000 47 25</span>
+              </a>
+              <a
                 href="mailto:info@marersigorta.com"
                 style={{ display: "flex", gap: 10, alignItems: "center" }}
               >

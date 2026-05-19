@@ -171,7 +171,7 @@ export default function FaqPage() {
           background: "var(--paper)",
           borderBottom: "1px solid var(--ink-100)",
           position: "sticky",
-          top: 68,
+          top: 64,
           zIndex: 40,
         }}
       >

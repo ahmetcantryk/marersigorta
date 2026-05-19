@@ -343,10 +343,6 @@ export const PRODUCTS: ProductData[] = [
     ],
     faq: [
       {
-        q: "Kasko tavan fiyatı var mı?",
-        a: "Hayır. Şirketler kendi tarifelerini belirler, bu nedenle aynı araç için %30'a varan fiyat farkları görmek mümkündür.",
-      },
-      {
         q: "Hasarsızlık indirimimi başka şirkete taşıyabilir miyim?",
         a: "Evet. Yenileme döneminizde hasarınız yok ise hangi şirkete geçerseniz geçin hasarsızlık aktarımı yapılabilir.",
       },
@@ -356,7 +352,7 @@ export const PRODUCTS: ProductData[] = [
       },
       {
         q: "Cam kırılması hasarsızlığımı bozar mı?",
-        a: "Çoğu şirkette bozmaz, ancak şirket bazında değişir. Poliçenizi alırken kontrol edin.",
+        a: "Sadece ilk cam hasarı hasarsızlığı bozmaz.",
       },
       {
         q: "Aracım çalınırsa ne kadar sürede ödeme alırım?",
@@ -991,17 +987,6 @@ export const PRODUCTS: ProductData[] = [
       "Poliçe başlangıcından önceki mevcut hastalıklar",
       "Akıl/ruh sağlığı tedavileri (genellikle)",
     ],
-    comparison: {
-      title: "TSS vs Özel Sağlık Sigortası (ÖSS)",
-      headers: ["Özellik", "TSS", "ÖSS"],
-      rows: [
-        ["SGK şartı", "Zorunlu", "Yok"],
-        ["Acıbadem, Memorial vb.", "Genellikle dışında", "Genellikle dahil"],
-        ["Yurt dışı tedavi", "Yok", "Var (ek teminat)"],
-        ["Yıllık prim", "Daha uygun", "2–4 kat daha yüksek"],
-        ["Diş ve gözlük", "Yok", "Ek teminatla var"],
-      ],
-    },
     fiyatKriterleri: [
       "Yaş — yaş arttıkça prim artar",
       "Cinsiyet (özellikle doğum dahilse)",
@@ -2003,17 +1988,6 @@ export const PRODUCTS: ProductData[] = [
       "Savaş, nükleer riskler",
       "Sigortalının kasti hareketleri",
     ],
-    comparison: {
-      title: "Proje Yaşam Döngüsü — Hangi Ürün Ne Zaman?",
-      headers: ["Faz", "Süre", "Sigorta Ürünü"],
-      rows: [
-        ["Yapı inşaatı", "12–36 ay", "İnşaat All Risks (CAR)"],
-        ["Ekipman montajı", "3–12 ay", "Montaj All Risks (EAR)"],
-        ["Geçici kabul / deneme", "Bakım devresi", "Her iki poliçenin bakım devresi"],
-        ["İşletmeye alma", "Devamlı", "Makine Kırılması + Elektronik Cihaz + Yangın"],
-      ],
-      note: "Aralarda teminat boşluğu kalmaması için geçişler bir bütün olarak planlanmalıdır.",
-    },
     fiyatKriterleri: [
       "Proje değeri / sigorta bedeli (proje bitiminde ulaşılacak nihai değere eşit)",
       "Proje tipi (konut / ticari / endüstriyel / enerji / altyapı)",

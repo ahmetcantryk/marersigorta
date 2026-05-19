@@ -26,9 +26,16 @@ export const metadata: Metadata = {
 const CONTACT_METHODS = [
   {
     Icon: I.Phone,
-    label: "Telefon",
+    label: "Telefon 1",
     value: "+90 (501) 101 47 25",
     href: "tel:+905011014725",
+    color: "var(--brand-500)",
+  },
+  {
+    Icon: I.Phone,
+    label: "Telefon 2",
+    value: "+90 (501) 000 47 25",
+    href: "tel:+905010004725",
     color: "var(--brand-500)",
   },
   {
@@ -81,7 +88,7 @@ export default function ContactPage() {
             className="contact-methods"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: "repeat(2, 1fr)",
               gap: 16,
             }}
           >

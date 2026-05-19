@@ -49,7 +49,7 @@ export const About = () => (
               maxWidth: 480,
             }}
           >
-            <UndrawAgreement primaryColor="#56ACD6" height="360px" />
+            <UndrawAgreement primaryColor="#3C92BF" height="360px" />
           </div>
 
           <div
@@ -84,7 +84,7 @@ export const About = () => (
               <div style={{ fontSize: 11.5, color: "var(--ink-500)" }}>
                 Lisanslı Acente
               </div>
-              <div style={{ fontSize: 13, fontWeight: 700 }}>TOBB Levha No</div>
+              <div style={{ fontSize: 13, fontWeight: 700 }}>T230525-FSI2</div>
             </div>
           </div>
         </div>

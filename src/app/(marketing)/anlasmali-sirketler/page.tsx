@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import type { ComponentType } from "react";
 import { I, type IconProps } from "@/components/Icons";
 import { PageBreadcrumb } from "@/components/marketing/PageBreadcrumb";
 import { SectionTitle } from "@/components/marketing/SectionTitle";
 import { PageFinalCta } from "@/components/marketing/PageFinalCta";
+import { PARTNERS } from "@/lib/partners";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.marersigorta.com";
@@ -23,35 +25,6 @@ export const metadata: Metadata = {
     locale: "tr_TR",
   },
 };
-
-const ALL_PARTNERS = [
-  "Allianz",
-  "Anadolu",
-  "AXA",
-  "HDI",
-  "Mapfre",
-  "Ray",
-  "Türkiye",
-  "Quick",
-  "Aksigorta",
-  "Zurich",
-  "Sompo",
-  "Referans",
-  "Doğa",
-  "Neova",
-  "Unico",
-  "Türk Nippon",
-  "Eureko",
-  "Bupa Acıbadem",
-  "Bereket",
-  "Magdeburger",
-  "GIG",
-  "Ankara",
-  "Koru",
-  "Quick Sigorta",
-  "Şeker",
-  "Emaa",
-];
 
 interface Category {
   Icon: ComponentType<IconProps>;
@@ -106,53 +79,45 @@ const CATEGORIES: Category[] = [
   },
 ];
 
-interface WordmarkProps {
+interface LogoCardProps {
   name: string;
-  idx: number;
+  logo: string;
 }
 
-const Wordmark = ({ name, idx }: WordmarkProps) => {
-  const fonts = ['"Manrope"', '"Inter"', "Georgia, serif"];
-  const weights = [800, 700, 600] as const;
-  const styles: React.CSSProperties[] = [
-    { transform: "none" },
-    { fontStyle: "italic" },
-    { letterSpacing: "-0.04em" },
-    {
-      textTransform: "uppercase",
-      letterSpacing: "0.12em",
-      fontSize: 13,
-    },
-    { textTransform: "lowercase", letterSpacing: "-0.02em" },
-  ];
+// Bereket logosu küçük orijinal — diğerlerine göre büyütülmesi gerekiyor.
+const LARGER_LOGOS = new Set<string>(["Bereket"]);
+
+const LogoCard = ({ name, logo }: LogoCardProps) => {
+  const isLarger = LARGER_LOGOS.has(name);
+  const maxH = isLarger ? 60 : 40;
   return (
     <div
       style={{
         height: 84,
-        padding: "0 20px",
+        padding: "12px 20px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        gap: 8,
         background: "var(--paper)",
         borderRadius: "var(--radius)",
         border: "1px solid var(--ink-100)",
-        color: "var(--ink-400)",
-        transition: "color .2s, border-color .2s, transform .2s",
+        transition: "transform .2s, border-color .2s, box-shadow .2s",
       }}
     >
-      <span
+      <Image
+        src={logo}
+        alt={`${name} Sigorta`}
+        width={120}
+        height={maxH}
         style={{
-          fontFamily: fonts[idx % fonts.length],
-          fontWeight: weights[idx % weights.length],
-          fontSize: 17,
-          whiteSpace: "nowrap",
-          textAlign: "center",
-          ...styles[idx % styles.length],
+          maxWidth: "100%",
+          maxHeight: maxH,
+          width: "auto",
+          height: "auto",
+          objectFit: "contain",
         }}
-      >
-        {name}
-      </span>
+        unoptimized
+      />
     </div>
   );
 };
@@ -179,7 +144,7 @@ export default function PartnersPage() {
             eyebrow="Tüm Şirketler"
             title="Anlaşmalı sigorta şirketlerimiz"
             align="center"
-            subtitle="Aşağıdaki 30+ sigorta şirketinden istediğiniz ürünün teklifini Marer Sigorta üzerinden alabilirsiniz."
+            subtitle={`Aşağıdaki ${PARTNERS.length}+ sigorta şirketinden istediğiniz ürünün teklifini Marer Sigorta üzerinden alabilirsiniz.`}
           />
           <div
             className="partners-grid"
@@ -189,8 +154,8 @@ export default function PartnersPage() {
               gap: 12,
             }}
           >
-            {ALL_PARTNERS.map((p, i) => (
-              <Wordmark key={p} name={p} idx={i} />
+            {PARTNERS.map((p) => (
+              <LogoCard key={p.name} name={p.name} logo={p.logo} />
             ))}
           </div>
         </div>

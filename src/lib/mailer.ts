@@ -42,7 +42,7 @@ const SOURCE_LABEL: Record<LeadInput["source"], string> = {
 
 interface LeadEmailOptions {
   lead: LeadInput;
-  leadId: string;
+  leadId?: string | null;
   userAgent?: string | null;
   ipAddress?: string | null;
 }
@@ -102,7 +102,7 @@ function buildHtml(opts: LeadEmailOptions): string {
         return `
         <tr>
           <td style="padding:12px 16px;background:${stripe};color:#5C6B7E;font-size:12.5px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;width:160px;border-bottom:1px solid #EEF2F6;vertical-align:top;">${esc(k)}</td>
-          <td style="padding:12px 16px;background:${stripe};color:${isPhone ? "#0277BD" : "#0B1A2C"};font-size:14.5px;font-weight:${isPhone ? "700" : "600"};border-bottom:1px solid #EEF2F6;">${esc(v)}</td>
+          <td style="padding:12px 16px;background:${stripe};color:${isPhone ? "#235775" : "#0B1A2C"};font-size:14.5px;font-weight:${isPhone ? "700" : "600"};border-bottom:1px solid #EEF2F6;">${esc(v)}</td>
         </tr>`;
       }
     )
@@ -113,8 +113,8 @@ function buildHtml(opts: LeadEmailOptions): string {
 <head><meta charset="utf-8"><title>Yeni teklif talebi — Marer Sigorta</title></head>
 <body style="margin:0;padding:24px;background:#F6F9FC;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#0B1A2C;">
   <div style="max-width:600px;margin:0 auto;background:#FFFFFF;border:1px solid #EEF2F6;border-radius:12px;overflow:hidden;">
-    <div style="padding:20px 24px;background:#EFF8FC;border-bottom:2px solid #56ACD6;">
-      <div style="display:flex;align-items:center;gap:8px;font-size:11.5px;color:#2D7299;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">
+    <div style="padding:20px 24px;background:#EFF8FC;border-bottom:2px solid #3C92BF;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:11.5px;color:#235775;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">
         <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10B981;"></span>
         Marer Sigorta
       </div>

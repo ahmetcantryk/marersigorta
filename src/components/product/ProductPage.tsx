@@ -10,6 +10,13 @@ interface ProductPageProps {
   product: ProductData;
 }
 
+// Sadece bu ürünlerde "Teminat dışında kalan haller" bölümü gösterilir.
+const SLUGS_WITH_EXCLUSIONS = new Set<string>([
+  "ozel-saglik-sigortasi",
+  "tamamlayici-saglik-sigortasi",
+  "yat-tekne-sigortasi",
+]);
+
 export const ProductPage = ({ product }: ProductPageProps) => {
   return (
     <>
@@ -48,7 +55,9 @@ export const ProductPage = ({ product }: ProductPageProps) => {
           {product.nasilYaptirilir && (
             <StepsBlock steps={product.nasilYaptirilir} />
           )}
-          <NotCoveredList items={product.teminatDisi} />
+          {SLUGS_WITH_EXCLUSIONS.has(product.slug) && (
+            <NotCoveredList items={product.teminatDisi} />
+          )}
           {product.faq.length > 0 && <FaqAccordion items={product.faq} />}
         </main>
         <CrossSell slugs={product.crossSell} />

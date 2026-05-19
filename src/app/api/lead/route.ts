@@ -49,9 +49,40 @@ export async function POST(req: NextRequest): Promise<NextResponse<LeadResponse>
   const userAgent = req.headers.get("user-agent");
   const ipAddress = clientIp(req);
 
-  // Route inserts through SECURITY DEFINER RPC to keep anon role honest
-  // while still letting public form submissions land in the leads table.
-  let leadId: string;
+  // Supabase ve mail birbirinden bağımsız çalışır — Supabase pause/erişim
+  // hatası yaşansa bile lead mail olarak ekibe ulaşmalı. Kullanıcıya yalnız
+  // mail başarısız olduğunda hata göster.
+  const supabasePromise = insertLeadSafely(lead, userAgent, ipAddress);
+  const mailPromise = sendLeadEmail({ lead, userAgent, ipAddress });
+
+  const [supabaseResult, mailResult] = await Promise.allSettled([
+    supabasePromise,
+    mailPromise,
+  ]);
+
+  let leadId: string | undefined;
+  if (supabaseResult.status === "fulfilled" && supabaseResult.value) {
+    leadId = supabaseResult.value;
+  } else if (supabaseResult.status === "rejected") {
+    console.error("Supabase insert failed (suppressed):", supabaseResult.reason);
+  }
+
+  if (mailResult.status === "rejected") {
+    console.error("Mail send failed:", mailResult.reason);
+    return NextResponse.json(
+      { ok: false, message: "Talebiniz iletilemedi. Lütfen tekrar deneyin." },
+      { status: 502 }
+    );
+  }
+
+  return NextResponse.json({ ok: true, id: leadId });
+}
+
+async function insertLeadSafely(
+  lead: ReturnType<typeof leadInputSchema.parse>,
+  userAgent: string | null,
+  ipAddress: string | null
+): Promise<string | null> {
   try {
     const supabase = getSupabase();
     const { data, error } = await supabase.rpc("insert_lead", {
@@ -74,37 +105,15 @@ export async function POST(req: NextRequest): Promise<NextResponse<LeadResponse>
         ip_address: ipAddress,
       },
     });
-
     if (error || !data) {
-      console.error("Supabase rpc error:", error);
-      return NextResponse.json(
-        { ok: false, message: "Kayıt sırasında bir hata oluştu." },
-        { status: 500 }
-      );
+      console.error("Supabase rpc error (suppressed):", error);
+      return null;
     }
-    leadId = data as string;
+    return data as string;
   } catch (e: unknown) {
-    console.error("Supabase exception:", e);
-    return NextResponse.json(
-      { ok: false, message: "Veritabanı bağlantı hatası." },
-      { status: 500 }
-    );
+    console.error("Supabase exception (suppressed):", e);
+    return null;
   }
-
-  // Fire-and-forget email — DB success is the source of truth
-  try {
-    await sendLeadEmail({
-      lead,
-      leadId,
-      userAgent,
-      ipAddress,
-    });
-  } catch (e: unknown) {
-    // Don't fail the request if email fails; the lead is in DB.
-    console.error("Mail send failed:", e);
-  }
-
-  return NextResponse.json({ ok: true, id: leadId });
 }
 
 function parseBirthDate(dmy?: string): string | null {

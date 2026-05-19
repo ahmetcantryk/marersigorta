@@ -1,16 +1,16 @@
 :root {
-  /* Brand palette — anchored at #56ACD6 */
+  /* Brand palette — one shade darker (anchored at #3C92BF) */
   --brand-50: #EFF8FC;
-  --brand-100: #D7EDF6;
-  --brand-200: #B0DAEB;
-  --brand-300: #87C5DF;
-  --brand-400: #6CB7D9;
-  --brand-500: #56ACD6;
-  --brand-600: #3C92BF;
-  --brand-700: #2D7299;
-  --brand-800: #235775;
-  --brand-900: #173952;
-  --brand-950: #0C2336;
+  --brand-100: #D0E8F2;
+  --brand-200: #A1D1E5;
+  --brand-300: #6EB7D2;
+  --brand-400: #4FA1C5;
+  --brand-500: #3C92BF;
+  --brand-600: #2D7299;
+  --brand-700: #235775;
+  --brand-800: #173952;
+  --brand-900: #0C2336;
+  --brand-950: #07172B;
 
   --accent-500: #10B981;
   --accent-600: #059669;

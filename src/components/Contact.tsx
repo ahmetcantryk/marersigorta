@@ -196,6 +196,7 @@ const ContactRow = ({ Icon, title, value, href, inverse }: ContactRowProps) => {
             letterSpacing: "-0.005em",
             lineHeight: 1.4,
             wordBreak: "break-word",
+            whiteSpace: "pre-line",
           }}
         >
           {value}
@@ -617,6 +618,13 @@ export const Contact = () => {
                     inverse
                   />
                   <ContactRow
+                    Icon={I.Phone}
+                    title="Telefon 2"
+                    value="+90 (501) 000 47 25"
+                    href="tel:+905010004725"
+                    inverse
+                  />
+                  <ContactRow
                     Icon={I.Whatsapp}
                     title="WhatsApp"
                     value="+90 (501) 101 47 25"
@@ -640,7 +648,7 @@ export const Contact = () => {
                   <ContactRow
                     Icon={I.Clock}
                     title="Çalışma saatleri"
-                    value="Hafta içi 09:00 – 18:00 · Cumartesi 09:00 – 17:00 · 7/24 WhatsApp"
+                    value={"Hafta içi 09:00 – 18:00\nCumartesi 09:00 – 17:00 · 7/24 WhatsApp"}
                     inverse
                   />
                 </div>

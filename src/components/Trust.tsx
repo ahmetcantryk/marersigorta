@@ -1,116 +1,54 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { I } from "./Icons";
+import { PARTNERS, type Partner } from "@/lib/partners";
 
-const PARTNERS = [
-  "Allianz",
-  "Anadolu",
-  "AXA",
-  "HDI",
-  "Mapfre",
-  "Ray",
-  "Türkiye",
-  "Quick",
-  "Aksigorta",
-  "Zurich",
-  "Sompo",
-  "Referans",
-  "Doğa",
-  "Neova",
-  "Unico",
-  "Türk Nippon",
-  "Eureko",
-  "GIG",
-  "Emaa",
-];
-
-interface PartnerWordmarkProps {
-  name: string;
-  idx: number;
+interface PartnerLogoProps {
+  partner: Partner;
 }
 
-const PartnerWordmark = ({ name, idx }: PartnerWordmarkProps) => {
-  const fonts = ['"Manrope"', '"Inter"', "Georgia, serif"];
-  const weights = [800, 700, 600];
-  const styles: React.CSSProperties[] = [
-    { transform: "none" },
-    { fontStyle: "italic" },
-    { letterSpacing: "-0.04em" },
-    { textTransform: "uppercase", letterSpacing: "0.12em", fontSize: 14 },
-    { textTransform: "lowercase", letterSpacing: "-0.02em" },
-  ];
-  const decor = idx % 4;
-  return (
-    <div
+const PartnerLogo = ({ partner }: PartnerLogoProps) => (
+  <div
+    style={{
+      flexShrink: 0,
+      height: 64,
+      width: 160,
+      padding: "0 24px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      borderRight: "1px solid var(--ink-100)",
+      transition: "filter .2s, opacity .2s",
+      filter: "grayscale(1)",
+      opacity: 0.7,
+    }}
+    onMouseOver={(e) => {
+      e.currentTarget.style.filter = "grayscale(0)";
+      e.currentTarget.style.opacity = "1";
+    }}
+    onMouseOut={(e) => {
+      e.currentTarget.style.filter = "grayscale(1)";
+      e.currentTarget.style.opacity = "0.7";
+    }}
+  >
+    <Image
+      src={partner.logo}
+      alt={`${partner.name} Sigorta`}
+      width={120}
+      height={48}
       style={{
-        flexShrink: 0,
-        height: 64,
-        padding: "0 36px",
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        color: "var(--ink-400)",
-        borderRight: "1px solid var(--ink-100)",
-        transition: "color .2s",
+        maxWidth: "100%",
+        maxHeight: 48,
+        width: "auto",
+        height: "auto",
+        objectFit: "contain",
       }}
-      onMouseOver={(e) => (e.currentTarget.style.color = "var(--ink-700)")}
-      onMouseOut={(e) => (e.currentTarget.style.color = "var(--ink-400)")}
-    >
-      {decor === 0 && (
-        <div
-          style={{
-            width: 10,
-            height: 10,
-            borderRadius: 999,
-            border: "2px solid currentColor",
-          }}
-        />
-      )}
-      {decor === 1 && (
-        <div
-          style={{
-            width: 10,
-            height: 10,
-            transform: "rotate(45deg)",
-            border: "2px solid currentColor",
-          }}
-        />
-      )}
-      {decor === 2 && (
-        <div
-          style={{
-            width: 14,
-            height: 4,
-            background: "currentColor",
-            borderRadius: 2,
-          }}
-        />
-      )}
-      {decor === 3 && (
-        <div
-          style={{
-            width: 11,
-            height: 11,
-            borderRadius: "50% 0 50% 50%",
-            background: "currentColor",
-          }}
-        />
-      )}
-      <span
-        style={{
-          fontFamily: fonts[idx % fonts.length],
-          fontWeight: weights[idx % weights.length],
-          fontSize: 19,
-          whiteSpace: "nowrap",
-          ...styles[idx % styles.length],
-        }}
-      >
-        {name}
-      </span>
-    </div>
-  );
-};
+      unoptimized
+    />
+  </div>
+);
 
 export const Partners = () => {
   const list = [...PARTNERS, ...PARTNERS];
@@ -135,7 +73,7 @@ export const Partners = () => {
             letterSpacing: "0.12em",
           }}
         >
-          30+ sigorta şirketiyle anlaşmalıyız
+          {PARTNERS.length}+ sigorta şirketiyle anlaşmalıyız
         </div>
       </div>
       <div
@@ -152,11 +90,11 @@ export const Partners = () => {
           style={{
             display: "flex",
             width: "max-content",
-            animation: "scrollX 60s linear infinite",
+            animation: "scrollX 80s linear infinite",
           }}
         >
           {list.map((p, i) => (
-            <PartnerWordmark key={i} name={p} idx={i % PARTNERS.length} />
+            <PartnerLogo key={`${p.name}-${i}`} partner={p} />
           ))}
         </div>
       </div>

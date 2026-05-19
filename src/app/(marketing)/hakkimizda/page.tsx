@@ -141,7 +141,7 @@ export default function AboutPage() {
                 maxWidth: 460,
               }}
             >
-              <UndrawAgreement primaryColor="#56ACD6" height="360px" />
+              <UndrawAgreement primaryColor="#3C92BF" height="360px" />
             </div>
           </div>
 
@@ -416,7 +416,7 @@ export default function AboutPage() {
                 >
                   Lisanslı Acente
                 </div>
-                <div style={{ fontWeight: 700 }}>TOBB Levha No</div>
+                <div style={{ fontWeight: 700 }}>T230525-FSI2</div>
               </div>
             </div>
             <Link href="/anlasmali-sirketler" className="btn btn-ghost btn-sm">

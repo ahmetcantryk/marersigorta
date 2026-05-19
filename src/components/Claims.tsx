@@ -85,7 +85,7 @@ export const Claims = () => (
           }}
         >
           <div style={{ width: "100%", maxWidth: 360 }}>
-            <UndrawActiveSupport primaryColor="#56ACD6" height="240px" />
+            <UndrawActiveSupport primaryColor="#3C92BF" height="240px" />
           </div>
         </div>
       </div>

@@ -277,7 +277,7 @@ export const How = () => (
                   minHeight: 160,
                 }}
               >
-                <s.Illustration primaryColor="#56ACD6" height="160px" />
+                <s.Illustration primaryColor="#3C92BF" height="160px" />
               </div>
               <h3 style={{ fontSize: 19, fontWeight: 700, marginBottom: 8 }}>
                 {s.title}

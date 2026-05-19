@@ -141,7 +141,7 @@ export default function NotFound() {
                 maxWidth: 460,
               }}
             >
-              <UndrawLost primaryColor="#56ACD6" height="360px" />
+              <UndrawLost primaryColor="#3C92BF" height="360px" />
             </div>
           </div>
         </div>

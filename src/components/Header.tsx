@@ -461,7 +461,7 @@ export const Header = ({ onQuote }: HeaderProps) => {
                   <I.ArrowRight size={16} />
                 </button>
               ) : (
-                <Link href="/#hero" className="btn btn-primary btn-sm">
+                <Link href="/#contact" className="btn btn-primary btn-sm">
                   Teklif Al
                   <I.ArrowRight size={16} />
                 </Link>
@@ -604,7 +604,7 @@ export const Header = ({ onQuote }: HeaderProps) => {
                 </button>
               ) : (
                 <Link
-                  href="/#hero"
+                  href="/#contact"
                   className="btn btn-primary btn-sm"
                   style={{ marginLeft: 4 }}
                 >
@@ -706,7 +706,7 @@ export const Header = ({ onQuote }: HeaderProps) => {
                 </button>
               ) : (
                 <Link
-                  href="/#hero"
+                  href="/#contact"
                   className="btn btn-primary mobile-cta-primary"
                   onClick={closeMobile}
                 >
