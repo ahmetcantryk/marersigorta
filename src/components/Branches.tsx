@@ -4,28 +4,37 @@ import { useEffect, useRef, useState, type ComponentType } from "react";
 import Link from "next/link";
 import { I, type IconProps } from "./Icons";
 
+type BranchKind = "bireysel" | "kurumsal";
+
 interface Branch {
   slug: string;
   Icon: ComponentType<IconProps>;
   title: string;
   desc: string;
+  kind: BranchKind;
 }
 
 const BRANCHES: Branch[] = [
-  { slug: "zorunlu-trafik-sigortasi", Icon: I.Car, title: "Trafik Sigortası", desc: "3. şahıs maddi ve bedeni zararları yasal teminat altına alır." },
-  { slug: "kasko-sigortasi", Icon: I.CarShield, title: "Kasko Sigortası", desc: "Aracınızı çarpma, çalınma, yanma ve doğal afet gibi durumlarda oluşabilecek zararlara karşı korur." },
-  { slug: "dask-zorunlu-deprem-sigortasi", Icon: I.Quake, title: "DASK", desc: "Zorunlu deprem sigortası ile konutunuzu yasal güvence altına alır." },
-  { slug: "konut-sigortasi", Icon: I.Home, title: "Konut Sigortası", desc: "Evinizi ve içindeki eşyaları yangın, hırsızlık, sel/su baskını gibi risklere karşı güvence altına alır." },
-  { slug: "tamamlayici-saglik-sigortasi", Icon: I.Heart, title: "Tamamlayıcı Sağlık", desc: "SGK anlaşmalı özel hastanelerde fark ücreti ödemeden sağlık hizmeti alabilirsiniz." },
-  { slug: "ozel-saglik-sigortasi", Icon: I.Hospital, title: "Özel Sağlık", desc: "SGK şartı olmadan özel hastanelerde sağlık hizmetlerinden yararlanmanızı sağlar." },
-  { slug: "seyahat-saglik-sigortasi", Icon: I.Plane, title: "Seyahat Sağlık", desc: "Yurt dışı vize ve seyahat süresince sağlık güvencesi." },
-  { slug: "yesil-kart-sigortasi", Icon: I.Doc, title: "Yeşil Kart Sigortası", desc: "Yurt dışı araç trafik sorumluluk teminatı." },
-  { slug: "kobi-isyeri-sigortasi", Icon: I.Building, title: "İşyeri Sigortası", desc: "İşletmenizi yangın, hırsızlık, sel/su baskını ve benzeri risklere karşı güvence altına alır." },
-  { slug: "ferdi-kaza-hayat-sigortasi", Icon: I.HandHeart, title: "Ferdi Kaza & Hayat", desc: "Beklenmedik durumlara karşı bireysel ve aile güvencesi." },
-  { slug: "muhendislik-sigortalari", Icon: I.Wrench, title: "Mühendislik Sigortaları", desc: "İnşaat, montaj, makine kırılması ve elektronik cihaz için tam koruma." },
-  { slug: "nakliyat-sigortasi", Icon: I.Truck, title: "Nakliyat Sigortası", desc: "İthalat, ihracat ve yurt içi sevkiyatlarınız için ICC klozlarıyla emtia güvencesi." },
-  { slug: "yat-tekne-sigortasi", Icon: I.Boat, title: "Yat ve Tekne Sigortası", desc: "Institute Yacht Clauses standardında deniz, marina ve çekek dahil tam koruma." },
+  { kind: "bireysel", slug: "zorunlu-trafik-sigortasi", Icon: I.Car, title: "Trafik Sigortası", desc: "3. şahıs maddi ve bedeni zararları yasal teminat altına alır." },
+  { kind: "bireysel", slug: "kasko-sigortasi", Icon: I.CarShield, title: "Kasko Sigortası", desc: "Aracınızı çarpma, çalınma, yanma ve doğal afet gibi durumlarda oluşabilecek zararlara karşı korur." },
+  { kind: "bireysel", slug: "dask-zorunlu-deprem-sigortasi", Icon: I.Quake, title: "DASK", desc: "Zorunlu deprem sigortası ile konutunuzu yasal güvence altına alır." },
+  { kind: "bireysel", slug: "konut-sigortasi", Icon: I.Home, title: "Konut Sigortası", desc: "Evinizi ve içindeki eşyaları yangın, hırsızlık, sel/su baskını gibi risklere karşı güvence altına alır." },
+  { kind: "bireysel", slug: "tamamlayici-saglik-sigortasi", Icon: I.Heart, title: "Tamamlayıcı Sağlık", desc: "SGK anlaşmalı özel hastanelerde fark ücreti ödemeden sağlık hizmeti alabilirsiniz." },
+  { kind: "bireysel", slug: "ozel-saglik-sigortasi", Icon: I.Hospital, title: "Özel Sağlık", desc: "SGK şartı olmadan özel hastanelerde sağlık hizmetlerinden yararlanmanızı sağlar." },
+  { kind: "bireysel", slug: "seyahat-saglik-sigortasi", Icon: I.Plane, title: "Seyahat Sağlık", desc: "Yurt dışı vize ve seyahat süresince sağlık güvencesi." },
+  { kind: "bireysel", slug: "yesil-kart-sigortasi", Icon: I.Doc, title: "Yeşil Kart Sigortası", desc: "Yurt dışı araç trafik sorumluluk teminatı." },
+  { kind: "kurumsal", slug: "kobi-isyeri-sigortasi", Icon: I.Building, title: "İşyeri Sigortası", desc: "İşletmenizi yangın, hırsızlık, sel/su baskını ve benzeri risklere karşı güvence altına alır." },
+  { kind: "bireysel", slug: "ferdi-kaza-hayat-sigortasi", Icon: I.HandHeart, title: "Ferdi Kaza & Hayat", desc: "Beklenmedik durumlara karşı bireysel ve aile güvencesi." },
+  { kind: "kurumsal", slug: "muhendislik-sigortalari", Icon: I.Wrench, title: "Mühendislik Sigortaları", desc: "İnşaat, montaj, makine kırılması ve elektronik cihaz için tam koruma." },
+  { kind: "kurumsal", slug: "nakliyat-sigortasi", Icon: I.Truck, title: "Nakliyat Sigortası", desc: "İthalat, ihracat ve yurt içi sevkiyatlarınız için ICC klozlarıyla emtia güvencesi." },
+  { kind: "kurumsal", slug: "yat-tekne-sigortasi", Icon: I.Boat, title: "Yat ve Tekne Sigortası", desc: "Institute Yacht Clauses standardında deniz, marina ve çekek dahil tam koruma." },
+  { kind: "kurumsal", slug: "filo-yonetimi-sigortasi", Icon: I.Fleet, title: "Filo Yönetimi Sigortası", desc: "Şirket araçlarınızı tek poliçede; toplu alım avantajı ve merkezi yönetim." },
 ];
+
+const KIND_META: Record<BranchKind, { label: string; color: string }> = {
+  bireysel: { label: "Bireysel", color: "var(--brand-500)" },
+  kurumsal: { label: "Kurumsal", color: "var(--accent-600)" },
+};
 
 interface BranchSlideProps {
   b: Branch;
@@ -42,7 +51,6 @@ const BranchSlide = ({ b }: BranchSlideProps) => {
         width: "min(280px, 78vw)",
         display: "flex",
         flexDirection: "column",
-        alignItems: "flex-start",
         padding: "22px 22px 20px",
         background: "var(--paper)",
         borderRadius: "var(--radius-lg)",
@@ -62,28 +70,58 @@ const BranchSlide = ({ b }: BranchSlideProps) => {
     >
       <div
         style={{
-          width: 44,
-          height: 44,
-          borderRadius: 12,
-          background: "var(--brand-50)",
-          color: "var(--brand-500)",
-          display: "grid",
-          placeItems: "center",
-          marginBottom: 14,
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          marginBottom: 12,
         }}
       >
-        <b.Icon size={22} />
+        <div
+          style={{
+            width: 42,
+            height: 42,
+            flexShrink: 0,
+            borderRadius: 12,
+            background: "var(--brand-50)",
+            color: "var(--brand-500)",
+            display: "grid",
+            placeItems: "center",
+          }}
+        >
+          <b.Icon size={22} />
+        </div>
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div
+            style={{
+              fontSize: 10.5,
+              fontWeight: 700,
+              letterSpacing: ".12em",
+              textTransform: "uppercase",
+              color: KIND_META[b.kind].color,
+              marginBottom: 2,
+            }}
+          >
+            {KIND_META[b.kind].label}
+          </div>
+          <h3
+            style={{
+              fontSize: 15.5,
+              fontWeight: 700,
+              lineHeight: 1.25,
+              color: "var(--ink-900)",
+            }}
+          >
+            {b.title}
+          </h3>
+        </div>
       </div>
-      <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 6 }}>
-        {b.title}
-      </h3>
       <p
         style={{
           fontSize: 13.5,
           color: "var(--ink-500)",
           lineHeight: 1.5,
           marginBottom: 14,
-          minHeight: 40,
+          minHeight: 60,
         }}
       >
         {b.desc}

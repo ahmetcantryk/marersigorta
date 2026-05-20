@@ -231,6 +231,7 @@ export const PRODUCT_FIELDS: Record<string, ProductFieldsConfig> = {
   "nakliyat-sigortasi": { vkn: true, addressText: true },
   "yat-tekne-sigortasi": { tcKimlik: true, addressText: true },
   "muhendislik-sigortalari": { vkn: true, addressText: true },
+  "filo-yonetimi-sigortasi": { vkn: true, addressText: true },
 };
 
 export const getProductFields = (slug?: string): ProductFieldsConfig => {

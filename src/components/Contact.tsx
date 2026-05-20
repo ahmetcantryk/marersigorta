@@ -28,6 +28,7 @@ const SERVICE_OPTIONS: ServiceOption[] = [
   { value: "Nakliyat Sigortası", label: "Nakliyat Sigortası", Icon: I.Truck },
   { value: "Yat ve Tekne Sigortası", label: "Yat ve Tekne Sigortası", Icon: I.Boat },
   { value: "Mühendislik Sigortaları", label: "Mühendislik Sigortaları", Icon: I.Wrench },
+  { value: "Filo Yönetimi Sigortası", label: "Filo Yönetimi Sigortası", Icon: I.Fleet },
   { value: "Diğer", label: "Diğer", Icon: I.Sparkle },
 ];
 

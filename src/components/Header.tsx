@@ -46,6 +46,7 @@ const SERVICE_GROUPS: ServiceGroup[] = [
       { label: "Mühendislik Sigortaları", href: "/muhendislik-sigortalari", Icon: I.Wrench },
       { label: "Nakliyat Sigortası", href: "/nakliyat-sigortasi", Icon: I.Truck },
       { label: "Yat ve Tekne Sigortası", href: "/yat-tekne-sigortasi", Icon: I.Boat },
+      { label: "Filo Yönetimi Sigortası", href: "/filo-yonetimi-sigortasi", Icon: I.Fleet },
     ],
   },
 ];

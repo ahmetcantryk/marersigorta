@@ -2075,6 +2075,211 @@ export const PRODUCTS: ProductData[] = [
       "ferdi-kaza-hayat-sigortasi",
     ],
   },
+
+  // 14 — KURUMSAL: FİLO YÖNETİMİ SİGORTASI
+  {
+    slug: "filo-yonetimi-sigortasi",
+    short: "Filo Yönetimi",
+    card: "Filo Yönetimi Sigortası",
+    cardDesc:
+      "Şirket araçlarınızı tek poliçede; toplu alım avantajı, merkezi yönetim ve sektörel özelleştirme.",
+    CardIcon: I.Fleet,
+    seo: {
+      title:
+        "Filo Yönetimi Sigortası 2026 — Kurumsal Araç Sigortası | Marer Sigorta",
+      description:
+        "Şirket filonuzu tek poliçede güvence altına alın. Kasko, trafik, İMM, yol yardım ve sektörel özelleştirme. Bağımsız acente ile toplu alım avantajı.",
+      h1: "Filo Yönetimi Sigortası — Şirket Araçlarınızın Tüm Risklerini Tek Çatı Altında",
+      keywords: [
+        "filo yönetimi sigortası",
+        "filo kasko",
+        "kurumsal araç sigortası",
+        "şirket araç sigortası",
+        "lojistik sigortası",
+        "toplu kasko",
+        "fleet insurance",
+      ],
+    },
+    hero: {
+      eyebrow: "Kurumsal — Toplu Araç Sigortası",
+      title: "Filonuzdaki her araç, tek poliçenin gücü ile güvende",
+      subtitle:
+        "İster 5, ister 500 araçlı bir filoya sahip olun; bağımsız acente avantajımızla 30+ sigorta şirketinden alınan tekliflerle filonuza özel maliyet, teminat ve hizmet kalitesini garanti ediyoruz.",
+      badges: [
+        "%30'a varan toplu alım indirimi",
+        "Tek yenileme tarihi, merkezi yönetim",
+        "7/24 yol yardım, anlaşmalı servis ağı",
+      ],
+      Illustration: UndrawByMyCar,
+    },
+    nedir: {
+      paragraphs: [
+        "Filo Yönetimi Sigortası, bir işletmenin sahip olduğu birden fazla aracın tek bir poliçe altında sigortalanmasını sağlayan, kurumsal segmente özel bir araç sigortası ürünüdür.",
+        "Bireysel kasko ve trafik sigortalarının aksine; toplu alım gücü, merkezi yönetim ve filo özel hizmetler sunar. Sigorta sektöründe genellikle 3 veya daha fazla araca sahip işletmeler filo kapsamına alınır.",
+      ],
+      callout:
+        "5 araçlı bir satış ekibi ile 150 araçlı bir lojistik şirketi aynı yapıyı kullanamaz — araç sayısı, sektör ve operasyonel ihtiyaca göre kurguluyoruz.",
+    },
+    teminatlar: {
+      title: "Ana Teminatlar (Standart Filo Paketi)",
+      items: [
+        {
+          Icon: I.CarShield,
+          title: "Kasko (Çarpma + Yangın + Hırsızlık)",
+          desc: "Çarpma, çarpışma, devrilme, yangın, infilak, yıldırım, hırsızlık ve vandalizm teminatları.",
+        },
+        {
+          Icon: I.Car,
+          title: "Zorunlu Trafik (ZMSS)",
+          desc: "Her araç için yasal zorunlu trafik sigortası; 3. şahıs maddi ve bedeni zararlar filo poliçesine entegre.",
+        },
+        {
+          Icon: I.Shield,
+          title: "İhtiyari Mali Mesuliyet (İMM)",
+          desc: "Zorunlu trafik limitlerini aşan yüksek tazminat taleplerine karşı ek koruma. Min. 1.000.000 TL önerilir.",
+        },
+        {
+          Icon: I.HandHeart,
+          title: "Koltuk Ferdi Kaza",
+          desc: "Sürücü ve yolcular için vefat, sürekli sakatlık ve tedavi masrafları.",
+        },
+        {
+          Icon: I.Doc,
+          title: "Hukuksal Koruma",
+          desc: "Trafik kazalarında avukat ücretleri, mahkeme masrafları ve cezai davalarda savunma desteği.",
+        },
+        {
+          Icon: I.Wrench,
+          title: "7/24 Yol Yardım",
+          desc: "Çekici, akü takviyesi, yakıt ulaşımı, lastik değişimi ve anahtar açma hizmetleri.",
+        },
+      ],
+    },
+    ekTeminatlar: {
+      title: "Ek Teminatlar (Filo'ya Özel)",
+      items: [
+        {
+          Icon: I.Quake,
+          title: "Doğal Afet",
+          desc: "Sel, deprem (ve deprem sonucu yangın), dolu, fırtına, heyelan, volkanik patlama.",
+        },
+        {
+          Icon: I.Sparkle,
+          title: "Mini Onarım",
+          desc: "Çizik / ezik gibi küçük kaporta-boya hasarları; hasarsızlık indirimi bozulmaz.",
+        },
+        {
+          Icon: I.Car,
+          title: "İkame Araç",
+          desc: "Onarım süresince yedek araç (7 / 15 / 30 günlük seçenekler).",
+        },
+        {
+          Icon: I.Globe,
+          title: "Yurt Dışı Teminatı",
+          desc: "Avrupa ve seçili ülkelerde geçerli; TIR şoförleri için CMR ile kombinli.",
+        },
+        {
+          Icon: I.Package,
+          title: "Kişisel Eşya / Taşınan Yük",
+          desc: "Araç içi laptop, evrak, numune ve taşınan ticari mal teminatı.",
+        },
+        {
+          Icon: I.Coins,
+          title: "Gelir Kaybı Teminatı",
+          desc: "Araç hasarda kaldığı sürede kazanılamayan günlük gelir — taksi / kurye / kiralama filoları için.",
+        },
+        {
+          Icon: I.Bolt,
+          title: "Telematik İndirimi",
+          desc: "Telematik cihazla sürüş verisi paylaşımı: %30'a varan prim indirimi ve sürücü performans raporları.",
+        },
+        {
+          Icon: I.AlertTriangle,
+          title: "Anahtar / Yanlış Yakıt / Terör",
+          desc: "Anahtar kaybı veya çalınması, yanlış akaryakıt dolumu ve terör saldırıları teminatı.",
+        },
+      ],
+    },
+    teminatDisi: [
+      "Sigortalının kasti hareketleri",
+      "Alkol veya uyuşturucu etkisinde araç kullanımı",
+      "Ehliyetsiz sürücünün kullandığı araç",
+      "Yarış, iddia veya hız denemelerine katılma",
+      "Poliçede belirtilen kullanım amacı dışı kullanım",
+      "Savaş, iç savaş ve nükleer riskler",
+    ],
+    fiyatKriterleri: [
+      "Filo hasar / prim oranı (en kritik faktör)",
+      "Filodaki araç sayısı (3-10 / 11-25 / 26-50 / 50+)",
+      "Faaliyet sektörü (lojistik, kiralama, satış, kurye, inşaat …)",
+      "Araç profili (marka, model, yaş, motor hacmi, yakıt türü)",
+      "Seçilen teminatlar ve muafiyet oranı",
+      "Coğrafi bölge ve kullanım yoğunluğu",
+      "Sürücü profilleri ve eğitim seviyesi",
+      "Telematik cihaz kullanımı ve ödeme planı (peşin / taksit)",
+    ],
+    nasilYaptirilir: [
+      {
+        title: "Filo Bilgileri",
+        desc: "Araç sayısı, sektör, mevcut yenileme tarihi ve hasar geçmişi değerlendirilir.",
+      },
+      {
+        title: "Risk Analizi",
+        desc: "Sürücü profilleri, kullanım rotaları ve özel ihtiyaçlar için detaylı analiz.",
+      },
+      {
+        title: "Çoklu Şirket Teklifi",
+        desc: "30+ sigorta şirketinden alınan teklifler karşılaştırılarak en uygunu sunulur.",
+      },
+      {
+        title: "Özel Klozlar",
+        desc: "Sektörünüze özel teminatlar (CMR, soğutucu, telematik vb.) tasarlanır.",
+      },
+      {
+        title: "Filo Poliçesi & Takip",
+        desc: "Tek poliçe, tek yenileme; sonradan zeyilname ile araç ekleme / çıkarma anında.",
+      },
+    ],
+    faq: [
+      {
+        q: "Kaç araçtan itibaren filo sigortası yapılabilir?",
+        a: "Genellikle 3 araçtan itibaren filo sigortası uygulanır. Bazı şirketler 2 araç yapısını da kabul eder; 5+ araçta gerçek anlamda filo avantajları başlar.",
+      },
+      {
+        q: "Farklı marka ve modelleri aynı filo poliçesinde toplayabilir miyim?",
+        a: "Evet. Otomobil, kamyonet, minibüs, ağır vasıta — hepsi tek poliçede toplanır. Her araç kendi risk değerlendirmesi ile primlendirilir ama tek poliçe altında yönetilir.",
+      },
+      {
+        q: "Yıl ortasında yeni araç ekleyebilir miyim?",
+        a: "Evet. Zeyilname ile anında ekleme yapılır; kalan süre için prim oransal hesaplanır. Çıkan araç için prim iadesi alınır.",
+      },
+      {
+        q: "Bireysel kaskoma göre ne kadar tasarruf ederim?",
+        a: "Filo büyüklüğüne göre %15-40 arası tasarruf mümkündür. 50+ araçlı filolarda %40+ tasarruf da görülebilir.",
+      },
+      {
+        q: "Filo bir aracı hasar yaparsa tüm filonun indirimi sıfırlanır mı?",
+        a: "Hayır. Filo bazlı hasarsızlık indirimi uygulanır; tek aracın hasarı tüm filoyu sıfırlamaz, filo geneli değerlendirilir.",
+      },
+      {
+        q: "Telematik cihaz kullanmak zorunlu mu?",
+        a: "Hayır, isteğe bağlıdır. Yüksek riskli sektörlerde sigorta şirketleri şart koşabilir; aynı zamanda %30'a varan prim indirim fırsatı sunar.",
+      },
+      {
+        q: "Filo aracı yurt dışında kullanılırsa sigortam geçerli mi?",
+        a: "Standart kasko Türkiye sınırları içinde geçerlidir. Yurt dışı için ek teminat alınmalıdır; trafik sigortası yurt dışında Yeşil Kart ile geçerlidir.",
+      },
+      {
+        q: "Yenileme öncesi yeni teklif için ne yapmalıyım?",
+        a: "Yenileme tarihinden 30-60 gün önce bizimle iletişime geçin. Tüm anlaşmalı şirketlerden teklif alıp karşılaştırma sunalım — en stratejik dönem.",
+      },
+    ],
+    crossSell: [
+      "nakliyat-sigortasi",
+      "kobi-isyeri-sigortasi",
+      "ferdi-kaza-hayat-sigortasi",
+    ],
+  },
 ];
 
 export const PRODUCT_BY_SLUG: Record<string, ProductData> = Object.fromEntries(

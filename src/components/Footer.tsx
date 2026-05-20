@@ -105,6 +105,7 @@ const FOOTER_PRODUCTS_CORPORATE: FooterLink[] = [
   { label: "Mühendislik Sigortaları", href: "/muhendislik-sigortalari" },
   { label: "Nakliyat Sigortası", href: "/nakliyat-sigortasi" },
   { label: "Yat ve Tekne Sigortası", href: "/yat-tekne-sigortasi" },
+  { label: "Filo Yönetimi Sigortası", href: "/filo-yonetimi-sigortasi" },
 ];
 
 const CORPORATE_PAGES: FooterLink[] = [

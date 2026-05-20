@@ -265,6 +265,16 @@ export const I = {
       <circle cx="17" cy="18" r="1.6" />
     </Stroke>
   ),
+  Fleet: (p: IconProps) => (
+    <Stroke {...p}>
+      <path d="M2 16h8M3 16v-3l1-2h4l1 2v3" />
+      <circle cx="4.5" cy="16" r="0.9" />
+      <circle cx="8.5" cy="16" r="0.9" />
+      <path d="M13 16h8M14 16v-3l1-2h4l1 2v3" />
+      <circle cx="15.5" cy="16" r="0.9" />
+      <circle cx="19.5" cy="16" r="0.9" />
+    </Stroke>
+  ),
   Boat: (p: IconProps) => (
     <Stroke {...p}>
       <path d="M3 16h18l-2 4H5l-2-4Z" />
