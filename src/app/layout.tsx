@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.marersigorta.com";
+
 export const metadata: Metadata = {
-  title: "Marer Sigorta — Sigortanız Sonsuz Güvende",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Marer Sigorta — Sigortanız Sonsuz Güvende",
+    template: "%s | Marer Sigorta",
+  },
   description:
     "Bağımsız sigorta acentesi Marer Sigorta. 30+ sigorta şirketinin tekliflerini karşılaştırır, en uygununu sunar. Trafik, kasko, DASK, konut, sağlık, seyahat ve işyeri sigortalarında uzman desteği.",
   keywords: [
@@ -16,26 +23,49 @@ export const metadata: Metadata = {
     "tamamlayıcı sağlık",
     "seyahat sağlık",
     "işyeri sigortası",
+    "filo yönetimi sigortası",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Marer Sigorta — Sigortanız Sonsuz Güvende",
     description:
       "30+ sigorta şirketi arasından size en uygun teklifi sunan bağımsız acente. Marer Sigorta ile fiyat ve teminat avantajı bir arada.",
+    url: SITE_URL,
+    siteName: "Marer Sigorta",
     locale: "tr_TR",
     type: "website",
+    images: [
+      {
+        url: "/logo-marer.png",
+        width: 1200,
+        height: 630,
+        alt: "Marer Sigorta",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Marer Sigorta — Sigortanız Sonsuz Güvende",
+    description:
+      "30+ sigorta şirketi arasından size en uygun teklifi sunan bağımsız acente.",
+    images: ["/logo-marer.png"],
   },
   robots: {
-    index: false,
-    follow: false,
-    nocache: true,
+    index: true,
+    follow: true,
     googleBot: {
-      index: false,
-      follow: false,
-      noimageindex: true,
+      index: true,
+      follow: true,
       "max-video-preview": -1,
-      "max-image-preview": "none",
+      "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
   },
 };
 
