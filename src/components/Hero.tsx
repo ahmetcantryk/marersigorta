@@ -10,13 +10,16 @@ import {
   formatPlate as formatPlateShared,
   formatBirthDate as formatBirthDateShared,
   formatName as formatNameShared,
+  formatBelgeSeri as formatBelgeSeriShared,
   phoneDigits,
   validateTRMobile,
   validateTCKimlik,
   validatePlate,
+  validateBelgeSeri,
+  validateFullName,
 } from "@/lib/form-utils";
 
-type FieldType = "tc" | "plate" | "date" | "text";
+type FieldType = "tc" | "plate" | "date" | "text" | "belge";
 
 interface QuoteField {
   key: string;
@@ -40,6 +43,7 @@ const QUOTE_TABS: QuoteTab[] = [
     fields: [
       { key: "tc", label: "TC Kimlik No", placeholder: "11 haneli", type: "tc" },
       { key: "plaka", label: "Plaka", placeholder: "34 ABC 123", type: "plate" },
+      { key: "belge", label: "Belge Seri No", placeholder: "Örn: AB 123456", type: "belge" },
     ],
   },
   {
@@ -49,6 +53,7 @@ const QUOTE_TABS: QuoteTab[] = [
     fields: [
       { key: "tc", label: "TC Kimlik No", placeholder: "11 haneli", type: "tc" },
       { key: "plaka", label: "Plaka", placeholder: "34 ABC 123", type: "plate" },
+      { key: "belge", label: "Belge Seri No", placeholder: "Örn: AB 123456", type: "belge" },
     ],
   },
   {
@@ -123,6 +128,7 @@ const formatPlate = formatPlateShared;
 const formatDate = formatBirthDateShared;
 const formatPhone = formatPhoneShared;
 const formatName = formatNameShared;
+const formatBelge = formatBelgeSeriShared;
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -205,6 +211,7 @@ const QuoteWidget = () => {
     if (type === "tc") nv = formatTC(v);
     else if (type === "plate") nv = formatPlate(v);
     else if (type === "date") nv = formatDate(v);
+    else if (type === "belge") nv = formatBelge(v);
     else if (type === "phone") nv = formatPhone(v);
     else if (type === "name") nv = formatName(v);
     setValues((s) => ({ ...s, [k]: nv }));
@@ -213,10 +220,8 @@ const QuoteWidget = () => {
 
   const validate = () => {
     const e: Record<string, string> = {};
-    const name = (values.fullname || "").trim();
-    if (!name) e.fullname = "Ad soyad gerekli";
-    else if (name.split(" ").filter(Boolean).length < 2)
-      e.fullname = "Ad ve soyad girin";
+    const nameCheck = validateFullName(values.fullname || "");
+    if (nameCheck !== true) e.fullname = nameCheck;
 
     const phoneCheck = validateTRMobile(phoneDigits(values.phone || ""));
     if (phoneCheck !== true) e.phone = phoneCheck;
@@ -235,6 +240,9 @@ const QuoteWidget = () => {
       } else if (f.type === "plate") {
         const plateCheck = validatePlate(v);
         if (plateCheck !== true) e[f.key] = plateCheck;
+      } else if (f.type === "belge") {
+        const belgeCheck = validateBelgeSeri(v);
+        if (belgeCheck !== true) e[f.key] = belgeCheck;
       }
     });
     setErrors(e);
@@ -252,6 +260,7 @@ const QuoteWidget = () => {
     const product = tabToProduct[cur.id];
     const tc = values.tc?.replace(/\D/g, "");
     const plaka = values.plaka?.trim().toUpperCase();
+    const belge = values.belge?.replace(/\s/g, "").toUpperCase();
     const birthDate = values.dt;
     const address = values.il || values.uavt
       ? [values.il, values.uavt].filter(Boolean).join(" — ")
@@ -265,6 +274,7 @@ const QuoteWidget = () => {
       phone: (values.phone || "").replace(/\D/g, ""),
       tcKimlik: tc || undefined,
       plaka: plaka || undefined,
+      belgeSeriNo: belge || undefined,
       birthDate: birthDate || undefined,
       addressText: address,
       kvkkConsent: true,
@@ -401,7 +411,9 @@ const QuoteWidget = () => {
                       ? 10
                       : f.type === "date"
                         ? 10
-                        : undefined
+                        : f.type === "belge"
+                          ? 9
+                          : undefined
                 }
               />
             ))}

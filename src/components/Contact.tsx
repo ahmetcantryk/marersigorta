@@ -6,7 +6,13 @@ import { I, type IconProps } from "./Icons";
 import { SuccessModal } from "./SuccessModal";
 import { KvkkModal } from "./KvkkModal";
 import { submitLead } from "@/lib/lead-client";
-import { formatPhone, phoneDigits, validateTRMobile } from "@/lib/form-utils";
+import {
+  formatPhone,
+  formatName,
+  phoneDigits,
+  validateTRMobile,
+  validateFullName,
+} from "@/lib/form-utils";
 
 interface ServiceOption {
   value: string;
@@ -237,10 +243,8 @@ export const Contact = () => {
 
   const validate = () => {
     const e: Record<string, string> = {};
-    const name = form.name.trim();
-    if (!name) e.name = "Ad soyadınızı girin";
-    else if (name.split(/\s+/).filter(Boolean).length < 2)
-      e.name = "Ad ve soyad girin";
+    const nameCheck = validateFullName(form.name);
+    if (nameCheck !== true) e.name = nameCheck;
 
     const phoneCheck = validateTRMobile(phoneDigits(form.phone));
     if (phoneCheck !== true) e.phone = phoneCheck;
@@ -365,7 +369,7 @@ export const Contact = () => {
                   <Field label="Ad Soyad *" error={errors.name}>
                     <input
                       value={form.name}
-                      onChange={(e) => set("name", e.target.value)}
+                      onChange={(e) => set("name", formatName(e.target.value))}
                       placeholder="Adınız Soyadınız"
                       style={inputStyle(errors.name)}
                     />

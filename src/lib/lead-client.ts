@@ -12,6 +12,7 @@ export interface LeadPayload {
   tcKimlik?: string;
   vkn?: string;
   plaka?: string;
+  belgeSeriNo?: string;
   birthDate?: string;
   addressText?: string;
   kvkkConsent: true;

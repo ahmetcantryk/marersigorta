@@ -34,6 +34,24 @@ export const formatPhone = (v: string): string => {
   return "";
 };
 
+/**
+ * Açıkça sahte / klavyeden rastgele basılmış numaraları ele.
+ *  - 5555555555 gibi tek hane tekrarı
+ *  - 5050505050 gibi 2 haneli desen (≤2 farklı rakam)
+ *  - operatör kodundan sonraki 7 hanenin tamamı aynı (532 1111111)
+ *  - tam ardışık artan/azalan diziler
+ */
+export const isSuspiciousPhone = (digits: string): boolean => {
+  if (digits.length !== 10) return true;
+  if (new Set(digits.split("")).size <= 2) return true;
+  const subscriber = digits.slice(3);
+  if (/^(\d)\1+$/.test(subscriber)) return true;
+  const asc = "01234567890123456789";
+  const desc = "98765432109876543210";
+  if (asc.includes(digits) || desc.includes(digits)) return true;
+  return false;
+};
+
 export const validateTRMobile = (digits: string): true | string => {
   if (!digits) return "Telefon gerekli";
   if (digits.length !== 10) return "10 haneli telefon girin";
@@ -41,11 +59,43 @@ export const validateTRMobile = (digits: string): true | string => {
   const prefix = digits.slice(0, 3);
   if (!VALID_TR_MOBILE_PREFIXES.has(prefix))
     return `Geçersiz operatör kodu (${prefix})`;
+  if (isSuspiciousPhone(digits))
+    return "Geçerli bir telefon numarası girin";
   return true;
 };
 
 export const formatName = (v: string): string =>
   v.replace(/[^A-Za-zÇĞİÖŞÜçğıöşü ]/g, "").slice(0, 60);
+
+/* ===========================================================
+ *  AD SOYAD — gerçek isim doğrulaması
+ *  "a b c", "aa bb", "asd qwe" gibi girişleri eler.
+ * =========================================================== */
+
+const TR_LETTERS_NAME = /^[A-Za-zÇĞİÖŞÜçğıöşü ]+$/;
+// Türkçe ünlüler (büyük/küçük, hem i/İ hem ı/I dahil)
+const TR_VOWELS = /[aeıioöuüAEIİOÖUÜ]/;
+
+/** Tek bir ad/soyad parçası gerçek bir kelimeye benziyor mu? */
+const looksLikeRealNameWord = (w: string): boolean => {
+  if (w.length < 2) return false;            // "a", "b"
+  if (/^(.)\1+$/.test(w)) return false;       // "aa", "bbb"
+  if (/(.)\1\1/.test(w)) return false;        // "aaa..." ardışık 3 tekrar
+  if (!TR_VOWELS.test(w)) return false;       // "sdf", "qwrt" (ünlüsüz)
+  return true;
+};
+
+export const validateFullName = (raw: string): true | string => {
+  const name = raw.trim().replace(/\s+/g, " ");
+  if (!name) return "Ad soyad gerekli";
+  if (!TR_LETTERS_NAME.test(name)) return "Sadece harf girin";
+  const parts = name.split(" ").filter(Boolean);
+  if (parts.length < 2) return "Ad ve soyad girin";
+  if (name.replace(/\s/g, "").length < 4) return "Geçerli bir ad soyad girin";
+  if (!parts.every(looksLikeRealNameWord))
+    return "Geçerli bir ad soyad girin";
+  return true;
+};
 
 /* ===========================================================
  *  TC KİMLİK NO — algoritmik validasyon (mod 10 / mod 7-2)
@@ -194,6 +244,40 @@ export const validatePlate = (v: string): true | string => {
 };
 
 /* ===========================================================
+ *  BELGE SERİ NO — Araç tescil belgesi (ruhsat) seri no
+ *  Resmî format: 2 harf + 6 rakam = 8 karakter  (örn: "AB 123456").
+ *  Ruhsatın ön yüzünde "Belge Seri No" başlığı altında, çoğunlukla
+ *  "Seri: AA  No: 433444" biçiminde ayrık gösterilir.
+ *  Q/W/X Türkiye plaka/belge harf setinde kullanılmaz.
+ *  Kaynak: Allianz, AXA, Sompo, Türkiye Sigorta bilgi sayfaları.
+ * =========================================================== */
+
+/** Ham girişi normalize eder: 2 harf + 6 rakam, "AB 123456" maskesi. */
+export const formatBelgeSeri = (v: string): string => {
+  const norm = v
+    .toUpperCase()
+    .replace(/İ/g, "I")
+    .replace(/Ç/g, "C")
+    .replace(/Ş/g, "S")
+    .replace(/Ğ/g, "G")
+    .replace(/Ü/g, "U")
+    .replace(/Ö/g, "O")
+    .replace(/[^A-Z0-9]/g, "")
+    .replace(/[QWX]/g, "");
+  const letters = norm.replace(/[0-9]/g, "").slice(0, 2);
+  const nums = norm.replace(/[^0-9]/g, "").slice(0, 6);
+  return nums ? `${letters} ${nums}` : letters;
+};
+
+export const validateBelgeSeri = (v: string): true | string => {
+  const clean = v.replace(/\s/g, "").toUpperCase();
+  if (!clean) return "Belge seri no gerekli";
+  if (!/^[A-Z]{2}\d{6}$/.test(clean))
+    return "Örn: AB 123456 (2 harf + 6 rakam)";
+  return true;
+};
+
+/* ===========================================================
  *  Doğum Tarihi — GG.AA.YYYY
  * =========================================================== */
 
@@ -213,12 +297,13 @@ export interface ProductFieldsConfig {
   tcKimlik?: boolean;
   vkn?: boolean;
   plaka?: boolean;
+  belgeSeriNo?: boolean;
   birthDate?: boolean;
   addressText?: boolean;
 }
 
 export const PRODUCT_FIELDS: Record<string, ProductFieldsConfig> = {
-  "zorunlu-trafik-sigortasi": { tcKimlik: true, plaka: true },
+  "zorunlu-trafik-sigortasi": { tcKimlik: true, plaka: true, belgeSeriNo: true },
   "kasko-sigortasi": { tcKimlik: true, plaka: true },
   "yesil-kart-sigortasi": { tcKimlik: true, plaka: true },
   "konut-sigortasi": { tcKimlik: true, addressText: true },

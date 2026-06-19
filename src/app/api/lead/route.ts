@@ -98,6 +98,7 @@ async function insertLeadSafely(
         tc_kimlik: lead.tcKimlik ?? null,
         vkn: lead.vkn ?? null,
         plaka: lead.plaka ?? null,
+        belge_seri_no: lead.belgeSeriNo ?? null,
         birth_date: parseBirthDate(lead.birthDate),
         address_text: lead.addressText ?? null,
         kvkk_consent: lead.kvkkConsent,

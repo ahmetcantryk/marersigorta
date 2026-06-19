@@ -10,11 +10,14 @@ import {
   formatTC,
   formatVKN,
   formatPlate,
+  formatBelgeSeri,
   formatBirthDate,
   phoneDigits,
   validateTRMobile,
   validateTCKimlik,
   validatePlate,
+  validateBelgeSeri,
+  validateFullName,
   getProductFields,
 } from "@/lib/form-utils";
 import { submitLead } from "@/lib/lead-client";
@@ -34,6 +37,7 @@ interface FormState {
   tcKimlik: string;
   vkn: string;
   plaka: string;
+  belgeSeriNo: string;
   birthDate: string;
   addressText: string;
   kvkk: boolean;
@@ -45,6 +49,7 @@ const INITIAL: FormState = {
   tcKimlik: "",
   vkn: "",
   plaka: "",
+  belgeSeriNo: "",
   birthDate: "",
   addressText: "",
   kvkk: false,
@@ -75,10 +80,8 @@ export const ProductQuoteForm = ({
 
   const validate = (): boolean => {
     const e: Record<string, string> = {};
-    const name = form.fullName.trim();
-    if (!name) e.fullName = "Ad soyad gerekli";
-    else if (name.split(/\s+/).filter(Boolean).length < 2)
-      e.fullName = "Ad ve soyad girin";
+    const nameCheck = validateFullName(form.fullName);
+    if (nameCheck !== true) e.fullName = nameCheck;
 
     const phoneCheck = validateTRMobile(phoneDigits(form.phone));
     if (phoneCheck !== true) e.phone = phoneCheck;
@@ -94,6 +97,10 @@ export const ProductQuoteForm = ({
     if (fields.plaka) {
       const plateCheck = validatePlate(form.plaka);
       if (plateCheck !== true) e.plaka = plateCheck;
+    }
+    if (fields.belgeSeriNo) {
+      const belgeCheck = validateBelgeSeri(form.belgeSeriNo);
+      if (belgeCheck !== true) e.belgeSeriNo = belgeCheck;
     }
     if (fields.birthDate) {
       if (!form.birthDate) e.birthDate = "Doğum tarihi gerekli";
@@ -126,6 +133,9 @@ export const ProductQuoteForm = ({
       tcKimlik: fields.tcKimlik ? form.tcKimlik : undefined,
       vkn: fields.vkn ? form.vkn : undefined,
       plaka: fields.plaka ? form.plaka.trim().toUpperCase() : undefined,
+      belgeSeriNo: fields.belgeSeriNo
+        ? form.belgeSeriNo.trim().toUpperCase()
+        : undefined,
       birthDate: fields.birthDate ? form.birthDate : undefined,
       addressText: fields.addressText ? form.addressText.trim() : undefined,
       kvkkConsent: true,
@@ -222,6 +232,16 @@ export const ProductQuoteForm = ({
                   onChange={(v) => update("plaka", formatPlate(v))}
                   placeholder="34 ABC 123"
                   maxLength={10}
+                />
+              )}
+              {fields.belgeSeriNo && (
+                <Field
+                  label="Belge Seri No"
+                  error={errors.belgeSeriNo}
+                  value={form.belgeSeriNo}
+                  onChange={(v) => update("belgeSeriNo", formatBelgeSeri(v))}
+                  placeholder="Örn: AB 123456 (ruhsattaki seri no)"
+                  maxLength={9}
                 />
               )}
               {fields.birthDate && (

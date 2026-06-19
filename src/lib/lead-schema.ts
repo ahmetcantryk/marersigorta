@@ -1,12 +1,13 @@
 import { z } from "zod";
 import {
   VALID_TR_MOBILE_PREFIXES,
+  isSuspiciousPhone,
   validateTCKimlik,
   validatePlate,
+  validateBelgeSeri,
+  validateFullName,
   splitPlate,
 } from "./form-utils";
-
-const turkishLettersRegex = /^[A-Za-zÇĞİÖŞÜçğıöşü ]+$/;
 
 const phoneDigitsOnly = (v: string): string => {
   let d = v.replace(/\D/g, "");
@@ -23,14 +24,12 @@ export const leadSourceSchema = z.enum([
 
 export const fullNameSchema = z
   .string()
-  .trim()
-  .min(3, "Ad soyad en az 3 karakter olmalı")
   .max(80, "Ad soyad çok uzun")
-  .regex(turkishLettersRegex, "Sadece harf ve boşluk girin")
-  .refine(
-    (v) => v.split(/\s+/).filter(Boolean).length >= 2,
-    "Ad ve soyad girin"
-  );
+  .superRefine((v, ctx) => {
+    const r = validateFullName(v);
+    if (r !== true) ctx.addIssue({ code: z.ZodIssueCode.custom, message: r });
+  })
+  .transform((v) => v.trim().replace(/\s+/g, " "));
 
 export const phoneSchema = z
   .string()
@@ -40,6 +39,10 @@ export const phoneSchema = z
   .refine(
     (d) => VALID_TR_MOBILE_PREFIXES.has(d.slice(0, 3)),
     "Geçersiz operatör kodu"
+  )
+  .refine(
+    (d) => !isSuspiciousPhone(d),
+    "Geçerli bir telefon numarası girin"
   );
 
 export const tcSchema = z
@@ -68,6 +71,11 @@ export const plakaSchema = z
     return `${city} ${letters} ${nums}`;
   });
 
+export const belgeSeriNoSchema = z
+  .string()
+  .refine((v) => validateBelgeSeri(v) === true, "Geçerli belge seri no girin")
+  .transform((v) => v.replace(/\s/g, "").toUpperCase());
+
 export const birthDateSchema = z
   .string()
   .regex(/^\d{2}\.\d{2}\.\d{4}$/, "GG.AA.YYYY formatında girin");
@@ -89,6 +97,7 @@ export const leadInputSchema = z
     tcKimlik: tcSchema.optional().or(z.literal("")),
     vkn: vknSchema.optional().or(z.literal("")),
     plaka: plakaSchema.optional().or(z.literal("")),
+    belgeSeriNo: belgeSeriNoSchema.optional().or(z.literal("")),
     birthDate: birthDateSchema.optional().or(z.literal("")),
     addressText: z.string().max(500).optional().or(z.literal("")),
     kvkkConsent: z.literal(true, {
@@ -103,6 +112,7 @@ export const leadInputSchema = z
     tcKimlik: d.tcKimlik || undefined,
     vkn: d.vkn || undefined,
     plaka: d.plaka || undefined,
+    belgeSeriNo: d.belgeSeriNo || undefined,
     birthDate: d.birthDate || undefined,
     addressText: d.addressText || undefined,
   }));
