@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AdminShell from "@/components/admin/AdminShell";
-import { LEAD_SOURCE_LABELS, fetchLeadById } from "@/lib/admin/leads";
+import {
+  LEAD_SOURCE_LABELS,
+  LEAD_STATUS_LABELS,
+  fetchLeadById,
+} from "@/lib/admin/leads";
 import {
   formatDate,
   formatDateTime,
@@ -132,6 +136,13 @@ export default async function LeadDetailPage({ params }: PageProps) {
                 }
               />
               <Row label="Mesaj" value={orDash(row.message)} />
+              <Row
+                label="Durum"
+                value={
+                  row.status ? LEAD_STATUS_LABELS[row.status] ?? row.status : "—"
+                }
+              />
+              <Row label="Ekip notu" value={orDash(row.notes)} />
             </dl>
           </div>
         </div>

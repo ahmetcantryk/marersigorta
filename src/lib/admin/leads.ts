@@ -1,6 +1,14 @@
 import { getAdminSupabase } from "./supabase-admin";
 
-/** `leads` tablosunun admin panelinde kullanılan alanları. */
+/**
+ * Lead kayıtlarının tutulduğu tablo.
+ *
+ * Site tarafı yazma işlemini `insert_lead(payload jsonb)` SECURITY DEFINER
+ * RPC'si üzerinden yapar; tabloya doğrudan yazmaz.
+ */
+const LEADS_TABLE = "lead_submissions";
+
+/** Tablonun admin panelinde kullanılan alanları. */
 export interface LeadRow {
   id: string;
   created_at: string | null;
@@ -21,7 +29,20 @@ export interface LeadRow {
   kvkk_consent: boolean | null;
   user_agent: string | null;
   ip_address: string | null;
+  /** Takip durumu — ekip lead'i işledikçe güncellenir. */
+  status: LeadStatus | null;
+  /** Ekibin kayda düştüğü serbest not. */
+  notes: string | null;
 }
+
+export type LeadStatus = "new" | "contacted" | "converted" | "archived";
+
+export const LEAD_STATUS_LABELS: Record<LeadStatus, string> = {
+  new: "Yeni",
+  contacted: "Arandı",
+  converted: "Poliçeleşti",
+  archived: "Arşiv",
+};
 
 export const LEAD_SOURCE_LABELS: Record<string, string> = {
   hero_quote: "Anasayfa hızlı teklif",
@@ -77,8 +98,7 @@ function describeError(error: { message?: string; code?: string }): string {
   const message = error.message ?? "Bilinmeyen hata";
 
   // PGRST205 / 42P01: tablo yok *veya* PostgREST şemasında görünmüyor.
-  // Pratikte ikincisi çok daha sık — `leads` yalnızca SECURITY DEFINER
-  // `insert_lead` RPC'si üzerinden yazılıyor, anon'a hiç açılmamış.
+  // Tablo anon role'e kapalıdır; okuma yalnızca service_role ile mümkün.
   if (
     error.code === "42P01" ||
     error.code === "PGRST205" ||
@@ -104,7 +124,7 @@ export async function fetchLeads(query: LeadQuery): Promise<LeadQueryResult> {
   const to = from + query.pageSize - 1;
 
   let request = supabase
-    .from("leads")
+    .from(LEADS_TABLE)
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false })
     .range(from, to);
@@ -146,7 +166,7 @@ export async function fetchLeadById(
   if (!supabase) return { row: null, error: "Supabase yapılandırması eksik." };
 
   const { data, error } = await supabase
-    .from("leads")
+    .from(LEADS_TABLE)
     .select("*")
     .eq("id", id)
     .maybeSingle();
@@ -182,7 +202,7 @@ export async function fetchLeadStats(): Promise<LeadStats> {
 
   const countSince = async (since?: string): Promise<number> => {
     let request = supabase
-      .from("leads")
+      .from(LEADS_TABLE)
       .select("id", { count: "exact", head: true });
     if (since) request = request.gte("created_at", since);
     const { count, error } = await request;
@@ -207,7 +227,7 @@ export async function fetchDistinctProducts(): Promise<
   if (!supabase) return [];
 
   const { data, error } = await supabase
-    .from("leads")
+    .from(LEADS_TABLE)
     .select("product_slug, product_label")
     .not("product_slug", "is", null)
     .limit(1000);

@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { LEAD_SOURCE_LABELS, type LeadRow } from "@/lib/admin/leads";
+import {
+  LEAD_SOURCE_LABELS,
+  LEAD_STATUS_LABELS,
+  type LeadRow,
+} from "@/lib/admin/leads";
 import {
   formatDateTime,
   formatPhone,
@@ -41,7 +45,7 @@ export default function LeadsTable({ rows }: LeadsTableProps) {
             <th>Ad Soyad</th>
             <th>Telefon</th>
             <th>Ürün / Kaynak</th>
-            <th>E-posta</th>
+            <th>Durum</th>
             <th>İşlem</th>
           </tr>
         </thead>
@@ -89,13 +93,18 @@ export default function LeadsTable({ rows }: LeadsTableProps) {
                   )}
                 </td>
 
-                <td className="adm-cell-muted">
-                  {row.email ? (
-                    <a href={`mailto:${row.email}`} className="adm-link">
-                      {row.email}
-                    </a>
-                  ) : (
-                    "—"
+                <td>
+                  {row.status && (
+                    <span className={`adm-badge adm-status-${row.status}`}>
+                      {LEAD_STATUS_LABELS[row.status] ?? row.status}
+                    </span>
+                  )}
+                  {row.email && (
+                    <div className="adm-cell-muted" style={{ marginTop: 4 }}>
+                      <a href={`mailto:${row.email}`} className="adm-link">
+                        {row.email}
+                      </a>
+                    </div>
                   )}
                 </td>
 
