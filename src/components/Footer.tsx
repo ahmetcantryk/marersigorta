@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { I, LogoMarer } from "./Icons";
 import { SocialLinks } from "./SocialLinks";
+import { COMPANY_ADDRESS_LINES, COMPANY_MAPS_URL } from "@/config/company";
 
 interface FooterLink {
   label: string;
@@ -195,16 +196,16 @@ export const Footer = () => (
               }}
             >
               <a
-                href="https://share.google/bHzB3dtVtCEhMBjUQ"
+                href={COMPANY_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ display: "flex", gap: 10, alignItems: "flex-start" }}
               >
                 <I.Pin size={16} color="var(--brand-300)" />
                 <span>
-                  Doğu Mah. Ihlamur Sk. No:34 D:2
+                  {COMPANY_ADDRESS_LINES[0]}
                   <br />
-                  34890 Pendik / İstanbul
+                  {COMPANY_ADDRESS_LINES[1]}
                 </span>
               </a>
               <a
