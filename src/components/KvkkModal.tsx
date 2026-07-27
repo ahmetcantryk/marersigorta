@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { I } from "./Icons";
+import { COMPANY_ADDRESS_FULL } from "@/config/company";
 
 interface KvkkModalProps {
   open: boolean;
@@ -63,9 +64,7 @@ export const KvkkModal = ({ open, onClose }: KvkkModalProps) => {
               </div>
               <div>
                 <dt>Adres</dt>
-                <dd>
-                  Doğu Mah. Ihlamur Sk. No:34 D:2, 34890 Pendik / İstanbul
-                </dd>
+                <dd>{COMPANY_ADDRESS_FULL}</dd>
               </div>
               <div>
                 <dt>İletişim</dt>

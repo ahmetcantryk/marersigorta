@@ -5,6 +5,7 @@ import Select, { type StylesConfig, type GroupBase } from "react-select";
 import { I, type IconProps } from "./Icons";
 import { SuccessModal } from "./SuccessModal";
 import { KvkkModal } from "./KvkkModal";
+import { COMPANY_ADDRESS_FULL, COMPANY_MAPS_URL } from "@/config/company";
 import { submitLead } from "@/lib/lead-client";
 import {
   formatPhone,
@@ -646,8 +647,8 @@ export const Contact = () => {
                   <ContactRow
                     Icon={I.Pin}
                     title="Adres"
-                    value="Doğu Mah. Ihlamur Sk. No:34 D:2, 34890 Pendik / İstanbul"
-                    href="https://share.google/bHzB3dtVtCEhMBjUQ"
+                    value={COMPANY_ADDRESS_FULL}
+                    href={COMPANY_MAPS_URL}
                     inverse
                   />
                   <ContactRow

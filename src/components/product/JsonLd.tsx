@@ -1,4 +1,5 @@
 import type { ProductData } from "@/lib/products";
+import { COMPANY_ADDRESS } from "@/config/company";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.marersigorta.com";
@@ -20,11 +21,11 @@ export const ProductJsonLd = ({ product }: JsonLdProps) => {
     email: "info@marersigorta.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Doğu Mah. Ihlamur Sk. No:34 D:2",
-      addressLocality: "Pendik",
-      addressRegion: "İstanbul",
-      postalCode: "34890",
-      addressCountry: "TR",
+      streetAddress: COMPANY_ADDRESS.street,
+      addressLocality: COMPANY_ADDRESS.district,
+      addressRegion: COMPANY_ADDRESS.city,
+      postalCode: COMPANY_ADDRESS.postalCode,
+      addressCountry: COMPANY_ADDRESS.countryCode,
     },
     makesOffer: {
       "@type": "Offer",

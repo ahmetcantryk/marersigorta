@@ -2,6 +2,7 @@
 
 import { I } from "./Icons";
 import { SocialLinks } from "./SocialLinks";
+import { COMPANY_ADDRESS_SHORT, COMPANY_MAPS_URL } from "@/config/company";
 
 export const TopBar = () => {
   return (
@@ -37,7 +38,7 @@ export const TopBar = () => {
           }}
         >
           <a
-            href="https://share.google/bHzB3dtVtCEhMBjUQ"
+            href={COMPANY_MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -49,7 +50,7 @@ export const TopBar = () => {
             }}
           >
             <I.Pin size={14} />
-            Doğu Mah. Ihlamur Sk. No:34, Pendik / İstanbul
+            {COMPANY_ADDRESS_SHORT}
           </a>
           <span
             className="topbar-hours"
