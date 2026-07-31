@@ -27,9 +27,18 @@ export async function middleware(req: NextRequest) {
   if (PUBLIC_ADMIN_PATHS.has(pathname)) return NextResponse.next();
 
   const secret = sessionSecret();
-  // Parola tanımlı değilse panel zaten kurulum ekranı gösterecek; burada
-  // engellemek kurulum talimatlarını da görünmez yapardı.
-  if (!secret) return NextResponse.next();
+  // Parola tanımlı değilse sayfalar kurulum ekranını gösterebilsin diye
+  // geçirilir; veri dönen API uçları ise fail-closed kalır — aksi hâlde
+  // parola eklenmeden önce /api/admin/export herkese açık olurdu.
+  if (!secret) {
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json(
+        { ok: false, message: "Yönetim paneli henüz yapılandırılmadı." },
+        { status: 503 }
+      );
+    }
+    return NextResponse.next();
+  }
 
   const token = req.cookies.get(ADMIN_COOKIE_NAME)?.value;
   const session = await verifySessionToken(token, secret);
