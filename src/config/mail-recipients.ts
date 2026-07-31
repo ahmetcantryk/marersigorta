@@ -15,5 +15,5 @@ export interface MailRecipientsConfig {
 
 export const MAIL_RECIPIENTS: MailRecipientsConfig = {
   to: ["teknik@marersigorta.com"],
-  cc: ["hamzag@marersigorta.com", "mahsumk@marersigorta.com"],
+  cc: ["mahsumk@marersigorta.com"],
 };
