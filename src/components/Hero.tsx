@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, type ComponentType } from "react";
+import Image from "next/image";
+import heroImage from "@/assets/hero/istanbul-bogaz.webp";
 import { I, type IconProps } from "./Icons";
 import { SuccessModal } from "./SuccessModal";
 import { submitLead } from "@/lib/lead-client";
@@ -77,50 +79,22 @@ const QUOTE_TABS: QuoteTab[] = [
 ];
 
 const HeroBackdrop = () => (
-  <svg
-    viewBox="0 0 1440 800"
-    preserveAspectRatio="xMidYMid slice"
-    style={{
-      position: "absolute",
-      inset: 0,
-      width: "100%",
-      height: "100%",
-      zIndex: 0,
-    }}
-  >
-    <defs>
-      <linearGradient id="heroG" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="var(--brand-700)" />
-        <stop offset="55%" stopColor="var(--brand-500)" />
-        <stop offset="100%" stopColor="var(--brand-600)" />
-      </linearGradient>
-      <radialGradient id="heroGlow" cx="0.7" cy="0.4" r="0.6">
-        <stop offset="0%" stopColor="rgba(255,255,255,0.18)" />
-        <stop offset="60%" stopColor="rgba(255,255,255,0)" />
-      </radialGradient>
-      <pattern id="heroDots" x="0" y="0" width="36" height="36" patternUnits="userSpaceOnUse">
-        <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.10)" />
-      </pattern>
-    </defs>
-    <rect width="1440" height="800" fill="url(#heroG)" />
-    <rect width="1440" height="800" fill="url(#heroDots)" />
-    <rect width="1440" height="800" fill="url(#heroGlow)" />
-    {[0, 1, 2].map((i) => (
-      <g key={i} style={{ opacity: 0.08 + i * 0.03, transformOrigin: "center" }}>
-        <path
-          d={`M ${100 + i * 180} ${500 - i * 40} Q ${260 + i * 180} ${380 - i * 40}, ${
-            420 + i * 180
-          } ${500 - i * 40} T ${740 + i * 180} ${500 - i * 40}`}
-          stroke="white"
-          strokeWidth="2"
-          fill="none"
-        />
-      </g>
-    ))}
-    <circle cx="1200" cy="180" r="180" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
-    <circle cx="1200" cy="180" r="120" stroke="rgba(255,255,255,0.10)" strokeWidth="1.5" fill="none" />
-    <circle cx="1200" cy="180" r="60" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" fill="none" />
-  </svg>
+  <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+    <Image
+      src={heroImage}
+      alt=""
+      fill
+      priority
+      placeholder="blur"
+      sizes="100vw"
+      quality={70}
+      className="hero-bg-img"
+      style={{ objectFit: "cover" }}
+    />
+    {/* Görsel aydınlık; beyaz metnin okunması için solda koyu, formun
+        olduğu sağ tarafta hafif marka rengi katmanı. */}
+    <div className="hero-bg-overlay" />
+  </div>
 );
 
 const formatTC = formatTCShared;
