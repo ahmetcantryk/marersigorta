@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { GoogleTag } from "@/components/analytics/GoogleTag";
+import {
+  GoogleTagManager,
+  GoogleTagManagerNoScript,
+} from "@/components/analytics/GoogleTagManager";
+import { GOOGLE_SITE_VERIFICATION } from "@/config/analytics";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.marersigorta.com";
@@ -64,6 +69,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: GOOGLE_SITE_VERIFICATION,
+  },
   icons: {
     icon: "/icon.png",
     apple: "/apple-icon.png",
@@ -90,7 +98,9 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <GoogleTagManagerNoScript />
         {children}
+        <GoogleTagManager />
         <GoogleTag />
       </body>
     </html>
