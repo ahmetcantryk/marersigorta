@@ -104,6 +104,12 @@ export const leadInputSchema = z
       message: "KVKK onayı zorunlu",
     }),
   })
+  // Araç teklifinde (plaka varsa) ruhsat belge seri no olmadan teklif
+  // çalışılamıyor — istemci atlansa bile sunucu kabul etmez.
+  .refine((d) => !d.plaka || !!d.belgeSeriNo, {
+    message: "Belge seri no gerekli",
+    path: ["belgeSeriNo"],
+  })
   .transform((d) => ({
     ...d,
     email: d.email || undefined,
