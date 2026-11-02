@@ -304,8 +304,8 @@ export interface ProductFieldsConfig {
 
 export const PRODUCT_FIELDS: Record<string, ProductFieldsConfig> = {
   "zorunlu-trafik-sigortasi": { tcKimlik: true, plaka: true, belgeSeriNo: true },
-  "kasko-sigortasi": { tcKimlik: true, plaka: true },
-  "yesil-kart-sigortasi": { tcKimlik: true, plaka: true },
+  "kasko-sigortasi": { tcKimlik: true, plaka: true, belgeSeriNo: true },
+  "yesil-kart-sigortasi": { tcKimlik: true, plaka: true, belgeSeriNo: true },
   "konut-sigortasi": { tcKimlik: true, addressText: true },
   "dask-zorunlu-deprem-sigortasi": { tcKimlik: true, addressText: true },
   "kobi-isyeri-sigortasi": { vkn: true, addressText: true },
